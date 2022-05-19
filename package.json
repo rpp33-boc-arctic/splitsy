@@ -1,0 +1,25 @@
+{
+  "name": "splitsy",
+  "version": "1.0.0",
+  "description": "hr-rpp33-boc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npx nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp33-boc-arctic/splitsy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpp33-boc-arctic/splitsy/issues"
+  },
+  "homepage": "https://github.com/rpp33-boc-arctic/splitsy#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  }
+}
