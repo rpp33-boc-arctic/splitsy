@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.scss';
 
+
 function App() {
+  let x:string = 4;
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,9 +20,9 @@ function App() {
         >
           Learn React
         </a>
-        <button class="foo-button mdc-button">
-    <div class="mdc-button__ripple"></div>
-    <span class="mdc-button__label">Button</span>
+        <button className="foo-button mdc-button">
+    <div className="mdc-button__ripple"></div>
+    <span className="mdc-button__label">Button</span>
   </button>
         </header>
     </div>
