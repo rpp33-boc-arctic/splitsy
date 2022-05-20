@@ -1,0 +1,5 @@
+Fri May 20 09:37:25 MST 2022
+installed sass and some webpack updates
+added use static to nodejs to serve page
+changed gitignore as it seemed to be copied from another project
+changed package json for start script npx nodemon server/index.js
