@@ -17,7 +17,11 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+        <button class="foo-button mdc-button">
+    <div class="mdc-button__ripple"></div>
+    <span class="mdc-button__label">Button</span>
+  </button>
+        </header>
     </div>
   );
 }
