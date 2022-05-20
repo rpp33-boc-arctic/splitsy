@@ -1,3 +1,11 @@
+
+# to start server running on 3001
+make sure you have build the app before running the server or change package json
+to do npm run build before starting server.
+  ###  `npm run build`;
+  ###  `npm run server`;
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
