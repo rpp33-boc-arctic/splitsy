@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.scss';
+import Button from '@mui/material/Button';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <div className="mdc-button__ripple"></div>
     <span className="mdc-button__label">Button</span>
   </button>
+  <Button variant="contained"></Button>
         </header>
     </div>
   );
