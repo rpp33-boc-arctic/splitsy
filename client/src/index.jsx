@@ -6,12 +6,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      serverStatus: ''
     }
-    this.initServer = this.initServer.bind(this);
+    this.serverStatus = this.serverStatus.bind(this);
   }
 
-  initServer() {
+  serverStatus() {
     $.ajax({
       context: this,
       type: 'GET',
@@ -19,15 +18,21 @@ class App extends React.Component {
       contentType: 'application/json',
       success: function (success) {
         console.log('Server Connection Success!');
+        this.setState({
+          serverConnected: true
+        })
       },
       error: function (error) {
         console.log('Server Connection Error!');
+        this.setState({
+          serverConnected: false
+        })
       },
     })
   }
 
   componentDidMount() {
-    this.initServer();
+    this.serverStatus();
   }
 
   render() {
