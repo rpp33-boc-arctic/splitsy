@@ -1,10 +1,34 @@
 import logo from './logo.svg';
 import './App.scss';
 import Button from '@mui/material/Button';
+import React from 'react';
 
+// this
+// interface MyProps {
+//   string:string
+// }
+
+// interface MyState {
+//   // value: string
+// }
+//({}: MyProps)
+
+// or this
+
+// this is saying that props is an object {} inside the object is string with type string
+class FirstCompoeont extends React.Component< { string: string }> {
+
+  constructor(props:any){
+    super(props)
+  }
+  render(){
+    return (<div >{this.props.string}</div>)
+  }
+}
+// type MyProps = { ... };
 
 function App() {
-  let x:string = 4;
+  let x:string = "a string";
 
   return (
     <div className="App">
@@ -25,6 +49,7 @@ function App() {
     <div className="mdc-button__ripple"></div>
     <span className="mdc-button__label">Button</span>
   </button>
+  <FirstCompoeont string={x}/>
   <Button variant="contained"></Button>
         </header>
     </div>
