@@ -4,36 +4,14 @@
   "description": "hr-rpp33-boc",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "client": "npx webpack watch --mode development",
-    "server": "npx nodemon server/index.js",
+    "server": "npx nodemon server/server.js",
     "test": "jest --detectOpenHandles"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rpp33-boc-arctic/splitsy.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rpp33-boc-arctic/splitsy/issues"
-  },
-  "homepage": "https://github.com/rpp33-boc-arctic/splitsy#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "jquery": "^3.6.0",
-    "nodemon": "^2.0.16",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "nodemon": "^2.0.16"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.0",
-    "@babel/preset-env": "^7.18.0",
-    "@babel/preset-react": "^7.17.12",
-    "babel-loader": "^8.2.5",
-    "jest": "^28.1.0",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "jest": "^28.1.0"
   }
 }

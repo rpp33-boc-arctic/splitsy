@@ -1,10 +1,11 @@
 const express = require("express");
-// const PORT = 3000; 
+var path = require("path");
+// const PORT = 3001;
 var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/../client/dist"));
+app.use(express.static(path.join(__dirname, "/../client/build")));
 
 app.get("/serverStatus", (req, res) => {
   res.end();
