@@ -44,14 +44,14 @@ const sessionSchema = new mongoose.Schema({
       'paid?': Boolean
     }
   ],
-  'receipt': [
+  'receipt': {
     type: Map,
     of: new mongoose.Schema({
       'items': [ Number ],
       'user_tip': Number,
       'total_paid': Number
     })
-  ],
+  },
   'total_tip': Number,
   'total_tax': Number,
   'total_paid': Number,
