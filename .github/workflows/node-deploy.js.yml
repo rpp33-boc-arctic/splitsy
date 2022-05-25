@@ -30,7 +30,7 @@ jobs:
     # - run: npm run buildCICD --if-present cd client && npm i &&npm run build"
     - name: install client
       working-directory: ./client
-      run: npm ci
+      run: npm install
     - name: run build
       working-directory: ./client
       run: npm run build
