@@ -1,4 +1,4 @@
-var PORT = 3001;
+const PORT = 3001;
 var app = require('./index.js');
 
 app.listen(PORT, () => {
