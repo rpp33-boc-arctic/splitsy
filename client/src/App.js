@@ -1,6 +1,7 @@
 import React from 'react';
+import Auth from './components/Auth.js';
 import Cart from './components/Cart.js';
-import Login from './components/Login.js';
+import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu.js';
 import Payment from './components/Payment.js';
 import Restaurant from './components/Restaurant.js';
@@ -18,7 +19,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Splitsy</h1>
-        <Login />
+        <Auth />
+        <Dashboard />
         <User />
         <Restaurant />
         <Menu />
