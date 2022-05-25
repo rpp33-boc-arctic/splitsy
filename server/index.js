@@ -1,18 +1,17 @@
 const express = require("express");
-var path = require("path");
-// const PORT = 3001;
-var app = express();
+const path = require("path");
+const routes = require('./routes');
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/../client/build")));
 
-app.get("/serverStatus", (req, res) => {
-  res.end();
-})
+app.use('/', routes);
 
-// app.listen(PORT, () => {
-//   console.log(`Server listening on ${PORT}`);
-// });
+// app.get("/serverStatus", (req, res) => {
+//   res.end();
+// })
+
 
 module.exports = app;
