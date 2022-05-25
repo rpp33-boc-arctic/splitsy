@@ -6,7 +6,7 @@
   "scripts": {
     "server": "npx nodemon server/server.js",
     "test": "jest --detectOpenHandles",
-    "buildCICD": "cd client && npm run build"
+    "buildCICD": "cd client && npm i &&npm run build"
   },
   "dependencies": {
     "axios": "^0.27.2",
