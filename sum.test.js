@@ -1,7 +1,7 @@
 const http = require('http');
 const sum = require('./sum');
 var app = require('./server/index.js');
-var PORT = 3000;
+var PORT = 3002;
 var server;
 
 beforeAll(async () => {
@@ -22,7 +22,7 @@ test('server is running',  (done) => {
   server.on('listening', () => {
     var result = server.address().port;
     console.log(result);
-    expect(result).toBe(3000);
+    expect(result).toBe(3002);
     expect(result).not.toBe(2000);
     done();
   })
