@@ -28,9 +28,9 @@ jobs:
         cache: 'npm'
     - run: npm ci
     # - run: npm run buildCICD --if-present cd client && npm i &&npm run build"
-    - name: install client
-      run: npm i
-      working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
+#     - name: install client
+#       run: npm i
+#       working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
 
     - name: run build
       run: npm run build
