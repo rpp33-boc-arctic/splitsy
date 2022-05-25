@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [ Number ]
+  'friends': [ Number ] // [ user_id ]
 });
 
 const sessionSchema = new mongoose.Schema({
@@ -29,7 +29,7 @@ const sessionSchema = new mongoose.Schema({
     {
       'user_id': Number,
       'checkout?': Boolean,
-      'user_cart': [ Number ]
+      'user_cart': [ Number ] // [ order_item_id ]
     }
   ],
   'group_cart': [
@@ -45,9 +45,9 @@ const sessionSchema = new mongoose.Schema({
     }
   ],
   'receipt': {
-    type: Map,
+    type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
-      'items': [ Number ],
+      'items': [ Number ], // [ order_item_id ]
       'user_tip': Number,
       'total_paid': Number
     })
