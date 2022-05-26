@@ -1,4 +1,8 @@
 import React from 'react';
+import Item from './item.js';
+import { List } from '@mui/material';
+import { group_cart } from './sampleData/session.js'
+
 
 class Items extends React.Component {
   constructor(props) {
@@ -8,10 +12,15 @@ class Items extends React.Component {
   }
 
   render() {
+    console.log(group_cart);
+    var items = group_cart.map((item, i) => {
+      return <Item item={item} key={i}/>
+    })
+
     return (
-      <div >
-        Item main board
-      </div >
+      <List >
+        {items}
+      </List>
     )
   }
 }
