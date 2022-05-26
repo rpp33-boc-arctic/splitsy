@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>SplitsyCD</h1>
+        <h1>Splitsy-hello thursday</h1>
         <Auth />
         <Dashboard />
         <User />
