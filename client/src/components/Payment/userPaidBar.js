@@ -1,4 +1,6 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 class UserPaidBar extends React.Component {
   constructor(props) {
@@ -9,8 +11,9 @@ class UserPaidBar extends React.Component {
 
   render() {
     return (
-      <div >
-        User paid bar
+      <div id="user-paid-bar">
+        USERS PAID
+        <BorderLinearProgress variant="determinate" value={60} />
       </div >
     )
   }
@@ -18,3 +21,17 @@ class UserPaidBar extends React.Component {
 
 
 export default UserPaidBar;
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 14,
+  borderRadius: 7,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    // backgroundColor: '#D9D9D9',
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+    // backgroundColor: '#605A5A',
+  },
+}));

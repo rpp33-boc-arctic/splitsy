@@ -6,6 +6,8 @@ import UserPaidBar from './userPaidBar.js';
 import Items from './items.js';
 import Tip from './tip.js';
 import Bill from './bill.js';
+import RedirectButton from './redirectButton.js';
+import exampleData from './sampleData/userList.js';
 
 class Payment extends React.Component {
   constructor(props) {
@@ -16,18 +18,17 @@ class Payment extends React.Component {
 
   render() {
     return (
-      <div >
+      <div id="payment-page">
         **Payment Page starts here**
         <Timer/>
-        <UserList/>
+        <UserList users={exampleData.results}/>
         <ItemPaidBar/>
         <UserPaidBar/>
         <Items/>
         <Tip/>
         Feeling Generous?
         <Bill/>
-        <button>Back to Cart</button>
-        <button>Submit</button>
+        <RedirectButton/>
       </div >
     )
   }

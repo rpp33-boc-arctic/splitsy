@@ -10,7 +10,7 @@ class ItemPaidBar extends React.Component {
   render() {
     return (
       <div >
-        Item paid bar
+        ITEMS PAID
       </div >
     )
   }
