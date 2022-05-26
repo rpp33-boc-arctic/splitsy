@@ -1,5 +1,5 @@
-# splitsy
-Welcome to splitsy! A service allows the users to share restaurant bills!
+# Splitsy
+Welcome to Splitsy! A service that allows users to conveniently split restaurant bills!
 
 
 ## Visit the Website
