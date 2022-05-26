@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Payment extends React.Component {
+class UserPaidBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,10 +10,11 @@ class Payment extends React.Component {
   render() {
     return (
       <div >
-      Payment
+        User paid bar
       </div >
     )
   }
 }
 
-export default Payment;
+
+export default UserPaidBar;
