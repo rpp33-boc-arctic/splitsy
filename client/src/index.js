@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+
+import App from './components/App.js';
 import reportWebVitals from './reportWebVitals';
 import Auth from './components/Auth.js';
 import Cart from './components/Cart.js';
 import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu.js';
-import Payment from './components/Payment.js';
+import Payment from './components/Payment/Payment.js';
 import Restaurant from './components/Restaurant.js';
 import User from './components/User.js';
 
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-Link} from "react-router-dom";
+  Route} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

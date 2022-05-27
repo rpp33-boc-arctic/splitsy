@@ -1,13 +1,7 @@
 import React from 'react';
 
 import { Link }  from "react-router-dom";
-import Auth from './components/Auth.js';
-import Cart from './components/Cart.js';
-import Dashboard from './components/Dashboard.js';
-import Menu from './components/Menu.js';
-import Payment from './components/Payment/Payment.js';
-import Restaurant from './components/Restaurant.js';
-import User from './components/User.js';
+
 
 class App extends React.Component {
   constructor(props) {
