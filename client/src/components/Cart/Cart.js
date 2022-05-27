@@ -1,4 +1,7 @@
 import React from 'react';
+import ButtonAppBar from './navbar.js';
+import OrderCode from './orderCode.js';
+import RedirectButton from './redirectButton.js';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -10,8 +13,9 @@ class Cart extends React.Component {
   render() {
     return (
       <div >
+      <ButtonAppBar />
       <div>Cart</div>
-      <div>Order Code: XPZ947</div>
+      <OrderCode />
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
@@ -22,8 +26,7 @@ class Cart extends React.Component {
       <div>Tax (10%):      2.97</div>
       <div>Delivery Fee:      22.97</div>
       <div>Total:      22.97</div>
-      <button>Ready</button>
-      <button>Checkout</button>
+      <RedirectButton />
       </div >
     )
   }
