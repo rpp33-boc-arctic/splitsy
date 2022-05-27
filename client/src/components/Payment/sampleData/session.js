@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       'user_id': 120,
-      'checkout?': true,
+      'checkout?': false,
       'user_cart': [ 6 ] // [ order_item_id ]
     }
   ],
@@ -33,7 +33,7 @@ module.exports = {
       'menu_item_price': 480,
       'user_id': 10,
       'username': 'Bob Builder',
-      'paid?': true
+      'paid?': false
     },
     {
       'order_item_id': 2,
@@ -88,7 +88,7 @@ module.exports = {
       'menu_item_price': 1650,
       'user_id': 120,
       'username': 'Bob Ross',
-      'paid?': true
+      'paid?': false
     },
     {
       'order_item_id': 7,
@@ -110,7 +110,7 @@ module.exports = {
       'menu_item_price': 510,
       'user_id': 10,
       'username': 'Bob Builder',
-      'paid?': true
+      'paid?': false
     }
   ],
   // 'receipt': {  // proposing this structure.

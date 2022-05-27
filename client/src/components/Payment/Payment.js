@@ -12,6 +12,8 @@ import Grid from '@mui/material/Grid';
 import { group_cart } from './sampleData/session.js';
 import session from './sampleData/session.js';
 
+import Button from '@mui/material/Button';
+
 class Payment extends React.Component {
   constructor(props) {
     super(props);
@@ -27,13 +29,13 @@ class Payment extends React.Component {
           <Timer />
         </Grid>
         <Grid item xs={7}>
-          <ItemPaidBar />
+          <ItemPaidBar group_cart={group_cart}/>
           <UserPaidBar />
         </Grid>
         <Grid item xs={3}>
-          Feeling Generous?
+          FEELING GENEROUS...?
+          <Button variant="outlined" size="medium">PAY THE REST</Button>
         </Grid>
-
         <Grid item xs={2}>
           <UserList users={exampleData.results} />
         </Grid>

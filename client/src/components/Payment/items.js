@@ -16,7 +16,7 @@ class Items extends React.Component {
     })
 
     return (
-      <List >
+      <List sx={{ overflow: 'auto', maxHeight: 500 }}>
         {items}
       </List>
     )
