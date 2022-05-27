@@ -32,6 +32,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/90e9d98020a85e8638fd285f35c2bc1abfb8549a/68747470733a2f2f74622d7374617469632e756265722e636f6d2f70726f642f696d6167652d70726f632f70726f6365737365645f696d616765732f39333033653532343161613362323430393735313462633865376430313139662f38353962616666316437363034326134356533313964316465383061656337612e6a706567",
       'menu_item_price': 480,
       'user_id': 10,
+      'username': 'Bob Builder',
       'paid?': true
     },
     {
@@ -42,6 +43,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/c527034d6b9a17bd2abd42abbd6707b158b2ce57/68747470733a2f2f643172616c736f676e6a6e6733372e636c6f756466726f6e742e6e65742f37343830343631342d643530622d343635622d616237622d3932646137323337373161642e6a706567",
       'menu_item_price': 1390,
       'user_id': 100,
+      'username': 'Bob Handy',
       'paid?': true
     },
     {
@@ -52,6 +54,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/90e9d98020a85e8638fd285f35c2bc1abfb8549a/68747470733a2f2f74622d7374617469632e756265722e636f6d2f70726f642f696d6167652d70726f632f70726f6365737365645f696d616765732f39333033653532343161613362323430393735313462633865376430313139662f38353962616666316437363034326134356533313964316465383061656337612e6a706567",
       'menu_item_price': 480,
       'user_id': 100,
+      'username': 'Bob Handy',
       'paid?': true
     },
     {
@@ -62,6 +65,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/b7881b6efd88773401725a42171e6c81d6c05623/68747470733a2f2f74622d7374617469632e756265722e636f6d2f70726f642f696d6167652d70726f632f70726f6365737365645f696d616765732f32626166663331353033383735633538363565626335383332653531646533612f38353962616666316437363034326134356533313964316465383061656337612e6a706567",
       'menu_item_price': 700,
       'user_id': 10,
+      'username': 'Bob Builder',
       'paid?': true
     },
     {
@@ -72,6 +76,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/0ac40462e5c31fe858c904c88accdb3846665ade/68747470733a2f2f6d656469612d63646e2e677275626875622e636f6d2f696d6167652f75706c6f61642f685f302e32352f707275387571776c6e736a736e74396f696c71682e6a7067",
       'menu_item_price': 1850,
       'user_id': 10,
+      'username': 'Bob Builder',
       'paid?': true
     },
     {
@@ -82,6 +87,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/99d04aa7f7e8b5e5a76c37d450b6907510eb41c9/68747470733a2f2f6d656469612d63646e2e677275626875622e636f6d2f696d6167652f75706c6f61642f685f302e32352f6d7563346d376d6a347171306f676c7268396b682e6a7067",
       'menu_item_price': 1650,
       'user_id': 120,
+      'username': 'Bob Ross',
       'paid?': true
     },
     {
@@ -92,6 +98,7 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/df6ca018bd98443a551ababd99f8caede32970c7/68747470733a2f2f6d656469612d63646e2e677275626875622e636f6d2f696d6167652f75706c6f61642f685f302e32352f6b39707a3878766f706f797532613963336566762e6a7067",
       'menu_item_price': 510,
       'user_id': 100,
+      'username': 'Bob Handy',
       'paid?': true
     },
     {
@@ -102,9 +109,24 @@ module.exports = {
       'menu_item_photo': "https://cdn-img.mealme.ai/be6d937bd04fa7c62786aa2d5903ab4ed9286c22/68747470733a2f2f6d656469612d63646e2e677275626875622e636f6d2f696d6167652f75706c6f61642f685f302e32352f6a6f316b7a646f70716b68686a6f6630657566742e6a7067",
       'menu_item_price': 510,
       'user_id': 10,
+      'username': 'Bob Builder',
       'paid?': true
     }
   ],
+  // 'receipt': {  // proposing this structure.
+  //   '10': { // user_id
+  //     'user_id': 10,
+  //     'items': [ 1, 4, 5, 8 ], // [ order_item_id ]
+  //     'user_tip': 20,
+  //     'total_paid': 500
+  //   },
+  //   '100': { // user_id
+  //     'user_id': 100,
+  //     'items': [ 2, 3, 7, 6 ], // [ order_item_id ]
+  //     'user_tip': 25,
+  //     'total_paid': 600
+  //   }
+  // },
   'receipt': [
     {
       'user_id': 10,
@@ -114,7 +136,7 @@ module.exports = {
     },
     {
       'user_id': 100,
-      'items': [ 2, 3, 7 ], // [ order_item_id ]
+      'items': [ 2, 3, 7, 6 ], // [ order_item_id ]
       'user_tip': 25,
       'total_paid': 600
     }

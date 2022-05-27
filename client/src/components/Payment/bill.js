@@ -19,11 +19,18 @@ class Bill extends React.Component {
     }
   }
 
+  getSubTotal(arrayOfItemNumber) {
+
+  }
+
   render() {
+    // var user_id =
+    // var receipt = this.props.session.receipt;
+    // var mySubTotal = getSubTotal(receipt.user_id.items);
+    // var myTip = receipt.user_tip;
+    // var myTax = mySubTotal*0.07;
+    // var myTotal = mySubTotal + myTip + myTax;
 
-    if (this.state.display === "group") {
-
-    }
     return (
       <>
         <Accordion>
@@ -43,7 +50,12 @@ class Bill extends React.Component {
             <Typography>MY BILL SUMMARY</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <BillTemplate />
+            <BillTemplate
+              // subtotal={this.props.session.grand_total.toLocaleString(undefined, {maximumFractionDigits:2})}
+              // tip={this.props.session.total_tip.toLocaleString(undefined, {maximumFractionDigits:2})}
+              // tax={this.props.session.total_tax.toLocaleString(undefined, {maximumFractionDigits:2})}
+              // total={this.props.session.total_owed.toLocaleString(undefined, {maximumFractionDigits:2})} />
+            />
           </AccordionDetails>
         </Accordion>
       </>
