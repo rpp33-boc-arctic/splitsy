@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Cart extends React.Component {
+class OrderCode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,10 +10,11 @@ class Cart extends React.Component {
   render() {
     return (
       <div >
-      Cart
+        Order Code:  XPZ947
       </div >
     )
   }
 }
 
-export default Cart;
+
+export default OrderCode;
