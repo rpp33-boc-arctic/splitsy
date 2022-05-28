@@ -11,13 +11,14 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      buttonAppBar: ButtonAppBar
     }
   }
 
   render() {
     return (
       <div >
-        <ButtonAppBar />
+        {/* <ButtonAppBar /> */}
         <h1>
           <ShoppingCartIcon />
           Cart
