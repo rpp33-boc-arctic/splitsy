@@ -20,7 +20,7 @@ class Item extends React.Component {
               primary={this.props.item.menu_item_name}
               secondary={
                 <>
-                  Ordered by: {this.props.item.user_id}   Price: {this.props.item.menu_item_price}
+                  05/28/2022 ${this.props.item.menu_item_price}
                 </>
               }
             />

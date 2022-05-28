@@ -30,26 +30,23 @@ class User extends React.Component {
       <div>
         <NavBar /> <br></br>
         <Grid container spacing={1} id="user-page">
-          <Grid item xs={2}>
+          <Grid item xs={12}>
             <img src={userData.results[1].photo_url} alt="userPhoto" width="100"></img>
           </Grid>
-
-          <Grid item xs={10} container justifyContent="flex-end">
+          <Grid item xs={3}>
+            @userUsername<br></br> <br></br>
+            "Got paid today, time for some extra guac on my Chipotle!" <br></br><br></br><br></br>
             <Button variant="contained" endIcon={<QrCode />}>
               QR Code
-            </Button>
+            </Button> <br></br><br></br>
             <Button variant="contained" endIcon={<Settings />}>
               Setting
-            </Button>
+            </Button> <br></br><br></br>
             <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
               Log Out
             </Button>
           </Grid>
-          <Grid item xs={2}>
-            @userUsername<br></br> <br></br>
-            "Got paid today, time for some extra guac on my Chipotle!"
-          </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             Order History
             <List >
               {items}
