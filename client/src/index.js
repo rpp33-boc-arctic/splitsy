@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu.js';
 import Payment from './components/Payment/Payment.js';
 import Restaurant from './components/Restaurant.js';
-import User from './components/User.js';
+import User from './components/User/User.js';
 
 import {
   BrowserRouter as Router,
