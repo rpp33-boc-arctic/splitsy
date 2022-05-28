@@ -20,7 +20,7 @@ class Friend extends React.Component {
               primary={this.props.friend.username}
               secondary={
                 <>
-                  <img src={this.props.friend.photo_url} alt="friendPhoto" width="50"></img>
+                  <img src={this.props.friend.photo_url} alt="friendPhoto" width="50"></img> {`@friendUsername`}
                 </>
               }
             />

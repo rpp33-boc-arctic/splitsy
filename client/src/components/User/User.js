@@ -29,43 +29,39 @@ class User extends React.Component {
     return (
       <div>
         <NavBar /> <br></br>
-        <Grid container spacing={1} id="payment-page">
-          <Grid item xs={1}>
+        <Grid container spacing={1} id="user-page">
+          <Grid item xs={2}>
             <img src={userData.results[1].photo_url} alt="userPhoto" width="100"></img>
           </Grid>
-          <Grid item xs={11}>
-            @exampleUsername
+
+          <Grid item xs={10} container justifyContent="flex-end">
+            <Button variant="contained" endIcon={<QrCode />}>
+              QR Code
+            </Button>
+            <Button variant="contained" endIcon={<Settings />}>
+              Setting
+            </Button>
+            <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
+              Log Out
+            </Button>
           </Grid>
           <Grid item xs={2}>
-            "Got paid today, time for some extra guac on my Chipotle!" <br></br> <br></br>
+            @userUsername<br></br> <br></br>
+            "Got paid today, time for some extra guac on my Chipotle!"
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={7}>
             Order History
             <List >
               {items}
             </List>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             Friends List
             <List >
               {friends}
             </List>
           </Grid>
-          <Grid item xs={12} container justifyContent="flex-start">
-            <Button variant="contained" endIcon={<Settings />}>
-              Setting
-            </Button>
-          </Grid>
-          <Grid item xs={12} container justifyContent="flex-start">
-            <Button variant="contained" endIcon={<QrCode />}>
-              QR Code
-            </Button>
-          </Grid>
-          <Grid item xs={12} container justifyContent="flex-start">
-            <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
-              Log Out
-            </Button>
-          </Grid>
+
         </Grid>
       </div>
     )
