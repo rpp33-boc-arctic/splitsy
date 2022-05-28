@@ -34,7 +34,7 @@ class Item extends React.Component {
               secondary={
                 <>
 								<Button variant="text">Edit</Button>
-									   Price: {this.props.item.price}
+									  Current Price: {this.props.item.price}
                 </>
               }
             />

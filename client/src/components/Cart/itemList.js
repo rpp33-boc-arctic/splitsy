@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from './item.js';
+import Item from './Item.js';
 import { List } from '@mui/material';
 import { menu } from './sampleData.js';
 
