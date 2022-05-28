@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Auth from './components/Auth.js';
 import Cart from './components/Cart/Cart.js';
 import Dashboard from './components/Dashboard.js';
-import Menu from './components/Menu.js';
+import Menu from './components/Menu/Menu.js';
 import Payment from './components/Payment/Payment.js';
 import {RestaurantPick,RestaurantMenu} from './components/rest/Restaurant.js';
 import User from './components/User.js';

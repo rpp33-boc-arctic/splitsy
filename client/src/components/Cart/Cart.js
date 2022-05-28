@@ -17,7 +17,7 @@ class Cart extends React.Component {
   render() {
     return (
       <div >
-        <ButtonAppBar />
+        {/* <ButtonAppBar /> */}
         <h1>
           <ShoppingCartIcon />
           Cart
