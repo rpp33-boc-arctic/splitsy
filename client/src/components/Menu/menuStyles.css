@@ -1,0 +1,85 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+	/* background-color: #E8E8E8; */
+
+}
+
+.title-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-top: 2rem;
+	margin: 0px 20px 0px 20px;
+
+}
+
+.menu {
+	display: flex;
+	background-color: #E8E8E8;
+	flex-direction: column;
+	margin: 25px 50px 75px 50px;
+
+}
+
+/* .menu-item-list {
+	gap: 50px;
+	padding: 2rem;
+}
+
+.menu-title {
+	padding: 1rem;
+} */
+
+.menu-item-bottom {
+	display: flex;
+	justify-content: space-between;
+	width: 900px;
+
+}
+
+.menu-item-container {
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+	column-gap: 100px;
+	gap: 30px;
+}
+
+.menu-button {
+	text-align: right;
+	display: flex;
+	position: absolute;
+}
+
+.menu-photo {
+	margin-right: 60px;
+}
+
+.item-price {
+	font-weight: bold;
+}
+
+.menu-title {
+	margin-left: 20px;
+
+}
+.menu-item-list {
+	margin-left: 20px;
+}
+
+.menu-divider {
+	display: flex;
+	background-color: white;
+	height: 5px;
+	width: 95%;
+	margin-left: 20px;
+	align-self: center;
+	justify-content: center;
+}
