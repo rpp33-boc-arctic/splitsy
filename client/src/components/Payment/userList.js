@@ -1,5 +1,10 @@
 import React from 'react';
-import { Stack } from '@mui/material';
+// import { Stack } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+// import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 
 class UserList extends React.Component {
   constructor(props) {
@@ -9,18 +14,28 @@ class UserList extends React.Component {
   }
 
   render() {
-    return (
-      <div id="payment-user-list">
-        USER LIST
-        {this.props.users.map((user, i) => (
-          <Stack spacing={2} className="payment-each-user" key={i}>
-            <img src={user.photo_url} alt="user" width="100"></img>
-            {user.username}
-          </Stack>
-        ))}
-      </div >
-    )
-  }
+      return (
+        <div id="payment-user-list">
+          <List
+            sx={{ width: '100%',
+            maxWidth: 240,
+            bgcolor: 'background.paper',
+            overflow: 'auto',
+            maxHeight: 500}}
+          >
+            {this.props.users.map((user, i) => (
+              <ListItem key={i}>
+                <ListItemAvatar>
+                  <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
+                  {user.username}
+                </ListItemAvatar>
+              </ListItem>
+            ))}
+          </List>
+        </div >
+      )
+    }
+
 }
 
 export default UserList;
