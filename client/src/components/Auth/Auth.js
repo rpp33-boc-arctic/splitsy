@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Stack, Switch, Typography } from '@mui/material';
-import AuthForm from './AuthForm.js';
+import AuthForm from './Form.js';
 
 class Auth extends React.Component {
   constructor(props) {
