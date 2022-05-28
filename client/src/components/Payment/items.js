@@ -11,7 +11,7 @@ class Items extends React.Component {
   }
 
   render() {
-    var items = this.props.group_cart.map((item, i) => {
+    var items = Object.values(this.props.group_cart).map((item, i) => {
       return <Item item={item} key={i}/>
     })
 

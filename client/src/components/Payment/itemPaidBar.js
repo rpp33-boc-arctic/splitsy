@@ -16,7 +16,7 @@ class ItemPaidBar extends React.Component {
       <Stack direction="row" spacing={1}>
         ITEMS PAID
         <br></br>
-        {this.props.group_cart.map((item, i) => (
+        {Object.values(this.props.group_cart).map((item, i) => (
           <ItemPaid item={item} key={i}/>
         ))}
       </Stack>
