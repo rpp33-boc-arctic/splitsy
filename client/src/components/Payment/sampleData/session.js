@@ -23,6 +23,23 @@ module.exports = {
       'user_cart': [ 6 ] // [ order_item_id ]
     }
   ],
+  // 'users': {
+  //   "10":{
+  //     'user_id': 10,
+  //     'checkout?': true,
+  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
+  //   },
+  //   "100": {
+  //     'user_id': ,
+  //     'checkout?': true,
+  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
+  //   },
+  //   "120": {
+  //     'user_id': ,
+  //     'checkout?': true,
+  //     'user_cart': [ 6 ] // [ order_item_id ]
+  //   }
+  // }
   'group_cart': [
     {
       'order_item_id': 1,
