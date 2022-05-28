@@ -6,23 +6,6 @@ module.exports = {
     'address': "24710 North Lake Pleasant Parkway",
   },
   'order_id': "03001",
-  // 'users': [
-  //   {
-  //     'user_id': 10,
-  //     'checkout?': true,
-  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
-  //   },
-  //   {
-  //     'user_id': 100,
-  //     'checkout?': true,
-  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
-  //   },
-  //   {
-  //     'user_id': 120,
-  //     'checkout?': false,
-  //     'user_cart': [ 6 ] // [ order_item_id ]
-  //   }
-  // ],
   'users': {
     "10": {
       'user_id': 10,
@@ -40,26 +23,8 @@ module.exports = {
       'user_cart': [ 6 ] // [ order_item_id ]
     }
   },
-  // 'users': {
-  //   "10":{
-  //     'user_id': 10,
-  //     'checkout?': true,
-  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
-  //   },
-  //   "100": {
-  //     'user_id': ,
-  //     'checkout?': true,
-  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
-  //   },
-  //   "120": {
-  //     'user_id': ,
-  //     'checkout?': true,
-  //     'user_cart': [ 6 ] // [ order_item_id ]
-  //   }
-  // }
   'group_cart': {
-  "1":
-    {
+    "1":{
       'order_item_id': 1,
       'menu_item_id': 40,
       'menu_item_name': "New! Wildberry Lemonade Splasher",
@@ -162,6 +127,14 @@ module.exports = {
       'total_paid': 600
     }
   },
+  'total_tip': 200,
+  'total_tax': 107,
+  'total_paid': 10000,
+  'grand_total': 10000,
+  'total_owed': 10307,
+  'order_paid?': true
+}
+
   // 'receipt': [
   //   {
   //     'user_id': 10,
@@ -176,10 +149,37 @@ module.exports = {
   //     'total_paid': 600
   //   }
   // ],
-  'total_tip': 200,
-  'total_tax': 107,
-  'total_paid': 10000,
-  'grand_total': 10000,
-  'total_owed': 10307,
-  'order_paid?': true
-}
+  // 'users': {
+  //   "10":{
+  //     'user_id': 10,
+  //     'checkout?': true,
+  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
+  //   },
+  //   "100": {
+  //     'user_id': ,
+  //     'checkout?': true,
+  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
+  //   },
+  //   "120": {
+  //     'user_id': ,
+  //     'checkout?': true,
+  //     'user_cart': [ 6 ] // [ order_item_id ]
+  //   }
+  // }
+  // 'users': [
+  //   {
+  //     'user_id': 10,
+  //     'checkout?': true,
+  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
+  //   },
+  //   {
+  //     'user_id': 100,
+  //     'checkout?': true,
+  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
+  //   },
+  //   {
+  //     'user_id': 120,
+  //     'checkout?': false,
+  //     'user_cart': [ 6 ] // [ order_item_id ]
+  //   }
+  // ],
