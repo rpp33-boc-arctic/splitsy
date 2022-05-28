@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App.js';
 import reportWebVitals from './reportWebVitals';
-import Auth from './components/Auth.js';
+import Auth from './components/Auth/Auth.js';
 import Cart from './components/Cart/Cart.js';
 import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu/Menu.js';

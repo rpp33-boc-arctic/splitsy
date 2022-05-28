@@ -14,7 +14,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Splitsy-hello thursday</h1>
-        <Link to="/auth"> auth</Link> <br/>
+        <Link to="/Auth"> Auth</Link> <br/>
         <Link to="/Dashboard"> Dashboard</Link><br/>
         <Link to="/User"> User</Link><br/>
         <Link to="/Restaurant/pick"> list of Restaurants</Link><br/>
