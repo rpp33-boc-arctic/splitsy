@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import QrCode from '@mui/icons-material/QrCode';
 import Settings from '@mui/icons-material/Settings';
-import Item from './item.js';
+import History from './history.js';
 import Friend from './friend.js';
 import NavBar from './navbar.js';
 
@@ -21,7 +21,7 @@ class User extends React.Component {
 
   render() {
     var items = sessionData.group_cart.map((item, i) => {
-      return <Item item={item} key={i} />
+      return <History item={item} key={i} />
     })
     var friends = userData.results.map((friend, i) => {
       return <Friend friend={friend} key={i} />
