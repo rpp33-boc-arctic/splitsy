@@ -1,5 +1,6 @@
 import React from 'react';
-import './rest.scss'
+import RestaurantPick from './rest_pick/rest_pick.js'
+
 class RestaurantMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -9,23 +10,8 @@ class RestaurantMenu extends React.Component {
 
   render() {
     return (
-      <div className="rest">
+      <div className="rest-menu-wrapper">
       Restaurant menu
-      </div >
-    )
-  }
-}
-class RestaurantPick extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
-  render() {
-    return (
-      <div className="rest">
-      Restaurant pick
       </div >
     )
   }
