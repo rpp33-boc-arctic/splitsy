@@ -6,23 +6,40 @@ module.exports = {
     'address': "24710 North Lake Pleasant Parkway",
   },
   'order_id': "03001",
-  'users': [
-    {
+  // 'users': [
+  //   {
+  //     'user_id': 10,
+  //     'checkout?': true,
+  //     'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
+  //   },
+  //   {
+  //     'user_id': 100,
+  //     'checkout?': true,
+  //     'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
+  //   },
+  //   {
+  //     'user_id': 120,
+  //     'checkout?': false,
+  //     'user_cart': [ 6 ] // [ order_item_id ]
+  //   }
+  // ],
+  'users': {
+    "10": {
       'user_id': 10,
       'checkout?': true,
       'user_cart': [ 1, 4, 5, 8 ] // [ order_item_id ]
     },
-    {
+    "100": {
       'user_id': 100,
       'checkout?': true,
       'user_cart': [ 2, 3, 7 ] // [ order_item_id ]
     },
-    {
+    "120": {
       'user_id': 120,
       'checkout?': false,
       'user_cart': [ 6 ] // [ order_item_id ]
     }
-  ],
+  },
   // 'users': {
   //   "10":{
   //     'user_id': 10,
@@ -40,7 +57,8 @@ module.exports = {
   //     'user_cart': [ 6 ] // [ order_item_id ]
   //   }
   // }
-  'group_cart': [
+  'group_cart': {
+  "1":
     {
       'order_item_id': 1,
       'menu_item_id': 40,
@@ -52,7 +70,7 @@ module.exports = {
       'username': 'Bob Builder',
       'paid?': false
     },
-    {
+    "2": {
       'order_item_id': 2,
       'menu_item_id': 41,
       'menu_item_name': "Belgian Waffle Combo",
@@ -63,7 +81,7 @@ module.exports = {
       'username': 'Bob Handy',
       'paid?': true
     },
-    {
+    "3": {
       'order_item_id': 3,
       'menu_item_id': 42,
       'menu_item_name': "New! Wildberry Lemonade Splasher",
@@ -74,7 +92,7 @@ module.exports = {
       'username': 'Bob Handy',
       'paid?': true
     },
-    {
+    "4": {
       'order_item_id': 4,
       'menu_item_id': 43,
       'menu_item_name': "House-Made Milkshakes",
@@ -85,7 +103,7 @@ module.exports = {
       'username': 'Bob Builder',
       'paid?': true
     },
-    {
+    "5": {
       'order_item_id': 5,
       'menu_item_id': 44,
       'menu_item_name': "Mega Monster Cheeseburger",
@@ -96,7 +114,7 @@ module.exports = {
       'username': 'Bob Builder',
       'paid?': true
     },
-    {
+    "6": {
       'order_item_id': 6,
       'menu_item_id': 45,
       'menu_item_name': "Jalapeño Kick",
@@ -107,7 +125,7 @@ module.exports = {
       'username': 'Bob Ross',
       'paid?': false
     },
-    {
+    "7": {
       'order_item_id': 7,
       'menu_item_id': 46,
       'menu_item_name': "Sharp Cheddar Mac & Cheese",
@@ -118,7 +136,7 @@ module.exports = {
       'username': 'Bob Handy',
       'paid?': true
     },
-    {
+    "8": {
       'order_item_id': 8,
       'menu_item_id': 46,
       'menu_item_name': "Hickory-Smoked Bacon Strips",
@@ -129,35 +147,35 @@ module.exports = {
       'username': 'Bob Builder',
       'paid?': false
     }
-  ],
-  // 'receipt': {  // proposing this structure.
-  //   '10': { // user_id
-  //     'user_id': 10,
-  //     'items': [ 1, 4, 5, 8 ], // [ order_item_id ]
-  //     'user_tip': 20,
-  //     'total_paid': 500
-  //   },
-  //   '100': { // user_id
-  //     'user_id': 100,
-  //     'items': [ 2, 3, 7, 6 ], // [ order_item_id ]
-  //     'user_tip': 25,
-  //     'total_paid': 600
-  //   }
-  // },
-  'receipt': [
-    {
+  },
+  'receipt': {  // proposing this structure.
+    '10': { // user_id
       'user_id': 10,
       'items': [ 1, 4, 5, 8 ], // [ order_item_id ]
       'user_tip': 20,
       'total_paid': 500
     },
-    {
+    '100': { // user_id
       'user_id': 100,
       'items': [ 2, 3, 7, 6 ], // [ order_item_id ]
       'user_tip': 25,
       'total_paid': 600
     }
-  ],
+  },
+  // 'receipt': [
+  //   {
+  //     'user_id': 10,
+  //     'items': [ 1, 4, 5, 8 ], // [ order_item_id ]
+  //     'user_tip': 20,
+  //     'total_paid': 500
+  //   },
+  //   {
+  //     'user_id': 100,
+  //     'items': [ 2, 3, 7, 6 ], // [ order_item_id ]
+  //     'user_tip': 25,
+  //     'total_paid': 600
+  //   }
+  // ],
   'total_tip': 200,
   'total_tax': 107,
   'total_paid': 10000,
