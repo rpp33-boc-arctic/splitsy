@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
+import { Divider, Typography } from '@mui/material';
 
 class Item extends React.Component {
   constructor(props) {
@@ -24,13 +24,15 @@ class Item extends React.Component {
   render() {
     return (
       <>
-        <ListItem disablePadding>
+        <ListItem disablePadding secondaryAction={
+          <Typography>${this.props.item.menu_item_price.toLocaleString(undefined, {maximumFractionDigits:2})}</Typography>
+        }>
           <ListItemButton component="a" href="#simple-list">
             <ListItemText
               primary={this.props.item.menu_item_name}
               secondary={
                 <>
-                  Ordered by: {this.props.item.user_id}   Price: {this.props.item.menu_item_price}
+                  Ordered by: {this.props.item.username}
                 </>
               }
             />
