@@ -44,8 +44,9 @@ class MenuItemList extends React.Component {
     var items = sampleData.menu.categories[5].menu_item_list.map((item, i) => {
       return <MenuItem item={item} key={i}/>
     })
-
+		console.log('menuStyles: ', menuStyles.toString().slice(0,1));
     return (
+
       <div>
         <List className='example' style={this.state.scrollerStyle} >
         {items}
