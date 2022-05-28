@@ -1,9 +1,11 @@
 import React from 'react';
 import './map.scss'
 import tt from '@tomtom-international/web-sdk-maps'
-import MapAPI from '../../../maps.config';
+import MapAPI from './maps.config';
 import axios from 'axios';
-import Requests from '../../../requests';
+import Requests from './requests';
+import {Button,TextField} from '@mui/material';
+
 console.log(Requests)
 class Map extends React.Component {
   constructor(props) {
@@ -11,8 +13,10 @@ class Map extends React.Component {
     this.map = 'no map';
       this.state = {
         query:"",
-        error:""
+        error:false,
+        helperText:"pleaes enter a valid address."
       }
+
   }
 
   componentDidMount(){
@@ -35,26 +39,24 @@ class Map extends React.Component {
 
   querychange(e){
     // this.query = e.target.value;
-    this.setState({query:e.target.value})
+    if (e.target.value === ("12145 west jessie ct") || e.target.value === "1802 Notre Dame Ave, Belmont" ){
+      this.setState({query:e.target.value,error:false,helperText:"congrats it valid"})
+    } else {
+      this.setState({query:e.target.value, helperText:"pleaes enter a valid address."})
+    }
   }
   search(e){
     if (this.state.query.toLowerCase() === '12145 west jessie ct' || this.state.query === "1802 Notre Dame Ave, Belmont"){
-
-
-
     var url = `https://api.tomtom.com/search/2/search/${this.state.query}.{json}?key=${MapAPI}`;
     setTimeout(()=>{
       axios.get(url).then((data)=>{
         console.log(data.data.results[0].position);
-
         Requests.getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
-        // send info here to server;
-        //if "NON_NEAR" then address not valid;
       });
-      this.setState({query:"",error:""})
+      this.setState({query:"",error:false})
     },2000);
   } else {
-    this.setState({error:"Restaurants do not exist out in the middle of nowhere!  "})
+    this.setState({helperText:"Restaurants do not exist out in the middle of nowhere!  ",error:true})
   }
   }
 
@@ -63,19 +65,13 @@ class Map extends React.Component {
     return (
       <div className="map-ct">
 
-        <div className="input">
-
-
-
-
-        </div>
         <div className="map">
-      map goes here
     <div className="mapct">
       <span>{this.state.query } <br/> </span>
       <span>{this.state.error}</span>
-      mapsearch:<input  onChange={(e)=>{this.querychange(e)}}  value={this.state.query} className="mapsearch"/>
-      <button onClick={(e)=>{this.search(e)}} className="submit"> submit</button>
+      <div className="search-ct"><TextField error={this.state.error? this.state.error: false}  helperText={this.state.helperText} style={{margin:"10px"}} onChange={(e)=>{this.querychange(e)}} id="outlined-basic" label="" variant="outlined" value={this.state.query} className="mapsearch" />
+      <Button onClick={(e)=>{this.search(e)}} className="submit"> submit</Button>
+      </div>
       <div id="Map" className="Map" >
     </div>
     </div>

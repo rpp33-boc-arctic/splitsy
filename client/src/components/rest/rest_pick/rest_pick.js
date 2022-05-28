@@ -14,7 +14,7 @@ class RestaurantPick extends React.Component {
     return (
       <div className="rest">
       <p> Restaurants near me </p>
-      <div class="container">
+      <div className="container">
        <List></List>
       <Map></Map>
         </div>
