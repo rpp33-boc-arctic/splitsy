@@ -20,8 +20,8 @@ class User extends React.Component {
   }
 
   render() {
-    var items = sessionData.group_cart.map((item, i) => {
-      return <History item={item} key={i} />
+    var histories = sessionData.group_cart.map((history, i) => {
+      return <History history={history} key={i} />
     })
     var friends = userData.results.map((friend, i) => {
       return <Friend friend={friend} key={i} />
@@ -49,7 +49,7 @@ class User extends React.Component {
           <Grid item xs={6}>
             Order History
             <List >
-              {items}
+              {histories}
             </List>
           </Grid>
           <Grid item xs={3}>
