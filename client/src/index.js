@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from './components/App.js';
+import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 import Auth from './components/Auth.js';
-import Cart from './components/Cart.js';
+import Cart from './components/Cart/Cart.js';
 import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu.js';
 import Payment from './components/Payment/Payment.js';

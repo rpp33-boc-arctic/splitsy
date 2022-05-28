@@ -36,7 +36,7 @@ module.exports = {
   {
     'userid': 3,
     'username': 'Bob Ross',
-    'photo_url':'https://cdn-icons-png.flaticon.com/512/236/236832.png',
+    'photo_url':'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
     'items': [
       {
         'item_id': 6,
@@ -53,7 +53,24 @@ module.exports = {
   {
     'userid': 4,
     'username': 'Dennis Ross',
-    'photo_url':'https://cdn-icons-png.flaticon.com/512/236/236832.png',
+    'photo_url':'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+    'items': [
+      {
+        'item_id': 6,
+        'item_name': 'chicken taco',
+        'item_price': 13.99,
+      },
+      {
+        'item_id': 8,
+        'item_name': 'avocado toast',
+        'item_price': 11.99,
+      }
+    ]
+  },
+  {
+    'userid': 4,
+    'username': 'Tan Ross',
+    'photo_url':'https://cdn-icons-png.flaticon.com/512/847/847969.png',
     'items': [
       {
         'item_id': 6,
