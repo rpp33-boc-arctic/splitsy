@@ -8,7 +8,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import QrCode from '@mui/icons-material/QrCode';
 import Settings from '@mui/icons-material/Settings';
 import History from './history.js';
-import Friend from './friend.js';
+import Friend from './Friend.js';
 import NavBar from './navbar.js';
 
 class User extends React.Component {
