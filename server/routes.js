@@ -37,7 +37,8 @@ router.post('/session:id', sessionController.createSession);
 router.post('/session:id/order', cartController.order);
 
 
-// Checkout
+// Payment
+
 router.get('/orderStatus', paymentController.orderStatus);
 router.post('/item:id/add', (req, res) => {
 });
@@ -53,8 +54,8 @@ router.get('/pay', (req, res) => {
 
 
 // Seed
-router.get('/seedUser', seedController.seedUser);
-router.get('/seedSession', seedController.seedSession);
-
+// router.get('/seedUser', seedController.seedUser);
+// router.get('/seedSession', seedController.seedSession);
+// router.get('/testSeed', seedController.testSeed);
 
 module.exports = router;

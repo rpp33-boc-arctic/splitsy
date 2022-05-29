@@ -1,7 +1,9 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
+const dbAddress = 'mongodb://BOC:BOC@ec2-18-141-196-227.ap-southeast-1.compute.amazonaws.com:27017/splitsy?authSource=admin';
 
-mongoose.connect('mongodb://localhost:27017/splitsy')
+// mongoose.connect('mongodb://localhost:27017/splitsy')
+mongoose.connect(dbAddress, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to the splitsy database');
   })
