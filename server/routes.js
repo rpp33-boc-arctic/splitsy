@@ -5,6 +5,7 @@ const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
 const sessionController = require('./controllers/session');
 const paymentController = require('./controllers/payment');
+const seedController = require('./controllers/payment/seed.js');
 
 // Authentication
 router.post('/register', authController.register);
@@ -50,6 +51,10 @@ router.get('/user_id/cart', (req, res) => {
 router.get('/pay', (req, res) => {
 });
 
+
+// Seed
+router.get('/seedUser', seedController.seedUser);
+router.get('/seedSession', seedController.seedSession);
 
 
 module.exports = router;
