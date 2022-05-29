@@ -254,4 +254,4 @@ module.exports = {
   'grand_total': 10000,
   'total_owed': 10307,
   'order_paid?': true
-}
+} 
