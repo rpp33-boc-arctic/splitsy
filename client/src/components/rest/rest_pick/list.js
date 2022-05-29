@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
 
 
 import React from 'react';
 import './list.scss'
 import {ListItem,List,Divider,ListItemText} from '@mui/material';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 
 
 class Map extends React.Component {
