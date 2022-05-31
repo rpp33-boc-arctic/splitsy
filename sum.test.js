@@ -12,19 +12,17 @@ beforeAll(async () => {
   // done();
 })
 
-test('adds 1 + 2 to equal 3', (done) => {
+test('adds 1 + 2 to equal 3', () => {
   expect(sum(1,2)).toBe(3);
-  done();
 });
 
-test('server is running',  (done) => {
+test('server is running',  async() => {
 
   server.on('listening', () => {
-    var result = server.address().port;
+    var result = await server.address().port;
     console.log(result);
     expect(result).toBe(3002);
     expect(result).not.toBe(2000);
-    done();
   })
 
 });
