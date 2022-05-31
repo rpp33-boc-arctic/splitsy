@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
 
+
 app.use('/', routes);
 
 // app.get("/serverStatus", (req, res) => {
