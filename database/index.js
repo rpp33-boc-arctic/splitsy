@@ -69,5 +69,3 @@ const sessionSchema = new mongoose.Schema({
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
 module.exports.Session = mongoose.model('Session', sessionSchema);
-
-module.exports.mongoInstance = mongoose;
