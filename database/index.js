@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const dbAddress = 'mongodb://BOC:BOC@ec2-18-141-196-227.ap-southeast-1.compute.amazonaws.com:27017/splitsy?authSource=admin';
 
 // mongoose.connect('mongodb://localhost:27017/splitsy')
-mongoose.connect(dbAddress, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbAddress
+  // , { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => {
     console.log('Connected to the splitsy database');
   })
@@ -29,7 +31,7 @@ const sessionSchema = new mongoose.Schema({
   },
   'order_id': { type: String, unique: true },
   'users': {
-    type: Map,
+    type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
       'user_id': Number,
       'checkout?': Boolean,
@@ -37,7 +39,7 @@ const sessionSchema = new mongoose.Schema({
     })
   },
   'group_cart': {
-    type: Map,
+    type: Map, // key -> 'order_item_id'
     of: new mongoose.Schema({
       'order_item_id': Number,
       'menu_item_id': Number,
