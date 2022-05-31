@@ -1,5 +1,6 @@
 const http = require('http');
 const sum = require('./sum');
+const mongoose = require('mongoose');
 var app = require('./server/index.js');
 var PORT = 3002;
 var server;
@@ -12,17 +13,19 @@ beforeAll(async () => {
   // done();
 })
 
-test('adds 1 + 2 to equal 3', () => {
+test('adds 1 + 2 to equal 3', (done) => {
   expect(sum(1,2)).toBe(3);
+  done();
 });
 
-test('server is running',  async() => {
+test('server is running',  (done) => {
 
   server.on('listening', () => {
-    var result = await server.address().port;
+    var result = server.address().port;
     console.log(result);
     expect(result).toBe(3002);
     expect(result).not.toBe(2000);
+    done();
   })
 
 });
@@ -30,4 +33,5 @@ test('server is running',  async() => {
 
 afterAll( function () {
   server.close();
+  mongoose.connection.close();
 })

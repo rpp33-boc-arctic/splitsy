@@ -1,11 +1,9 @@
-// import mongoose from 'mongoose';
+require('dotenv').config();
 const mongoose = require('mongoose');
-const dbAddress = 'mongodb://BOC:BOC@ec2-18-141-196-227.ap-southeast-1.compute.amazonaws.com:27017/splitsy?authSource=admin';
+const dbAddress = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWLRD}@ec2-18-141-196-227.ap-southeast-1.compute.amazonaws.com:27017/splitsy?authSource=admin`;
 
 // mongoose.connect('mongodb://localhost:27017/splitsy')
-mongoose.connect(dbAddress
-  // , { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+mongoose.connect(dbAddress)
   .then(() => {
     console.log('Connected to the splitsy database');
   })
@@ -71,3 +69,5 @@ const sessionSchema = new mongoose.Schema({
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
 module.exports.Session = mongoose.model('Session', sessionSchema);
+
+module.exports.mongoInstance = mongoose;
