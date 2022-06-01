@@ -5,6 +5,7 @@ const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
 const sessionController = require('./controllers/session');
 const paymentController = require('./controllers/payment');
+const seedController = require('./controllers/payment/seed.js');
 
 // Authentication
 router.post('/register', authController.register);
@@ -36,7 +37,8 @@ router.post('/session:id', sessionController.createSession);
 router.post('/session:id/order', cartController.order);
 
 
-// Checkout
+// Payment
+
 router.get('/orderStatus', paymentController.orderStatus);
 router.post('/item:id/add', (req, res) => {
 });
@@ -51,5 +53,10 @@ router.get('/pay', (req, res) => {
 });
 
 
+// Seed
+// router.get('/seedUser', seedController.seedUser);
+// router.get('/seedSession', seedController.seedSession);
+// router.get('/testSeed', seedController.testSeed);
+// router.get('/testSeed2', seedController.testSeed2);
 
 module.exports = router;
