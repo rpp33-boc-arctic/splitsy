@@ -25,13 +25,13 @@ root.render(
          <Routes>
           <Route exact path="/" element={<App />} />
           <Route exact path="/Auth" element={<Auth/>} />
-        <Route exact path="/Dashboard" element={<Dashboard />} />
-        <Route exact path="/User" element={<User />} />
-        <Route exact  path="/Restaurant/pick" element={<RestaurantPick />} />
-        <Route exact  path="/Restaurant/menu" element={<RestaurantMenu />} />
-        <Route exact path="/Menu" element={<Menu />} />
-        <Route exact path="/Cart" element={<Cart />} />
-        <Route exact path="/Payment" element={<Payment />} />
+          <Route exact path="/Dashboard" element={<Dashboard />} />
+          <Route exact path="/User" element={<User />} />
+          <Route exact  path="/Restaurant/pick" element={<RestaurantPick />} />
+          <Route exact  path="/Restaurant/menu" element={<RestaurantMenu />} />
+          <Route exact path="/Menu" element={<Menu />} />
+          <Route exact path="/Cart" element={<Cart />} />
+          <Route exact path="/Payment" element={<Payment />} />
         </Routes>
     </Router>
     </React.Fragment>
