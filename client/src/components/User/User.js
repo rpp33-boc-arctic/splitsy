@@ -20,7 +20,7 @@ class User extends React.Component {
         border: '1px solid white',
         width: '600px',
         float: 'center',
-        height: '400px',
+        height: '500px',
         // position:'relative'
       },
       scrollerFriendsList: {
@@ -28,7 +28,7 @@ class User extends React.Component {
         border: '1px solid white',
         width: '300px',
         float: 'center',
-        height: '400px',
+        height: '500px',
         // position:'relative'
       }
     }
@@ -45,10 +45,8 @@ class User extends React.Component {
       <div>
         <br></br>
         <Grid container spacing={1} id="user-page">
-          <Grid item xs={12}>
-            <img src={userData.results[1].photo_url} alt="userPhoto" width="100"></img>
-          </Grid>
           <Grid item xs={3}>
+            <img src={userData.results[1].photo_url} alt="userPhoto" width="100"></img>
             <Typography>@username</Typography><br></br> <br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography><br></br><br></br><br></br>
             <Button variant="contained" endIcon={<QrCode />}>
