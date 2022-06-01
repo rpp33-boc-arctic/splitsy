@@ -1,8 +1,25 @@
 const { User, Session } = require('../../../database');
 
 module.exports = {
-  orderStatus: (req, res) => {
-
+  getUserInfo: (req, res) => {
+    var params = req.params;
+    // console.log('param?', req.params);
+    return Session.find({session_code: params.session_id}, 'users')
+      .then((result) => {
+        let users = result[0].users;
+        // res.send([...users.keys()]);
+        return [...users.keys()];
+      })
+      .then((currentUsers) => {
+        return User.find({}).where('user_id').in(currentUsers)
+      })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((error) => {
+        console.log('error GET session user info');
+        res.send(null);
+      })
   },
 
   getSessionUsers: (req, res) => {

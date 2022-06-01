@@ -9,7 +9,6 @@ import Items from './items.js';
 import Tip from './tip.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
-import exampleData from './sampleData/userList.js';
 import Grid from '@mui/material/Grid';
 import { group_cart } from './sampleData/session.js';
 import session from './sampleData/session.js';
@@ -107,7 +106,7 @@ class Payment extends React.Component {
           <Button variant="outlined" size="medium">PAY THE REST</Button>
         </Grid>
         <Grid item xs={2}>
-          <UserList users={exampleData.results} />
+          <UserList session_id={this.state.session_id}/>
         </Grid>
         <Grid item xs={7}>
           <Items group_cart={group_cart} />

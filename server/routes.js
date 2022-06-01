@@ -44,7 +44,7 @@ router.get('/session:session_id/group_cart', paymentController.getSessionGroupCa
 router.put('/session:session_id/user:user_id/cart', paymentController.updateUserCart);
 router.delete('/session:session_id/user:user_id/cart', paymentController.removeOneFromUserCart);
 
-router.get('/orderStatus', paymentController.orderStatus);
+router.get('/session:session_id/userInfo', paymentController.getUserInfo);
 router.post('/item:id/add', (req, res) => {
 });
 

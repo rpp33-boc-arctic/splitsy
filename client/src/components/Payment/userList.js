@@ -1,16 +1,28 @@
 import React from 'react';
-// import { Stack } from '@mui/material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-// import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import axios from 'axios';
+import { List, ListItem, ListItemAvatar, Avatar } from '@mui/material';
 
 class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUserInfo: []
     }
+    this.getUserInfo = this.getUserInfo.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
+    axios.get(`/session${this.props.session_id}/userInfo`)
+    .then((users) => {
+      this.setState({currentUserInfo: users.data})
+    })
+    .catch((err) => {
+      console.log('error in getting user info', err)
+    })
   }
 
   render() {
@@ -23,7 +35,7 @@ class UserList extends React.Component {
             overflow: 'auto',
             maxHeight: 500}}
           >
-            {this.props.users.map((user, i) => (
+            {this.state.currentUserInfo.map((user, i) => (
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
