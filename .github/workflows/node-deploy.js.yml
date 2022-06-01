@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-#     branches: [ main ]
+    branches: [ CICD ]
   # pull_request:
   #   branches: [ main ]
 
@@ -35,5 +35,5 @@ jobs:
     - name: run build
       run: npm run build
       working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
-        
+
     - run: npm test
