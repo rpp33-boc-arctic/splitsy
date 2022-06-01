@@ -79,5 +79,16 @@ module.exports = {
       console.log('error seed test', err);
       return null;
     });
+  },
+  testSeed2: (req, res) => {
+    return Session.find({})
+    .then((results) => {
+      console.log('success seed test', results);
+      return results;
+    })
+    .catch((err) => {
+      console.log('error seed test', err);
+      return null;
+    });
   }
 }

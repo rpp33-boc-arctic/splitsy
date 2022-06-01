@@ -57,5 +57,6 @@ router.get('/pay', (req, res) => {
 // router.get('/seedUser', seedController.seedUser);
 // router.get('/seedSession', seedController.seedSession);
 // router.get('/testSeed', seedController.testSeed);
+// router.get('/testSeed2', seedController.testSeed2);
 
 module.exports = router;

@@ -1,9 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const dbAddress = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWLRD}@ec2-18-141-196-227.ap-southeast-1.compute.amazonaws.com:27017/splitsy?authSource=admin`;
+const dbAddress = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWLRD}@18.141.196.227:27017/splitsy?authSource=admin`;
 
 // mongoose.connect('mongodb://localhost:27017/splitsy')
-mongoose.connect(dbAddress)
+mongoose.connect(dbAddress) // consider save in the variable
   .then(() => {
     console.log('Connected to the splitsy database');
   })
