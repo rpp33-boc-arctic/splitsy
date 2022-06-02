@@ -9,8 +9,8 @@ import Tip from './tip.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
 import { Grid, Button } from '@mui/material';
-import { group_cart } from './sampleData/session.js';
-import session from './sampleData/session.js';
+// import { group_cart } from './sampleData/session.js';
+// import session from './sampleData/session.js';
 import _ from 'underscore';
 
 class Payment extends React.Component {
@@ -26,6 +26,7 @@ class Payment extends React.Component {
       not_yet_pick: [],
 
       group_cart: {},
+      session: {}
     }
   }
 
@@ -51,11 +52,13 @@ class Payment extends React.Component {
       username: username,
       user_id: userId
     }, () => {
-      axios.get(`/session${this.state.session_id}/group_cart`)
-        .then((group_cart) => {
+      axios.get(`/session${this.state.session_id}`)
+        .then((session) => {
+          console.log(session);
           this.setState({
-            group_cart: group_cart.data[0].group_cart,
-            not_yet_pick: Object.keys(group_cart.data[0].group_cart)
+            group_cart: session.data[0].group_cart,
+            not_yet_pick: Object.keys(session.data[0].group_cart),
+            session: session.data[0]
           }, () => {
             this.updateItemsOnMainBoard()
           })
@@ -188,7 +191,7 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid item xs={7}>
-          <ItemPaidBar group_cart={group_cart}/>
+          <ItemPaidBar group_cart={this.state.group_cart}/>
           <UserPaidBar />
         </Grid>
 
@@ -216,7 +219,7 @@ class Payment extends React.Component {
 
         <Grid item xs={3} container direction="column" justifyContent="flex-end">
           <Tip />
-          <Bill session={session} />
+          <Bill session={this.state.session} user_pick={this.state.user_pick} getPrice={this.getPrice.bind(this)}/>
         </Grid>
 
         <Grid item xs={12} container justifyContent="flex-end">

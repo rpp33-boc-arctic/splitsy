@@ -40,7 +40,7 @@ router.post('/session:id/order', cartController.order);
 // Payment
 
 router.get('/session:session_id/users', paymentController.getSessionUsers);
-router.get('/session:session_id/group_cart', paymentController.getSessionGroupCart);
+router.get('/session:session_id', paymentController.getSession);
 router.put('/session:session_id/user:user_id/cart', paymentController.updateUserCart);
 router.delete('/session:session_id/user:user_id/cart', paymentController.removeOneFromUserCart);
 

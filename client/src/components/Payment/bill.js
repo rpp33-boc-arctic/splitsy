@@ -6,31 +6,46 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import BillTemplate from './billTemplate.js';
 
-// session.total_tip,
-          // total_tax,
-          // total_paid,
-          // grand_total }
+// props.session.total_tip,
+            // total_tax,
+            // total_paid,
+            // grand_total }
+// props.getPrice = function
+// props.user_pick = [order_item_id]
 
 class Bill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       display: "group", //groupBill, myBill, usernameBill (stretch)
+      tipPercent: "",
+
+      subtotal: "",
+      tip: "",
+      tax: "",
+      total: ""
     }
   }
 
-  getSubTotal(arrayOfItemNumber) {
+  componentDidMount () {
+    this.calculateMyBillSummary()
+  }
 
+  componentDidUpdate () {
+    this.calculateMyBillSummary()
+  }
+
+  calculateMyBillSummary () {
+    // var subtotal = 0
+    // iterate over user_pick
+      // subtotal+= getPrice(order_item_id)
+    // var tip = subtotal * this.state.tipPercent/100
+    // var tax = subtotal * 0.07
+    // var total = subtotal + tip + tax
+    // setState tip, tax, subtotal, total
   }
 
   render() {
-    // var user_id =
-    // var receipt = this.props.session.receipt;
-    // var mySubTotal = getSubTotal(receipt.user_id.items);
-    // var myTip = receipt.user_tip;
-    // var myTax = mySubTotal*0.07;
-    // var myTotal = mySubTotal + myTip + myTax;
-
     return (
       <>
         <Accordion>
@@ -39,10 +54,10 @@ class Bill extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <BillTemplate
-              subtotal={this.props.session.grand_total.toLocaleString(undefined, {maximumFractionDigits:2})}
-              tip={this.props.session.total_tip.toLocaleString(undefined, {maximumFractionDigits:2})}
-              tax={this.props.session.total_tax.toLocaleString(undefined, {maximumFractionDigits:2})}
-              total={this.props.session.total_owed.toLocaleString(undefined, {maximumFractionDigits:2})} />
+              subtotal={this.props.session.grand_total}
+              tip={this.props.session.total_tip}
+              tax={this.props.session.total_tax}
+              total={this.props.session.total_owed} />
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -51,10 +66,10 @@ class Bill extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <BillTemplate
-              // subtotal={this.props.session.grand_total.toLocaleString(undefined, {maximumFractionDigits:2})}
-              // tip={this.props.session.total_tip.toLocaleString(undefined, {maximumFractionDigits:2})}
-              // tax={this.props.session.total_tax.toLocaleString(undefined, {maximumFractionDigits:2})}
-              // total={this.props.session.total_owed.toLocaleString(undefined, {maximumFractionDigits:2})} />
+              subtotal={this.state.subtotal}
+              tip={this.state.tip}
+              tax={this.state.tax}
+              total={this.state.total} />
             />
           </AccordionDetails>
         </Accordion>

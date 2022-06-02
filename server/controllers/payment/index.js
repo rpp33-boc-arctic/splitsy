@@ -39,11 +39,11 @@ module.exports = {
       })
   },
 
-  getSessionGroupCart: (req, res) => {
-    // /session:session_id/group_cart
+  getSession: (req, res) => {
+    // /session:session_id
     var params = req.params;
 
-    return Session.find({ session_code: params.session_id }, 'group_cart')
+    return Session.find({ session_code: params.session_id })
       .then((result) => {
         res.send(result);
       })
