@@ -7,7 +7,32 @@ const sessionController = require('./controllers/session');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
 
+var dot = require('dotenv').config()
+var axios = require('axios');
 // Authentication
+router.get('/getAddress', (req,res)=>{
+  //params->
+  axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json',{params:{fields:"formatted_address,geometry",input:"12145 west jessie",inputtype:"textquery",key:process.env.PlacesAPI}}).then(data=>{
+    console.log(data)
+  //make maker on map
+    res.send(JSON.stringify(data.data.candidates));
+
+  });
+})
+
+router.get('/placesNearby', (req,res)=>{
+    //params->
+var query = req.query
+var keyword;
+console.log(req.query)
+query.location = JSON.parse(query.location)
+  axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+  {params:{fields:"name, photo",location:query.location.lat.toString()+','+query.location.lng.toString(),radius:"10000",type:"restaurant",keyword:"",key:process.env.PlacesAPI}}).then(response=>{
+    res.send(JSON.stringify(response.data));
+  });
+})
+
+
 router.post('/register', authController.register);
 
 router.post('/login', (req, res) => {

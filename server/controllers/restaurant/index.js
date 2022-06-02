@@ -1,27 +1,27 @@
 var path = require('path');
 var fs = require('fs');
-
+var db  = require('../../../database/index.js')
 
 module.exports = {
-  restaurantList: (req, res) => {
+  restaurantList: (req, response) => {
 
     console.log(req.query);
     if (req.query){
-// 33.69292', long: '-112.3228
 
-      if (req.query.lat >  33.692  && req.query.lat < 33.695 ){
-        if (req.query.long  <  -112.320  && req.query.long  > -112.325 ){
+      if (req.query.lat >=  33.692  && req.query.lat <= 33.695 ){
+        var check1 = (parseFloat(req.query.long.toString().replace('-',''))  >=  112.320)
+        var check2 = (parseFloat(req.query.long.toString().replace('-',''))  <=  112.325)
+
+        if (check1 && check2 ){
           console.log('in range of address');
-          fs.readFile(path.join(__dirname,'../../../DATA.json'),'utf8',(err,data)=>{
-            console.log(err,data);
-            res.send(JSON.stringify(data));
+          db.Restaurant.find().then(res=>{
+            response.send(JSON.stringify(res))
           })
-
         } else {
-          res.send('no data')
+          res.send('address isnt defined in the db long')
         }
       }else {
-        res.send('no data')
+        res.send('address isnt defined in the db lat')
       }
 
 

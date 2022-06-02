@@ -1,12 +1,10 @@
 import React from 'react';
 import './map.scss'
 import tt from '@tomtom-international/web-sdk-maps'
-import MapAPI from './maps.config';
+import {MapAPI} from './maps.config';
 import axios from 'axios';
-import Requests from './requests';
 import {Button,TextField} from '@mui/material';
 
-console.log(Requests)
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +49,7 @@ class Map extends React.Component {
     setTimeout(()=>{
       axios.get(url).then((data)=>{
         console.log(data.data.results[0].position);
-        Requests.getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
+        this.props.getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
       });
       this.setState({query:"",error:false})
     },2000);

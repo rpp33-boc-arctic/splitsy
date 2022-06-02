@@ -1,3 +1,3 @@
 var MapAPI='C6VAmcmtp72F7NxpulDX7xQDdiEEGTBZ';
-
-export default MapAPI;
+var PlacesAPI='AIzaSyDUogWCKd0WJgrOFjipoG75fCVHXkzCvTU';
+export {MapAPI,PlacesAPI};
