@@ -15,6 +15,12 @@ class UserList extends React.Component {
     this.getUserInfo();
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.session_id !== prevProps.session_id) {
+      this.getUserInfo();
+    }
+  }
+
   getUserInfo() {
     axios.get(`/session${this.props.session_id}/userInfo`)
     .then((users) => {
