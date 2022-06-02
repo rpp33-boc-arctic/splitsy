@@ -45,18 +45,11 @@ router.put('/session:session_id/user:user_id/cart', paymentController.updateUser
 router.delete('/session:session_id/user:user_id/cart', paymentController.removeOneFromUserCart);
 
 router.get('/session:session_id/userInfo', paymentController.getUserInfo);
-router.post('/item:id/add', (req, res) => {
-});
+router.put('/session:session_id/user:user_id/pay', paymentController.updateUserPay);
+router.put('/session:session_id/user:user_id/receipt', paymentController.updateReceipt);
 
-router.post('/item:id/delete', (req, res) => {
-});
-
-router.get('/user_id/cart', (req, res) => {
-});
-
-router.get('/pay', (req, res) => {
-});
-
+router.get('/session:session_id/retrieveTotal', (req, res) => {});
+router.put('/session:session_id/updateTotal', (req, res) => {});
 
 // Seed
 // router.get('/seedUser', seedController.seedUser);

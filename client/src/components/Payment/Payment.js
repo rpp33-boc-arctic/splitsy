@@ -12,7 +12,6 @@ import RedirectButton from './redirectButton.js';
 import Grid from '@mui/material/Grid';
 import { group_cart } from './sampleData/session.js';
 import session from './sampleData/session.js';
-
 import Button from '@mui/material/Button';
 
 class Payment extends React.Component {
@@ -44,6 +43,12 @@ class Payment extends React.Component {
 
   addAllNonPickedToCart () {
 
+  }
+
+  handlePay() {
+    console.log('Pay!');
+    this.updateUserPay();
+    this.updateReceipt();
   }
 
   //==========================     HELPER     ==========================
@@ -89,6 +94,33 @@ class Payment extends React.Component {
   getPrice (order_item_id) {
 
   }
+
+  updateUserPay() {
+    axios({
+      method: 'put',
+      url: `/session${this.state.session_id}/user${this.state.user_id}/pay`,
+      // url: `/session${this.state.session_id}/user120/pay`,
+    })
+    .then((results) => {
+      console.log('results', results.data);
+    })
+  }
+
+  updateReceipt() {
+    // axios({
+    //   method: 'put',
+    //   // url: `/session${this.state.session_id}/user${this.state.user_id}/receipt`,
+    //   url: `/session${this.state.session_id}/user120/receipt`,
+    //   data: {
+    //     usercart: [6], // this.state.user_pick,
+    //     usertip: 5,
+    //     userpaid: 25
+    //   }
+    // })
+    // .then((results) => {
+    //   console.log('results', results.data);
+    // })
+  }
   //==========================     RENDER     ==========================
   render() {
     return (
@@ -117,7 +149,7 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid item xs={12} container justifyContent="flex-end">
-          <RedirectButton />
+          <RedirectButton handlePay={this.handlePay.bind(this)}/>
         </Grid>
       </Grid>
     )

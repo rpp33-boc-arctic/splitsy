@@ -11,7 +11,10 @@ module.exports = {
         return [...users.keys()];
       })
       .then((currentUsers) => {
-        return User.find({}).where('user_id').in(currentUsers)
+        // return User.find({}).where('user_id').in(currentUsers)
+        return User.find({
+          'user_id':{$in: currentUsers}
+        })
       })
       .then((result) => {
         res.send(result);
@@ -80,5 +83,49 @@ module.exports = {
         console.log('error DELETE one item from user cart')
         res.send(null);
       })
-  }
+  },
+
+  updateUserPay: (req, res) => {
+    let session_id = req.params.session_id
+    let user_id = req.params.user_id
+
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{[`users.${user_id}.checkout?`]: true}}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT pay sessions');
+      res.send(null);
+    })
+  },
+
+  updateReceipt: (req, res) => {
+    // console.log('param?', req.params);
+    // console.log('body?', req.body);
+    let session_id = req.params.session_id
+    let user_id = req.params.user_id
+    let user_cart = req.body.usercart
+    let user_tip = req.body.usertip
+    let user_paid = req.body.userpaid
+    let receipt = {
+      'user_id': user_id,
+      'items': user_cart,
+      'user_tip': user_tip,
+      'total_paid': user_paid
+    };
+    // return Session.updateOne(
+    //   {session_code: session_id},
+    //   {$set:{[`receipt.${user_id}`]: receipt}}
+    // )
+    // .then((result) => {
+    //   res.send(result);
+    // })
+    // .catch((error) => {
+    //   console.log('error PUT pay sessions');
+    //   res.send(null);
+    // })
+  },
 }
