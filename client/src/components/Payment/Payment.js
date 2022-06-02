@@ -96,7 +96,11 @@ class Payment extends React.Component {
   }
 
   addAllNonPickedToCart () {
-
+    this.updateItemsOnMainBoard(() => {
+      this.state.not_yet_pick.forEach((order_item_id) => {
+        this.handleAddToCart(order_item_id);
+      })
+    });
   }
 
   handlePay() {
@@ -190,7 +194,7 @@ class Payment extends React.Component {
 
         <Grid item xs={3}>
           FEELING GENEROUS...?
-          <Button variant="outlined" size="medium">PAY THE REST</Button>
+          <Button variant="outlined" size="medium" onClick={this.addAllNonPickedToCart.bind(this)}>PAY THE REST</Button>
         </Grid>
 
         <Grid item xs={2}>
