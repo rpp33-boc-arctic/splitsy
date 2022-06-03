@@ -6,6 +6,7 @@ import sessionData from './sampleData/exampleSession.js';
 import Button from '@mui/material/Button';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import QrCode from '@mui/icons-material/QrCode';
+import SearchIcon from '@mui/icons-material/Search'
 import Settings from '@mui/icons-material/Settings';
 import History from './history.js';
 import Friend from './Friend.js';
@@ -21,7 +22,6 @@ class User extends React.Component {
         width: '600px',
         float: 'center',
         height: '500px',
-        // position:'relative'
       },
       scrollerFriendsList: {
         overflowY: 'scroll',
@@ -29,9 +29,32 @@ class User extends React.Component {
         width: '300px',
         float: 'center',
         height: '500px',
-        // position:'relative'
       }
     }
+    this.username = this.username.bind(this);
+    this.history = this.history.bind(this);
+    this.friends = this.friends.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  username() {
+
+  }
+
+  history() {
+
+  }
+
+  friends() {
+
+  }
+
+  logout() {
+
+  }
+
+  componentDidMount() {
+    this.username();
   }
 
   render() {
@@ -49,13 +72,16 @@ class User extends React.Component {
             <img src={userData.results[1].photo_url} alt="userPhoto" width="100"></img>
             <Typography>@username</Typography><br></br> <br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography><br></br><br></br><br></br>
+            <Button variant="contained" endIcon={<SearchIcon />}>
+              Search
+            </Button> <br></br><br></br>
             <Button variant="contained" endIcon={<QrCode />}>
               QR Code
             </Button> <br></br><br></br>
             <Button variant="contained" endIcon={<Settings />}>
               Setting
             </Button> <br></br><br></br>
-            <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
+            <Button variant="contained" endIcon={<ArrowCircleRightIcon />} onClick={this.logout}>
               Log Out
             </Button>
           </Grid>
@@ -71,7 +97,6 @@ class User extends React.Component {
               {friends}
             </List>
           </Grid>
-
         </Grid>
       </div>
     )
