@@ -13,7 +13,6 @@ class UserList extends React.Component {
 
   componentDidMount() {
     this.getUserInfo();
-
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -26,7 +25,6 @@ class UserList extends React.Component {
     if(this.props.session_id) {
       axios.get(`/session${this.props.session_id}/userInfo`)
       .then((users) => {
-        // console.log('user?', users.data);
         this.setState({currentUserInfo: users.data});
         this.props.updateUserMap(users.data);
       })

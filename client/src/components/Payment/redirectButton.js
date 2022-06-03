@@ -30,7 +30,7 @@ class RedirectButton extends React.Component {
       url: `/session${this.state.session_id}/updateOrderPaid`,
     })
     // .then((results) => {
-    //   console.log('results in updateOrderPaidAndTotalTip', results.data);
+    //   console.log('results in updateOrderPaid', results.data);
     // })
     .catch((err) => {
       console.log('error in handleOrderDone', err)
