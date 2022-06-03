@@ -43,7 +43,7 @@ class Bill extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.user_pick !== prevProps.user_pick) {
+    if (this.props.user_pick !== prevProps.user_pick || prevState.tip !== this.state.tip) {
       this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
     }
   }
@@ -92,6 +92,8 @@ class Bill extends React.Component {
     })
   }
 
+  // calculateGroupTip
+
   render() {
     return (
       <>
@@ -121,7 +123,7 @@ class Bill extends React.Component {
           <AccordionDetails>
             <BillTemplate
               subtotal={this.state.subtotal}
-              tip={this.state.tip}
+              tip={this.state.tipAmount}
               tax={this.state.tax}
               total={this.state.total}
             />
