@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,9 +7,16 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-const NavBar = (props) => {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
+    return (
+      <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -22,13 +29,14 @@ const NavBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Logo
+            Splitsy
           </Typography>
-          <Button color="inherit">User</Button>
+          <Button color="inherit">Login/User</Button>
         </Toolbar>
       </AppBar>
     </Box>
-  );
+    )
+  }
 }
 
 export default NavBar;
