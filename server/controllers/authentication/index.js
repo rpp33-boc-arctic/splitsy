@@ -4,24 +4,38 @@ const bcrypt = require('bcryptjs');
 module.exports = {
   register: (req, res) => {
 
-    User.findOne({ 'email': req.body.email })
+    User.findOne({ 'email': req.body.email, 'username': req.body.username })
       .then(async (user) => {
         if (!user) {
           const hash = await bcrypt.hash(req.body.password, 8);
 
+          const userId = await User.estimatedDocumentCount();
+
           User.create({
             'username': req.body.username,
             'email': req.body.email,
+            'user_id': userId,
             'password': hash
           })
             .then(async (user) => {
               const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
-              createSession(req.body.email, req.body.username, sessionCookie, res);
+              createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
             })
             .catch((err) => errorHandler(err, res));
 
         } else {
-          res.status(200).json({ message: 'an account with that email exists', existingUser: true });
+
+          if ((user.email === req.body.email) && (user.username === req.body.username)) {
+            res.status(200)
+              .json({ message: 'an account with that email and username exists', existingUser: true });
+          } else if (user.email === req.body.email) {
+            res.status(200)
+              .json({ message: 'an account with that email exists', existingUser: true });
+          } else if (user.username === req.body.username) {
+            res.status(200)
+              .json({ message: 'an account with that username exists', existingUser: true });
+          }
+
         }
       })
       .catch((err) => errorHandler(err, res));
@@ -40,7 +54,7 @@ module.exports = {
             .then(async (validated) => {
               if (validated) {
                 const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
-                createSession(user.email, user.username, sessionCookie, res);
+                createBrowserSession(user.user_id, user.email, user.username, sessionCookie, res);
               } else {
                 res.status(200).json({ message: 'wrong password', wrongPassword: true });
               }
@@ -53,9 +67,9 @@ module.exports = {
   },
   logout: (req, res) => {
 
-    const { token, username } = req.cookies.splitsy;
+    const { token, username, userId } = req.cookies.splitsy;
 
-    User.findOneAndUpdate({ 'session_cookie': token, 'username': username },
+    User.findOneAndUpdate({ 'session_cookie': token, 'username': username, 'user_id': userId },
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
@@ -66,7 +80,9 @@ module.exports = {
   },
   verifyUser: (cookieData) => {
 
-    User.findOne({ 'session_cookie': cookieData.token, 'username': cookieData.username })
+    const { token, username, userId } = cookieData;
+
+    User.findOne({ 'session_cookie': token, 'username': username, 'user_id': userId })
       .then((user) => {
         if (user) {
           return true;
@@ -79,13 +95,16 @@ module.exports = {
   },
 };
 
-const createSession = (email, username, sessionCookie, res) => {
-  User.findOneAndUpdate({ 'email': email, 'username': username },
+const createBrowserSession = (userId, email, username, sessionCookie, res) => {
+  User.findOneAndUpdate({ 'email': email, 'username': username, 'user_id': userId },
     { $push: { 'session_cookie': sessionCookie }}
   )
     .then(() => {
       res.status(200)
-        .cookie('splitsy', { 'token': sessionCookie, 'username': username }, { sameSite: true })
+        .cookie('splitsy',
+          { 'token': sessionCookie, 'username': username, 'userId': userId },
+          { sameSite: true }
+        )
         .json({ message: 'user is logged in', loggedIn: true });
     })
     .catch((err) => errorHandler(err, res));
