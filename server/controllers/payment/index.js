@@ -104,7 +104,7 @@ module.exports = {
 
   updateReceipt: (req, res) => {
     // console.log('param?', req.params);
-    // console.log('body?', req.body);
+    console.log('body?', req.body);
     let session_id = req.params.session_id
     let user_id = req.params.user_id
     let user_cart = req.body.userCart
@@ -116,18 +116,19 @@ module.exports = {
       'user_tip': user_tip,
       'total_paid': user_paid
     };
-    // return Session.updateOne(
-    //   {session_code: session_id},
-    //   {$set:{[`receipt.${user_id}`]: receipt}}
-    // )
-    // .then((result) => {
-    //   res.send(result);
-    // })
-    // .catch((error) => {
-    //   console.log('error PUT update receipt');
-    //   res.send(null);
-    // })
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{[`receipt.${user_id}`]: receipt}}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update receipt');
+      res.send(null);
+    })
   },
+
   updateSessionPay: (req, res) => {
     let session_id = req.params.session_id;
     return Session.updateOne(
@@ -142,20 +143,34 @@ module.exports = {
       res.send(null);
     })
   },
+
   updateSessionBill: (req, res) => {
     let session_id = req.params.session_id;
-    // let total_paid = req.body.total_paid;
+    let total_tip = req.body.total_tip;
+    let total_tax = req.body.total_tax;
+    let grand_total = req.body.grand_total;
+    let total_owed = req.body.total_owed;
 
-    // return Session.updateOne(
-    //   {session_code: session_id},
-    //   {$set:{'order_paid?': true, 'total_paid': total_paid}}
-    // )
-    // .then((result) => {
-    //   res.send(result);
-    // })
-    // .catch((error) => {
-    //   console.log('error PUT update session paid');
-    //   res.send(null);
-    // })
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{
+        'total_tip': total_tip,
+        'total_tax': total_tax,
+        'grand_total': grand_total,
+        'total_owed': total_owed,
+        'order_paid?': true
+      }}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update session bill');
+      res.send(null);
+    })
+  },
+
+  updateTotalPaid: (req, res) => {
+
   }
 }

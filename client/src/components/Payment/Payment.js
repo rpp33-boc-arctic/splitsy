@@ -173,11 +173,11 @@ class Payment extends React.Component {
     axios({
       method: 'put',
       url: `/session${this.state.session_id}/user${this.state.user_id}/pay`,
-      // url: `/session${this.state.session_id}/user120/pay`,
     })
-    .then((results) => {
-      console.log('results', results.data);
-    }).catch((err) => {
+    // .then((results) => {
+    //   console.log('results in UpdateUserPay', results.data);
+    // })
+    .catch((err) => {
       console.log('error in updateUserPay', err)
     })
   }
@@ -186,15 +186,17 @@ class Payment extends React.Component {
     axios({
       method: 'put',
       url: `/session${this.state.session_id}/user${this.state.user_id}/receipt`,
-      // url: `/session${this.state.session_id}/user120/receipt`,
       data: {
-        userCart: this.state.user_pick,
+        userCart: [...this.state.user_pick],
         userTip: this.state.myBill.myTip,
         userTotal: this.state.myBill.myTotal
       }
     })
-    .then((results) => {
-      console.log('results', results.data);
+    // .then((results) => {
+    //   console.log('results in updateReceipt', results.data);
+    // })
+    .catch((err) => {
+      console.log('error in updateReceipt', err)
     })
   }
 
@@ -203,9 +205,10 @@ class Payment extends React.Component {
       method: 'put',
       url: `/session${this.state.session_id}/sessionPay`,
     })
-    .then((results) => {
-      console.log('results', results.data);
-    }).catch((err) => {
+    // .then((results) => {
+    //   console.log('results in updateSessionPay', results.data);
+    // })
+    .catch((err) => {
       console.log('error in updateSessionPay', err)
     })
   }
