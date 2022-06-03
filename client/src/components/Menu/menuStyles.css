@@ -11,7 +11,7 @@
 
 }
 
-.title-container {
+.submenu-title-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -20,7 +20,7 @@
 
 }
 
-.menu {
+.submenu {
 	display: flex;
 	background-color: #E8E8E8;
 	flex-direction: column;
@@ -66,11 +66,11 @@
 	font-weight: bold;
 }
 
-.menu-title {
+.submenu-title {
 	margin-left: 20px;
 
 }
-.menu-item-list {
+.submenu-item-list {
 	margin-left: 20px;
 }
 
