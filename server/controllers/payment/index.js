@@ -97,7 +97,7 @@ module.exports = {
       res.send(result);
     })
     .catch((error) => {
-      console.log('error PUT pay sessions');
+      console.log('error PUT update user paid');
       res.send(null);
     })
   },
@@ -107,9 +107,9 @@ module.exports = {
     // console.log('body?', req.body);
     let session_id = req.params.session_id
     let user_id = req.params.user_id
-    let user_cart = req.body.usercart
-    let user_tip = req.body.usertip
-    let user_paid = req.body.userpaid
+    let user_cart = req.body.userCart
+    let user_tip = req.body.userTip
+    let user_paid = req.body.userTotal
     let receipt = {
       'user_id': user_id,
       'items': user_cart,
@@ -124,8 +124,38 @@ module.exports = {
     //   res.send(result);
     // })
     // .catch((error) => {
-    //   console.log('error PUT pay sessions');
+    //   console.log('error PUT update receipt');
     //   res.send(null);
     // })
   },
+  updateSessionPay: (req, res) => {
+    let session_id = req.params.session_id;
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{'order_paid?': true}}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update session paid');
+      res.send(null);
+    })
+  },
+  updateSessionBill: (req, res) => {
+    let session_id = req.params.session_id;
+    // let total_paid = req.body.total_paid;
+
+    // return Session.updateOne(
+    //   {session_code: session_id},
+    //   {$set:{'order_paid?': true, 'total_paid': total_paid}}
+    // )
+    // .then((result) => {
+    //   res.send(result);
+    // })
+    // .catch((error) => {
+    //   console.log('error PUT update session paid');
+    //   res.send(null);
+    // })
+  }
 }

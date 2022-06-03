@@ -24,10 +24,11 @@ class UserList extends React.Component {
   getUserInfo() {
     axios.get(`/session${this.props.session_id}/userInfo`)
     .then((users) => {
-      this.setState({currentUserInfo: users.data})
+      console.log('user?', users.data);
+      this.setState({currentUserInfo: users.data});
     })
     .catch((err) => {
-      console.log('error in getting user info', err)
+      console.log('error in getting user info', err);
     })
   }
 

@@ -5,7 +5,6 @@ import UserList from './userList.js';
 import ItemPaidBar from './itemPaidBar.js';
 import UserPaidBar from './userPaidBar.js';
 import Items from './items.js';
-// import Tip from './tip.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
 import { Grid, Button } from '@mui/material';
@@ -17,7 +16,7 @@ class Payment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: 1,      //session id from cookie? or pass from other component
+      session_id: "",      //session id from cookie? or pass from other component
       username: "",       //from cookie (after session_cookie had verified)
       user_id:"",
 
@@ -26,7 +25,12 @@ class Payment extends React.Component {
       not_yet_pick: [],
 
       group_cart: {},
-      session: {}
+      session: {},
+
+      myBill: {
+        myTip: 0,
+        myTotal: 0
+      }
     }
   }
 
@@ -110,6 +114,7 @@ class Payment extends React.Component {
     console.log('Pay!');
     this.updateUserPay();
     this.updateReceipt();
+    this.updateSessionPay();
   }
 
   //==========================     HELPER     ==========================
@@ -155,6 +160,15 @@ class Payment extends React.Component {
     return this.state.group_cart[order_item_id].menu_item_price;
   }
 
+  updateMybill (tip, total) {
+    this.setState({
+      myBill: {
+        myTip: tip,
+        myTotal: total
+      }
+    })
+  }
+
   updateUserPay() {
     axios({
       method: 'put',
@@ -163,23 +177,37 @@ class Payment extends React.Component {
     })
     .then((results) => {
       console.log('results', results.data);
+    }).catch((err) => {
+      console.log('error in updateUserPay', err)
     })
   }
 
   updateReceipt() {
-    // axios({
-    //   method: 'put',
-    //   // url: `/session${this.state.session_id}/user${this.state.user_id}/receipt`,
-    //   url: `/session${this.state.session_id}/user120/receipt`,
-    //   data: {
-    //     usercart: [6], // this.state.user_pick,
-    //     usertip: 5,
-    //     userpaid: 25
-    //   }
-    // })
-    // .then((results) => {
-    //   console.log('results', results.data);
-    // })
+    axios({
+      method: 'put',
+      url: `/session${this.state.session_id}/user${this.state.user_id}/receipt`,
+      // url: `/session${this.state.session_id}/user120/receipt`,
+      data: {
+        userCart: this.state.user_pick,
+        userTip: this.state.myBill.myTip,
+        userTotal: this.state.myBill.myTotal
+      }
+    })
+    .then((results) => {
+      console.log('results', results.data);
+    })
+  }
+
+  updateSessionPay() {
+    axios({
+      method: 'put',
+      url: `/session${this.state.session_id}/sessionPay`,
+    })
+    .then((results) => {
+      console.log('results', results.data);
+    }).catch((err) => {
+      console.log('error in updateSessionPay', err)
+    })
   }
   //==========================     RENDER     ==========================
   render() {
@@ -218,10 +246,12 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid item xs={3} container direction="column" justifyContent="flex-end">
-          {/* <Tip /> */}
-          <Bill session={this.state.session} user_pick={this.state.user_pick} getPrice={this.getPrice.bind(this)}/>
+          <Bill
+            session={this.state.session}
+            user_pick={this.state.user_pick}
+            getPrice={this.getPrice.bind(this)}
+            updateMybill={this.updateMybill.bind(this)} />
         </Grid>
-
         <Grid item xs={12} container justifyContent="flex-end">
           <RedirectButton handlePay={this.handlePay.bind(this)}/>
         </Grid>

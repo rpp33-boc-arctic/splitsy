@@ -47,9 +47,8 @@ router.delete('/session:session_id/user:user_id/cart', paymentController.removeO
 router.get('/session:session_id/userInfo', paymentController.getUserInfo);
 router.put('/session:session_id/user:user_id/pay', paymentController.updateUserPay);
 router.put('/session:session_id/user:user_id/receipt', paymentController.updateReceipt);
-
-router.get('/session:session_id/retrieveTotal', (req, res) => {});
-router.put('/session:session_id/updateTotal', (req, res) => {});
+router.put('/session:session_id/sessionPay', paymentController.updateSessionPay);
+router.put('/session:session_id/updateTotal', paymentController.updateSessionBill);
 
 // Seed
 // router.get('/seedUser', seedController.seedUser);

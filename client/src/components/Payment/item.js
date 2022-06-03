@@ -29,7 +29,6 @@ class Item extends React.Component {
           <Typography>${this.props.item.menu_item_price.toLocaleString(undefined, {maximumFractionDigits:2})}</Typography>
         }>
           <ListItemButton
-            component="a" href="#simple-list"
             selected={this.props.selected}
             disabled={this.props.disabled}
             onClick={() => {this.props.handleClick(this.props.item.order_item_id)}} >

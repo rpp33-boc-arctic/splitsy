@@ -23,6 +23,7 @@ class Bill extends React.Component {
 
       subtotal: "",
       tip: 20,
+      tipAmount: "",
       tipOptions: {
         15: "outlined",
         20: "contained",
@@ -37,11 +38,14 @@ class Bill extends React.Component {
   }
 
   componentDidMount () {
-    this.calculateMyBillSummary()
+    this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
+
   }
 
-  componentDidUpdate () {
-    this.calculateMyBillSummary()
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.user_pick !== prevProps.user_pick) {
+      this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
+    }
   }
 
   handleTipBtnClick(e) {
@@ -69,14 +73,23 @@ class Bill extends React.Component {
     this.setState({tipOptions: currentOptions});
   }
 
-  calculateMyBillSummary () {
-    // var subtotal = 0
-    // iterate over user_pick
-      // subtotal+= getPrice(order_item_id)
-    // var tip = subtotal * this.state.tipPercent/100
-    // var tax = subtotal * 0.07
-    // var total = subtotal + tip + tax
-    // setState tip, tax, subtotal, total
+  calculateMyBillSummary (cb = () => {}) {
+    console.log('this.props in bill', this.props);
+    var subtotal = 0;
+    this.props.user_pick.forEach((order_item_id) => {
+      subtotal += this.props.getPrice(order_item_id);
+    })
+    var tip = subtotal * this.state.tip/100;
+    var tax = subtotal * 0.07;
+    var total = subtotal + tip + tax;
+    this.setState({
+      subtotal: subtotal,
+      tipAmount: tip,
+      tax: tax,
+      total: total
+    }, () => {
+      cb();
+    })
   }
 
   render() {
