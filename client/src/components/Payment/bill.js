@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import BillTemplate from './billTemplate.js';
+import Tip from './tip.js';
 
 // props.session.total_tip,
             // total_tax,
@@ -21,10 +22,18 @@ class Bill extends React.Component {
       tipPercent: "",
 
       subtotal: "",
-      tip: "",
+      tip: 20,
+      tipOptions: {
+        15: "outlined",
+        20: "contained",
+        25: "outlined"
+      },
       tax: "",
       total: ""
     }
+    this.handleTipBtnClick = this.handleTipBtnClick.bind(this);
+    this.renderTipVariant = this.renderTipVariant.bind(this);
+    this.handleOtherTip = this.handleOtherTip.bind(this);
   }
 
   componentDidMount () {
@@ -33,6 +42,31 @@ class Bill extends React.Component {
 
   componentDidUpdate () {
     this.calculateMyBillSummary()
+  }
+
+  handleTipBtnClick(e) {
+    e.preventDefault();
+    let tipSelected = e.target.innerText.slice(0, 2);
+    this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
+  }
+
+  handleOtherTip(e) {
+    e.preventDefault();
+    // console.log('event?', e.target.value);
+    let tipSelected = e.target.value;
+    this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
+  }
+
+  renderTipVariant(option) {
+    var currentOptions = this.state.tipOptions;
+    for (var key in currentOptions) {
+      if (key === option) {
+        currentOptions[key] = "contained";
+      } else {
+        currentOptions[key] = "outlined";
+      }
+    }
+    this.setState({tipOptions: currentOptions});
   }
 
   calculateMyBillSummary () {
@@ -48,6 +82,13 @@ class Bill extends React.Component {
   render() {
     return (
       <>
+        <Tip
+          tip={this.state.tip}
+          handleTipBtnClick={this.handleTipBtnClick}
+          handleOtherTip={this.handleOtherTip}
+          // renderTipVariant={this.renderTipVariant}
+          tipOptions={this.state.tipOptions}
+        />
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>GROUP BILL SUMMARY</Typography>
@@ -69,7 +110,7 @@ class Bill extends React.Component {
               subtotal={this.state.subtotal}
               tip={this.state.tip}
               tax={this.state.tax}
-              total={this.state.total} />
+              total={this.state.total}
             />
           </AccordionDetails>
         </Accordion>

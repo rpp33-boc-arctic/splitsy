@@ -5,7 +5,7 @@ import UserList from './userList.js';
 import ItemPaidBar from './itemPaidBar.js';
 import UserPaidBar from './userPaidBar.js';
 import Items from './items.js';
-import Tip from './tip.js';
+// import Tip from './tip.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
 import { Grid, Button } from '@mui/material';
@@ -17,7 +17,7 @@ class Payment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: "",      //session id from cookie? or pass from other component
+      session_id: 1,      //session id from cookie? or pass from other component
       username: "",       //from cookie (after session_cookie had verified)
       user_id:"",
 
@@ -54,7 +54,7 @@ class Payment extends React.Component {
     }, () => {
       axios.get(`/session${this.state.session_id}`)
         .then((session) => {
-          console.log(session);
+          // console.log(session);
           this.setState({
             group_cart: session.data[0].group_cart,
             not_yet_pick: Object.keys(session.data[0].group_cart),
@@ -218,7 +218,7 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid item xs={3} container direction="column" justifyContent="flex-end">
-          <Tip />
+          {/* <Tip /> */}
           <Bill session={this.state.session} user_pick={this.state.user_pick} getPrice={this.getPrice.bind(this)}/>
         </Grid>
 
