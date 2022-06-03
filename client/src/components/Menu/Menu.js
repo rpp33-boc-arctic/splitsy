@@ -2,16 +2,13 @@ import React from 'react';
 import sampleData from './sampleData.js';
 import MenuItemList from './menuItemList.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {useLocation} from "react-router-dom";
 
+var Menu = (props)=> {
 
-class Menu extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-		}
-	}
-
-	render() {
+	console.log(props);
+	const {state} = useLocation();
+	console.log(state)
 		return (
 			<div className='menu'>
 				<div className='title-container'>
@@ -27,7 +24,7 @@ class Menu extends React.Component {
 
 
 		)
-	}
+
 }
 
 export default Menu;

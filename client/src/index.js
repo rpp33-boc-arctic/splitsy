@@ -11,12 +11,11 @@ import Payment from './components/Payment/Payment.js';
 import {RestaurantPick} from './components/rest/Restaurant.js';
 import NavBar from './components/header.js';
 import User from './components/User/User.js';
-
 import {
   BrowserRouter as Router,
   Routes,
+  useNavigate,
   Route} from "react-router-dom";
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.Fragment>
@@ -27,8 +26,8 @@ root.render(
           <Route exact path="/Auth" element={<Auth/>} />
           <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route exact path="/User" element={<User />} />
-          <Route exact  path="/Restaurant/pick" element={<RestaurantPick />} />
-          <Route exact path="/Menu" element={<Menu />} />
+          <Route path="/Restaurant/pick" element={<RestaurantPick />} />
+          <Route  path="/menu" element={<Menu />} />
           <Route exact path="/Cart" element={<Cart />} />
           <Route exact path="/Payment" element={<Payment />} />
         </Routes>

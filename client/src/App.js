@@ -1,16 +1,9 @@
 import React from 'react';
 
-import { Link }  from "react-router-dom";
+import { Link}  from "react-router-dom";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var App = ()=> {
 
-    };
-  }
-
-  render() {
     return (
       <div className="App">
         <h1>Splitsy-hello thursday</h1>
@@ -26,7 +19,7 @@ class App extends React.Component {
         ©2022 Splitsy Inc. All rights reserved.
       </div>
     );
-  }
+
 
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from './map.js'
-import List from './list.js'
+import ListComponent from './list.js'
 import './rest.scss';
 import axios from 'axios';
 import {PlacesAPI, MapAPI} from './maps.config.js';
@@ -11,6 +11,7 @@ class RestaurantPick extends React.Component {
     this.state = {
       rest:[]
     }
+    console.log(this);
     this.getRestaurants = this.getRestaurants.bind(this);
     // this.getPlaces = this.getPlaces.bind(this)
   }
@@ -26,7 +27,10 @@ class RestaurantPick extends React.Component {
         });
      }
 
+  clickRest(){
+    //create session make code on server send to db and send to menu page with link tag
 
+  }
 
 
 
@@ -35,7 +39,7 @@ class RestaurantPick extends React.Component {
       <div className="rest">
       <p> Restaurants near me </p>
       <div className="container">
-       <List rest={this.state.rest}></List>
+       <ListComponent navigate={this.props.navigate} rest={this.state.rest}></ListComponent>
       <Map getRestaurants={this.getRestaurants}></Map>
         </div>
 
