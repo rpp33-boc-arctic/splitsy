@@ -14,36 +14,8 @@ class Tip extends React.Component {
         25: "outlined"
       }
     }
-    // this.handleTipBtnClick = this.handleTipBtnClick.bind(this);
-    // this.renderTipVariant = this.renderTipVariant.bind(this);
-    // this.handleOtherTip = this.handleOtherTip.bind(this);
   }
 
-  // handleTipBtnClick(e) {
-  //   e.preventDefault();
-  //   let tipSelected = e.target.innerText.slice(0, 2);
-  //   this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
-  // }
-
-  // renderTipVariant(option) {
-  //   var currentOptions = this.state.tipOptions;
-  //   for (var key in currentOptions) {
-  //     if (key === option) {
-  //       currentOptions[key] = "contained";
-  //     } else {
-  //       currentOptions[key] = "outlined";
-  //     }
-  //   }
-  //   this.setState({tipOptions: currentOptions});
-    // this.props.renderTipVariant(option);
-  // }
-
-  // handleOtherTip(e) {
-  //   e.preventDefault();
-  //   // console.log('event?', e.target.value);
-  //   let tipSelected = e.target.value;
-  //   this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
-  // }
 
   render() {
     return (

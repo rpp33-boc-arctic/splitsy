@@ -49,6 +49,7 @@ class Bill extends React.Component {
 
   handleTipBtnClick(e) {
     e.preventDefault();
+    document.getElementById("payment-tip-input").value = '';
     let tipSelected = e.target.innerText.slice(0, 2);
     this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
   }
@@ -73,7 +74,7 @@ class Bill extends React.Component {
   }
 
   calculateMyBillSummary (cb = () => {}) {
-    console.log('this.props in bill', this.props);
+    // console.log('this.props in bill', this.props);
     var subtotal = 0;
     this.props.user_pick.forEach((order_item_id) => {
       subtotal += this.props.getPrice(order_item_id);
@@ -113,7 +114,7 @@ class Bill extends React.Component {
             <AccordionDetails>
               <BillTemplate
                 subtotal={this.props.session.grand_total.toLocaleString('en-US', {maximumFractionDigits:2})}
-                tip={this.props.session.total_tip.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tip={(this.props.session.total_tip + this.state.tipAmount).toLocaleString('en-US', {maximumFractionDigits:2})}
                 tax={this.props.session.total_tax.toLocaleString('en-US', {maximumFractionDigits:2})}
                 total={this.props.session.total_owed.toLocaleString('en-US', {maximumFractionDigits:2})} />
             </AccordionDetails>
