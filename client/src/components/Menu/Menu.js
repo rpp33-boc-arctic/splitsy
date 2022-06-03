@@ -8,11 +8,12 @@ var Menu = (props)=> {
 
 	console.log(props);
 	const {state} = useLocation();
-	console.log(state)
+	console.log('useLocation data is, state.data: ', state.item);
 		return (
 			<div className='menu'>
 				<div className='title-container'>
-					<h1>{sampleData.name}</h1>
+					<h1>{state.item.name}</h1>
+					<h2>Address: {state.item.address.street_addr}</h2>
 					<ShoppingCartIcon fontSize="large" />
 				</div>
 				<div className='menu-title'>
