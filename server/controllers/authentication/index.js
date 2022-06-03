@@ -1,4 +1,4 @@
-const User = require('')
+const User = require('../../../database/index.js');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
         if (!user) {
           const hash = await bcrypt.hash(req.body.password, 8);
 
-          const userId = await User.estimatedDocumentCount();
+          const userId = await User.estimatedDocumentCount() + 1;
 
           User.create({
             'username': req.body.username,
