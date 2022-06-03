@@ -1,5 +1,6 @@
 const http = require('http');
 const sum = require('./sum');
+const mongoose = require('mongoose');
 var app = require('./server/index.js');
 var PORT = 3002;
 var server;
@@ -32,4 +33,5 @@ test('server is running',  (done) => {
 
 afterAll( function () {
   server.close();
+  mongoose.connection.close();
 })

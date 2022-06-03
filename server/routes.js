@@ -5,6 +5,7 @@ const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
 const sessionController = require('./controllers/session');
 const paymentController = require('./controllers/payment');
+const seedController = require('./controllers/payment/seed.js');
 
 // Authentication
 router.post('/register', authController.register);
@@ -36,20 +37,24 @@ router.post('/session:id', sessionController.createSession);
 router.post('/session:id/order', cartController.order);
 
 
-// Checkout
-router.get('/orderStatus', paymentController.orderStatus);
-router.post('/item:id/add', (req, res) => {
-});
+// Payment
 
-router.post('/item:id/delete', (req, res) => {
-});
+router.get('/session:session_id/users', paymentController.getSessionUsers);
+router.get('/session:session_id', paymentController.getSession);
+router.put('/session:session_id/user:user_id/cart', paymentController.updateUserCart);
+router.delete('/session:session_id/user:user_id/cart', paymentController.removeOneFromUserCart);
 
-router.get('/user_id/cart', (req, res) => {
-});
+router.get('/session:session_id/userInfo', paymentController.getUserInfo);
+router.put('/session:session_id/user:user_id/pay', paymentController.updateUserPay);
+router.put('/session:session_id/user:user_id/receipt', paymentController.updateReceipt);
 
-router.get('/pay', (req, res) => {
-});
+router.get('/session:session_id/retrieveTotal', (req, res) => {});
+router.put('/session:session_id/updateTotal', (req, res) => {});
 
-
+// Seed
+// router.get('/seedUser', seedController.seedUser);
+// router.get('/seedSession', seedController.seedSession);
+// router.get('/testSeed', seedController.testSeed);
+// router.get('/testSeed2', seedController.testSeed2);
 
 module.exports = router;
