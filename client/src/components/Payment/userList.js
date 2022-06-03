@@ -13,6 +13,7 @@ class UserList extends React.Component {
 
   componentDidMount() {
     this.getUserInfo();
+
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -26,6 +27,7 @@ class UserList extends React.Component {
     .then((users) => {
       // console.log('user?', users.data);
       this.setState({currentUserInfo: users.data});
+      this.props.updateUserMap(users.data);
     })
     .catch((err) => {
       // console.log('error in getting user info', err);

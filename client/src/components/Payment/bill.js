@@ -43,7 +43,7 @@ class Bill extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.user_pick !== prevProps.user_pick || prevState.tip !== this.state.tip) {
+    if (this.props.user_pick !== prevProps.user_pick || prevState.tip !== this.state.tip ) {
       this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
     }
   }
@@ -92,45 +92,54 @@ class Bill extends React.Component {
     })
   }
 
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   // calculateGroupTip
 
   render() {
-    return (
-      <>
-        <Tip
-          tip={this.state.tip}
-          handleTipBtnClick={this.handleTipBtnClick}
-          handleOtherTip={this.handleOtherTip}
-          // renderTipVariant={this.renderTipVariant}
-          tipOptions={this.state.tipOptions}
-        />
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>GROUP BILL SUMMARY</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <BillTemplate
-              subtotal={this.props.session.grand_total}
-              tip={this.props.session.total_tip}
-              tax={this.props.session.total_tax}
-              total={this.props.session.total_owed} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>MY BILL SUMMARY</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <BillTemplate
-              subtotal={this.state.subtotal}
-              tip={this.state.tipAmount}
-              tax={this.state.tax}
-              total={this.state.total}
-            />
-          </AccordionDetails>
-        </Accordion>
-      </>
-    )
+    if (this.props.session.grand_total) {
+      return (
+        <>
+          <Tip
+            tip={this.state.tip}
+            handleTipBtnClick={this.handleTipBtnClick}
+            handleOtherTip={this.handleOtherTip}
+            // renderTipVariant={this.renderTipVariant}
+            tipOptions={this.state.tipOptions}
+          />
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>GROUP BILL SUMMARY</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <BillTemplate
+                subtotal={this.props.session.grand_total.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tip={this.props.session.total_tip.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tax={this.props.session.total_tax.toLocaleString('en-US', {maximumFractionDigits:2})}
+                total={this.props.session.total_owed.toLocaleString('en-US', {maximumFractionDigits:2})} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={true}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>MY BILL SUMMARY</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <BillTemplate
+                subtotal={this.state.subtotal.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tip={this.state.tipAmount.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tax={this.state.tax.toLocaleString('en-US', {maximumFractionDigits:2})}
+                total={this.state.total.toLocaleString('en-US', {maximumFractionDigits:2})}
+              />
+            </AccordionDetails>
+          </Accordion>
+        </>
+      )
+    } else {
+      return <div>Waiting for data</div>
+    }
+
   }
 }
 

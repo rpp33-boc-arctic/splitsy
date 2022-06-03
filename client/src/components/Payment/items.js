@@ -32,6 +32,8 @@ class Items extends React.Component {
 
   initialize () {
     var items = Object.values(this.props.group_cart).map((item, i) => {
+      item.username = this.props.getUsername(item.user_id)
+
       if (this.props.user_pick.has(item.order_item_id)) {
         return <Item item={item} key={i} selected={true} handleClick={this.unClickItem.bind(this)}/>
       } else if (this.props.others_pick.has(item.order_item_id)) {

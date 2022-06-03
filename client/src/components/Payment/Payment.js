@@ -30,7 +30,9 @@ class Payment extends React.Component {
       myBill: {
         myTip: 0,
         myTotal: 0
-      }
+      },
+
+      users: []
     }
   }
 
@@ -58,7 +60,7 @@ class Payment extends React.Component {
     }, () => {
       axios.get(`/session${this.state.session_id}`)
         .then((session) => {
-          console.log(session);
+          // console.log(session);
           this.setState({
             group_cart: session.data[0].group_cart,
             not_yet_pick: Object.keys(session.data[0].group_cart),
@@ -212,6 +214,16 @@ class Payment extends React.Component {
       console.log('error in updateSessionPay', err)
     })
   }
+
+  updateUserMap (users) {
+    this.setState({users: users});
+  }
+
+  getUsername (user_id) {
+    var user = _.find(this.state.users, (user) => { return user.user_id === user_id });
+    return user.username;
+  }
+
   //==========================     RENDER     ==========================
   render() {
     return (
@@ -232,7 +244,7 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid item xs={2}>
-          <UserList session_id={this.state.session_id}/>
+          <UserList session_id={this.state.session_id} updateUserMap={this.updateUserMap.bind(this)}/>
         </Grid>
 
         <Grid item xs={7}>
@@ -245,7 +257,8 @@ class Payment extends React.Component {
             others_pick={this.state.others_pick}
             not_yet_pick={this.state.not_yet_pick}
             addToCart={this.handleAddToCart.bind(this)}
-            removeFromCart={this.handleRemoveFromCart.bind(this)} />
+            removeFromCart={this.handleRemoveFromCart.bind(this)}
+            getUsername={this.getUsername.bind(this)} />
         </Grid>
 
         <Grid item xs={3} container direction="column" justifyContent="flex-end">
