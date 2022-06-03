@@ -23,15 +23,17 @@ class UserList extends React.Component {
   }
 
   getUserInfo() {
-    axios.get(`/session${this.props.session_id}/userInfo`)
-    .then((users) => {
-      // console.log('user?', users.data);
-      this.setState({currentUserInfo: users.data});
-      this.props.updateUserMap(users.data);
-    })
-    .catch((err) => {
-      // console.log('error in getting user info', err);
-    })
+    if(this.props.session_id) {
+      axios.get(`/session${this.props.session_id}/userInfo`)
+      .then((users) => {
+        // console.log('user?', users.data);
+        this.setState({currentUserInfo: users.data});
+        this.props.updateUserMap(users.data);
+      })
+      .catch((err) => {
+        console.log('error in getting user info', err);
+      })
+    }
   }
 
   render() {
@@ -42,7 +44,7 @@ class UserList extends React.Component {
             maxWidth: 240,
             bgcolor: 'background.paper',
             overflow: 'auto',
-            maxHeight: 500}}
+            maxHeight: '80%'}}
           >
             {this.state.currentUserInfo.map((user, i) => (
               <ListItem key={i}>

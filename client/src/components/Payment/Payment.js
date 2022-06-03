@@ -235,7 +235,7 @@ class Payment extends React.Component {
 
         <Grid item xs={7}>
           <ItemPaidBar group_cart={this.state.group_cart}/>
-          <UserPaidBar />
+          <UserPaidBar session={this.state.session}/>
         </Grid>
 
         <Grid item xs={3}>

@@ -1,14 +1,50 @@
 import React from 'react';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
+import { Stack, styled } from '@mui/material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 class UserPaidBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      paidUsers: [1, 2, 4],
-      totalUsers:[1, 2, 3, 4, 5]
+      paidUsers: [],
+      totalUsers: []
+    }
+    this.getUserStatus = this.getUserStatus.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserStatus();
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.session !== prevProps.session) {
+      this.getUserStatus();
+    }
+  }
+
+  getUserStatus() {
+    let userObj = this.props.session.users;
+    if (userObj) {
+      let paidUsers = this.state.paidUsers;
+      let totalUsers = this.state.totalUsers;
+      for(var key in userObj) {
+        totalUsers.push(userObj[key]);
+        if (userObj[key]['checkout?']) {
+          paidUsers.push(userObj[key].user_id)
+        }
+      }
+      this.setState({
+        paidUsers: paidUsers,
+        totalUsers: totalUsers
+      })
+    }
+  }
+
+  renderPercentage(percentage) {
+    if (percentage) {
+      return ( <>{percentage}%</> )
+    } else {
+      return ( <>Loading...</> )
     }
   }
 
@@ -20,7 +56,7 @@ class UserPaidBar extends React.Component {
           USERS PAID
           <br></br>
           <BorderLinearProgress variant="determinate" value={paidPercentage} />
-          {paidPercentage}%
+          {this.renderPercentage(paidPercentage)}
         </Stack>
       </div >
     )

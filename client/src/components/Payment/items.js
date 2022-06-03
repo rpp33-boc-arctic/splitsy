@@ -58,7 +58,7 @@ class Items extends React.Component {
   //==========================     RENDER     ==========================
   render() {
     return (
-      <List sx={{ overflow: 'auto', maxHeight: 500 }}>
+      <List sx={{ overflow: 'auto'}}>
         {this.state.items}
       </List>
     )
