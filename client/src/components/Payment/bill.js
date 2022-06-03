@@ -18,7 +18,6 @@ class Bill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: "group", //groupBill, myBill, usernameBill (stretch)
       tipPercent: "",
 
       subtotal: "",
@@ -95,8 +94,6 @@ class Bill extends React.Component {
   numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
-  // calculateGroupTip
 
   render() {
     if (this.props.session.grand_total) {
