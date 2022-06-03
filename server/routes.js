@@ -10,7 +10,7 @@ const seedController = require('./controllers/payment/seed.js');
 // Authentication
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-router.post('/logout', authController.logout);
+router.get('/logout', authController.logout);
 
 
 // User profile
