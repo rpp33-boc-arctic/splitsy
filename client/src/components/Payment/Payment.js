@@ -114,22 +114,9 @@ class Payment extends React.Component {
 
   handlePay() {
     console.log('Pay!');
-    // this.updateUserPay();
-    // this.updateReceipt();
+    this.updateUserPay();
+    this.updateReceipt();
     this.updateTotalTipAndTotalPaid();
-  }
-
-  handleOrderDone() {
-    axios({
-      method: 'put',
-      url: `/session${this.state.session_id}/updateOrderPaid`,
-    })
-    // .then((results) => {
-    //   console.log('results in updateOrderPaidAndTotalTip', results.data);
-    // })
-    .catch((err) => {
-      console.log('error in handleOrderDone', err)
-    })
   }
 
   //==========================     HELPER     ==========================
@@ -296,7 +283,9 @@ class Payment extends React.Component {
             updateMybill={this.updateMybill.bind(this)} />
         </Grid>
         <Grid item xs={12} container justifyContent="flex-end">
-          <RedirectButton handlePay={this.handlePay.bind(this)}/>
+          <RedirectButton
+          handlePay={this.handlePay.bind(this)}
+          session={this.state.session}/>
         </Grid>
       </Grid>
     )
