@@ -131,7 +131,7 @@ module.exports = {
     })
   },
 
-  updateSessionPay: (req, res) => {
+  updateOrderPaid: (req, res) => {
     let session_id = req.params.session_id;
     return Session.updateOne(
       {session_code: session_id},
@@ -142,25 +142,21 @@ module.exports = {
       res.send(result);
     })
     .catch((error) => {
-      console.log('error PUT update session paid');
+      console.log('error PUT update order paid');
       res.send(null);
     })
   },
 
-  updateSessionBill: (req, res) => {
+  updateTotalTipAndTotalPaid: (req, res) => {
     let session_id = req.params.session_id;
-    let total_tip = req.body.total_tip;
-    let total_tax = req.body.total_tax;
-    let grand_total = req.body.grand_total;
-    let total_owed = req.body.total_owed;
+    let update_tip = req.body.update_tip;
+    let update_total_paid = req.body.update_total_paid;
 
     return Session.updateOne(
       {session_code: session_id},
       {$set:{
-        'total_tip': total_tip,
-        'total_tax': total_tax,
-        'grand_total': grand_total,
-        'total_owed': total_owed
+        'total_tip': update_tip,
+        'total_paid': update_total_paid
       }},
       {upsert: true}
     )
@@ -168,12 +164,8 @@ module.exports = {
       res.send(result);
     })
     .catch((error) => {
-      console.log('error PUT update session bill');
+      console.log('error PUT update total tip and paid');
       res.send(null);
     })
-  },
-
-  updateTotalPaid: (req, res) => {
-
   }
 }

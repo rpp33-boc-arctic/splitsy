@@ -114,9 +114,22 @@ class Payment extends React.Component {
 
   handlePay() {
     console.log('Pay!');
-    this.updateUserPay();
-    this.updateReceipt();
-    this.updateSessionPay();
+    // this.updateUserPay();
+    // this.updateReceipt();
+    this.updateTotalTipAndTotalPaid();
+  }
+
+  handleOrderDone() {
+    axios({
+      method: 'put',
+      url: `/session${this.state.session_id}/updateOrderPaid`,
+    })
+    // .then((results) => {
+    //   console.log('results in updateOrderPaidAndTotalTip', results.data);
+    // })
+    .catch((err) => {
+      console.log('error in handleOrderDone', err)
+    })
   }
 
   //==========================     HELPER     ==========================
@@ -202,16 +215,23 @@ class Payment extends React.Component {
     })
   }
 
-  updateSessionPay() {
+  updateTotalTipAndTotalPaid() {
+    let update_tip = this.state.session.total_tip + this.state.myBill.myTip;
+    let myBill_notip = this.state.myBill.myTotal - this.state.myBill.myTip;
+    let update_total_paid = this.state.session.total_paid + myBill_notip;
     axios({
       method: 'put',
-      url: `/session${this.state.session_id}/sessionPay`,
+      url: `/session${this.state.session_id}/updateTotalTipAndTotalPaid`,
+      data: {
+        update_tip: update_tip,
+        update_total_paid: update_total_paid
+      }
     })
     // .then((results) => {
-    //   console.log('results in updateSessionPay', results.data);
+    //   console.log('results in updateTotalTipAndTotalPaid', results.data);
     // })
     .catch((err) => {
-      console.log('error in updateSessionPay', err)
+      console.log('error in updateTotalTipAndTotalPaid', err)
     })
   }
 
@@ -221,7 +241,7 @@ class Payment extends React.Component {
 
   getUsername (user_id) {
     var user = _.find(this.state.users, (user) => { return user.user_id === user_id });
-    return user.username;
+    if (user) return user.username;
   }
 
   //==========================     RENDER     ==========================
@@ -240,11 +260,18 @@ class Payment extends React.Component {
 
         <Grid item xs={3}>
           FEELING GENEROUS...?
-          <Button variant="outlined" size="medium" onClick={this.addAllNonPickedToCart.bind(this)}>PAY THE REST</Button>
+          <Button
+            variant="outlined"
+            size="medium"
+            onClick={this.addAllNonPickedToCart.bind(this)}>
+            PAY THE REST
+          </Button>
         </Grid>
 
         <Grid item xs={2}>
-          <UserList session_id={this.state.session_id} updateUserMap={this.updateUserMap.bind(this)}/>
+          <UserList
+            session_id={this.state.session_id}
+            updateUserMap={this.updateUserMap.bind(this)}/>
         </Grid>
 
         <Grid item xs={7}>

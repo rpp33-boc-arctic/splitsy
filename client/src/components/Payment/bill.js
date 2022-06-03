@@ -104,7 +104,6 @@ class Bill extends React.Component {
             tip={this.state.tip}
             handleTipBtnClick={this.handleTipBtnClick}
             handleOtherTip={this.handleOtherTip}
-            // renderTipVariant={this.renderTipVariant}
             tipOptions={this.state.tipOptions}
           />
           <Accordion>
@@ -116,7 +115,7 @@ class Bill extends React.Component {
                 subtotal={this.props.session.grand_total.toLocaleString('en-US', {maximumFractionDigits:2})}
                 tip={(this.props.session.total_tip + this.state.tipAmount).toLocaleString('en-US', {maximumFractionDigits:2})}
                 tax={this.props.session.total_tax.toLocaleString('en-US', {maximumFractionDigits:2})}
-                total={this.props.session.total_owed.toLocaleString('en-US', {maximumFractionDigits:2})} />
+                total={(this.props.session.total_owed + this.state.tipAmount).toLocaleString('en-US', {maximumFractionDigits:2})} />
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={true}>
