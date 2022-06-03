@@ -1,4 +1,4 @@
-const User = require('../../../database/index.js');
+const User = require('../../../database/index.js').User;
 const bcrypt = require('bcryptjs');
 
 module.exports = {
