@@ -91,7 +91,8 @@ module.exports = {
 
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{[`users.${user_id}.checkout?`]: true}}
+      {$set:{[`users.${user_id}.checkout?`]: true}},
+      {upsert: true}
     )
     .then((result) => {
       res.send(result);
@@ -104,7 +105,7 @@ module.exports = {
 
   updateReceipt: (req, res) => {
     // console.log('param?', req.params);
-    console.log('body?', req.body);
+    // console.log('body?', req.body);
     let session_id = req.params.session_id
     let user_id = req.params.user_id
     let user_cart = req.body.userCart
@@ -118,7 +119,8 @@ module.exports = {
     };
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{[`receipt.${user_id}`]: receipt}}
+      {$set:{[`receipt.${user_id}`]: receipt}},
+      {upsert: true}
     )
     .then((result) => {
       res.send(result);
@@ -133,7 +135,8 @@ module.exports = {
     let session_id = req.params.session_id;
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{'order_paid?': true}}
+      {$set:{'order_paid?': true}},
+      {upsert: true}
     )
     .then((result) => {
       res.send(result);
@@ -157,9 +160,9 @@ module.exports = {
         'total_tip': total_tip,
         'total_tax': total_tax,
         'grand_total': grand_total,
-        'total_owed': total_owed,
-        'order_paid?': true
-      }}
+        'total_owed': total_owed
+      }},
+      {upsert: true}
     )
     .then((result) => {
       res.send(result);

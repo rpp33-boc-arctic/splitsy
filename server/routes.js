@@ -49,6 +49,7 @@ router.put('/session:session_id/user:user_id/pay', paymentController.updateUserP
 router.put('/session:session_id/user:user_id/receipt', paymentController.updateReceipt);
 router.put('/session:session_id/sessionPay', paymentController.updateSessionPay);
 router.put('/session:session_id/updateTotal', paymentController.updateSessionBill);
+router.put('/session:session_id/updateTotalPaid', paymentController.updateTotalPaid);
 
 // Seed
 // router.get('/seedUser', seedController.seedUser);

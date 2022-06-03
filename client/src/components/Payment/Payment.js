@@ -58,7 +58,7 @@ class Payment extends React.Component {
     }, () => {
       axios.get(`/session${this.state.session_id}`)
         .then((session) => {
-          // console.log(session);
+          console.log(session);
           this.setState({
             group_cart: session.data[0].group_cart,
             not_yet_pick: Object.keys(session.data[0].group_cart),
