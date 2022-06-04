@@ -48,8 +48,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error GET session.group_cart data')
-        res.send(null);
+        res.send(error);
       })
   },
 
@@ -64,8 +63,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error PUT more item to user cart')
-        res.send(null);
+        res.send(error);
       })
   },
 
@@ -80,8 +78,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error DELETE one item from user cart')
-        res.send(null);
+        res.send(error);
       })
   },
 

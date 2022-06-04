@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './item.js';
-import { List } from '@mui/material';
+import { List, CircularProgress } from '@mui/material';
 
 
 class Items extends React.Component {
@@ -27,6 +27,7 @@ class Items extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.user_pick !== prevProps.user_pick || this.props.others_pick !== prevProps.others_pick) {
       this.initialize();
+      console.log('this.props.user_pick', this.props.user_pick)
     }
   }
 
@@ -57,11 +58,15 @@ class Items extends React.Component {
 
   //==========================     RENDER     ==========================
   render() {
-    return (
-      <List sx={{ overflow: 'auto'}}>
-        {this.state.items}
-      </List>
-    )
+    if (!this.props.user_pick) {
+      return (<CircularProgress />);
+    } else {
+      return (
+        <List sx={{ overflow: 'auto'}}>
+          {this.state.items}
+        </List>
+      )
+    }
   }
 }
 

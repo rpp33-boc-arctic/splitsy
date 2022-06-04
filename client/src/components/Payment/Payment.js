@@ -8,17 +8,15 @@ import Items from './items.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
 import PayModal from './payModal.js';
-import { Grid, Button } from '@mui/material';
-// import { group_cart } from './sampleData/session.js';
-// import session from './sampleData/session.js';
+import { Grid, Button, CircularProgress } from '@mui/material';
 import _ from 'underscore';
 
 class Payment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: "",      //session id from cookie? or pass from other component
-      username: "",       //from cookie (after session_cookie had verified)
+      session_id: "",       //session id from cookie? or pass from other component
+      username: "",         //from cookie (after session_cookie had verified)
       user_id:"",
 
       user_pick: [],
@@ -35,7 +33,8 @@ class Payment extends React.Component {
 
       users: [],
 
-      payModalOpen: false
+      payModalOpen: false,
+      waitingForData: true
     }
   }
 
@@ -44,6 +43,11 @@ class Payment extends React.Component {
     this.initialize();
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.waitingForData !== prevState.waitingForData) {
+      this.updateItemsOnMainBoard();
+    }
+  }
   initialize () {
     // TODO... VERIFY SESSION
     // var session_cookie = '';      //get session cookie from broswer
@@ -53,7 +57,7 @@ class Payment extends React.Component {
 
     // TODO... RETRIVE FROM DB AFTER SESSION VERIFID
     var username = ""             //get from cookie broswer
-    var userId = 10;               //get from cookie broswer
+    var userId = 10;              //get from cookie broswer
     var session_id = 1;           //get session_id fro cookie from browswer --> this must be created from dashboard 1) when host click start session, session_id is created and save into database, 2) when user join session, broswer will check session_id used to join with session_id in database 3) if joined. All user will have the same state that collect all sessions information.
 
     this.setState({
@@ -62,9 +66,14 @@ class Payment extends React.Component {
       user_id: userId
     }, () => {
       axios.get(`/session${this.state.session_id}`)
+        .catch(() => {
+          this.setState({waitingForData: true})
+        })
         .then((session) => {
-          // console.log(session);
+          if (session === "Unauthorized") { throw session};
+          
           this.setState({
+            waitingForData: false,
             group_cart: session.data[0].group_cart,
             not_yet_pick: Object.keys(session.data[0].group_cart),
             session: session.data[0]
@@ -72,8 +81,8 @@ class Payment extends React.Component {
             this.updateItemsOnMainBoard()
           })
         })
-        .catch((err) => {
-          console.log('Error retrive GET group_cart', err);
+        .catch((session) => {
+          document.location.href = '/Auth'
         })
 
     })
@@ -87,7 +96,7 @@ class Payment extends React.Component {
             this.updateItemsOnMainBoard();
           })
           .catch((err) => {
-            console.log('Error PUT item in DB user_cart', err);
+            alert("We cannot add this item to cart now, please try again");
           })
       }
     });
@@ -101,7 +110,7 @@ class Payment extends React.Component {
             this.updateItemsOnMainBoard();
           })
           .catch((err) => {
-            console.log('Error DELETE item in DB user_cart', err);
+            alert("We cannot remove this item from cart now, please try again");
           })
       }
     });
@@ -152,8 +161,8 @@ class Payment extends React.Component {
         all_chosen_item = [...my_item, ...others_item];
         non_chosen_item = new Set(_.difference(all_item, all_chosen_item));
 
-
         this.setState({
+          waitingForData: false,
           user_pick: my_item,
           others_pick: others_item,
           not_yet_pick: non_chosen_item
@@ -162,7 +171,7 @@ class Payment extends React.Component {
         })
       })
       .catch((err) => {
-        console.log('error in handleItemPick', err)
+        this.setState({waitingForData: true})
       })
   }
 
@@ -241,6 +250,7 @@ class Payment extends React.Component {
 
   //==========================     RENDER     ==========================
   render() {
+    if (this.state.waitingForData) {return (<CircularProgress />)}
     return (
       <Grid container spacing={1} id="payment-page">
 
