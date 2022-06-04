@@ -4,10 +4,7 @@ import { List, Typography } from '@mui/material';
 import userData from './sampleData/exampleUser.js';
 import sessionData from './sampleData/exampleSession.js';
 import Button from '@mui/material/Button';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import QrCode from '@mui/icons-material/QrCode';
 import SearchIcon from '@mui/icons-material/Search'
-import Settings from '@mui/icons-material/Settings';
 import History from './history.js';
 import Friend from './Friend.js';
 
@@ -75,15 +72,6 @@ class User extends React.Component {
             <Button variant="contained" endIcon={<SearchIcon />}>
               Search
             </Button> <br></br><br></br>
-            <Button variant="contained" endIcon={<QrCode />}>
-              QR Code
-            </Button> <br></br><br></br>
-            <Button variant="contained" endIcon={<Settings />}>
-              Setting
-            </Button> <br></br><br></br>
-            <Button variant="contained" endIcon={<ArrowCircleRightIcon />} onClick={this.logout}>
-              Log Out
-            </Button>
           </Grid>
           <Grid item xs={6}>
             <Typography align='center' variant='h6'>Order History</Typography>
@@ -96,6 +84,7 @@ class User extends React.Component {
             <List style={this.state.scrollerFriendsList} >
               {friends}
             </List>
+
           </Grid>
         </Grid>
       </div>
