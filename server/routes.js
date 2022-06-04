@@ -11,7 +11,7 @@ var isAuthenticated = (req, res, next) => {
   // console.log('req.cookies', req.cookies);
   // console.log('ver', authController.verifyUser(req.cookies));
 
-  if (authController.verifyUser(req.cookies)) {
+  if (!authController.verifyUser(req.cookies.splitsy)) {
     res.send('Unauthorized');
   } else {
     next();
