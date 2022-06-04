@@ -34,7 +34,7 @@ class SubmenuItemList extends React.Component {
   displaySubmenu() {
      return this.props.submenu.menu_item_list.map((item, i) => {
       return <div>
-      <SubmenuItem item={item} key={i} addToCart={this.props.addToCart} />
+      <SubmenuItem item={item} key={i} addToCart={this.props.addToCart}  />
       </div>
     })
     // return <SubmenuItem />
@@ -46,6 +46,8 @@ class SubmenuItemList extends React.Component {
     // })
 		// console.log('menuStyles: ', menuStyles.toString().slice(0,1));
     console.log('submenu is: ', this.props.submenu);
+    console.log('props inside submenuItemList is: ', this.props);
+
 
     return (
 

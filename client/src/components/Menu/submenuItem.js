@@ -40,7 +40,15 @@ class SubmenuItem extends React.Component {
 		// this.props.addToCart(currentItem);
 		// console.log('item added to cart!');
 
-		<Cart item={this.props.item} />
+		// <Cart item={this.props.item} />
+
+
+		var item = this.props.item;
+		// var item = 'hi';
+		this.props.addToCart(item);
+
+
+
 	}
 
 	addToGroupCart() {
@@ -50,7 +58,7 @@ class SubmenuItem extends React.Component {
 
 
 	render() {
-		console.log('item is: ', this.props.item);
+		console.log('props inside submenuItem is: ', this.props);
 		// console.log('add to cart right now is: ', this.state.add_to_cart);
 		return (
 			<>

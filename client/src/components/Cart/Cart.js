@@ -30,11 +30,11 @@ class Cart extends React.Component {
 
   componentDidMount() {
     // return <FullMenu fetchCart={this.fetchCart}/>
-    console.log('this.props inside Cart is: ', this.props);
+    // console.log('this.props inside Cart is: ', this.props);
   }
 
   render() {
-    console.log('current cart inside Cart.js is: ', this.props.cart);
+    console.log('current props inside Cart.js is: ', this.props);
     return (
       <div >
         {/* <ButtonAppBar /> */}

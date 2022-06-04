@@ -19,11 +19,11 @@ var Menu = (props)=> {
 					<h2>Phone Number: {state.item.phone_number}</h2>
 					{/* <ShoppingCartIcon fontSize="large" /> */}
 
-					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
+					{/* <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}}>
           GO TO CART
         </Link>
-      </Button>
+      </Button> */}
 
 				</div>
 				<div className='menu-title'>
