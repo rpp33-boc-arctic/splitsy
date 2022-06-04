@@ -13,6 +13,14 @@ class SubmenuItem extends React.Component {
 			quantity: 0,
 			add_to_cart: []
 		}
+		this.addToCart = this.addToCart.bind(this);
+	}
+
+	addToCart() {
+		console.log('add to cart logic here!');
+		// this.setState({
+		// 	quantity: 1
+		// })
 	}
 
 
@@ -22,7 +30,9 @@ class SubmenuItem extends React.Component {
 		return (
 			<>
 				<ListItem disablePadding>
-					<ListItemButton component="a" href="#simple-list">
+					{/* <ListItemButton component="a" href="#simple-list"> */}
+					<ListItemButton component="a">
+
 						{/* <ListItemIcon>
 							{this.props.item.image}
 						</ListItemIcon> */}
@@ -43,7 +53,7 @@ class SubmenuItem extends React.Component {
 							</div>
 							<div className='menu-item-bottom' >
 								<ListItemText className='item-price'	primary={'$' + this.props.item.price} />
-								<Button className='menu-button' variant="contained">Add to Cart</Button>
+								<Button className='menu-button' variant="contained" onClick={this.addToCart}>Add to Cart</Button>
 							</div>
 						</div>
 

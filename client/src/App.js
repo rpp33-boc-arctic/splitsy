@@ -12,7 +12,7 @@ var App = ()=> {
         <Link to="/User"> User</Link><br/>
         <Link to="/Restaurant/pick"> list of Restaurants</Link><br/>
         {/* <Link to="/Restaurant/menu"> menu</Link><br/> */}
-        <Link to="/Menu"> Menu</Link><br/>
+        {/* <Link to="/Menu"> Menu</Link><br/> */}
         <Link to="/Cart"> Cart</Link><br/>
         <Link to="/Payment"> Payment</Link><br/>
 
