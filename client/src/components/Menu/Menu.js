@@ -19,7 +19,7 @@ var Menu = (props)=> {
 					<ShoppingCartIcon fontSize="large" />
 				</div>
 				<div className='menu-title'>
-					<h2>Menu</h2>
+					<h2>Full Menu</h2>
 				</div>
 				{/* <div className='menu-item-list'><MenuItemList /></div> */}
 								<div className='menu-item-list'><FullMenu fullMenu={state.item} /></div>

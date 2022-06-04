@@ -1,6 +1,6 @@
 import React from 'react';
-import SubmenuItem from './menuItem.js';
-import { List } from '@mui/material';
+import SubmenuItem from './submenuItem.js';
+import { List, Button } from '@mui/material';
 import sampleData from './sampleData.js';
 import menuStyles from './menuStyles.css';
 
@@ -17,25 +17,48 @@ class SubmenuItemList extends React.Component {
         float: 'left',
         height:'800px',
         // position:'relative'
-      }
+      },
+      showSubmenu: false
     }
+    this.onSubmenuClick = this.onSubmenuClick.bind(this);
+    this.displaySubmenu = this.displaySubmenu.bind(this);
+
+  }
+
+  onSubmenuClick() {
+    this.setState({
+      showSubmenu: !this.state.showSubmenu
+    });
+  }
+
+  displaySubmenu() {
+     return this.props.submenu.menu_item_list.map((item, i) => {
+      return <div>
+      <SubmenuItem item={item} key={i}/>
+      </div>
+    })
+    // return <SubmenuItem />
   }
 
   render() {
     // var items = sampleData.menu.categories[5].menu_item_list.map((item, i) => {
     //   return <SubmenuItem item={item} key={i}/>
     // })
-		console.log('menuStyles: ', menuStyles.toString().slice(0,1));
+		// console.log('menuStyles: ', menuStyles.toString().slice(0,1));
+    console.log('submenu is: ', this.props.submenu);
+
     return (
 
       <div>
         {/* <List className='example' style={this.state.scrollerStyle} >
         {items}
       </List> */}
-      {this.props.showSubmenu?
-        <div>      Inside Submenu </div>:
+      <Button onClick={this.onSubmenuClick}>{this.props.submenu.name}</Button>
+      {
+        this.state.showSubmenu?
+        <div>Submenu: {this.displaySubmenu()} </div> :
         null
-    }
+      }
       </div>
 
     )

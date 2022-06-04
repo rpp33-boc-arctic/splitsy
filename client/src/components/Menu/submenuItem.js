@@ -10,12 +10,15 @@ class SubmenuItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			quantity: 3
+			quantity: 0,
+			add_to_cart: []
 		}
 	}
 
 
 	render() {
+		console.log('item is: ', this.props.item);
+		console.log('add to cart right now is: ', this.state.add_to_cart);
 		return (
 			<>
 				<ListItem disablePadding>
@@ -50,6 +53,7 @@ class SubmenuItem extends React.Component {
 				</ListItem>
 				<Divider className='menu-divider'/>
 			</>
+
 		)
 	}
 }
