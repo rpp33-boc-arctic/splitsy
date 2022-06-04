@@ -34,14 +34,12 @@ query.location = JSON.parse(query.location)
 
 
 router.post('/register', authController.register);
+router.post('/login', authController.login);
+router.get('/logout', authController.logout);
 
-router.post('/login', (req, res) => {
-});
 
 // User profile
 router.get('/user', userController.profile);
-router.post('/logout', (req, res) => {
-});
 router.get('/user/history', (req, res) => {
 });
 router.get('/user/friends', (req, res) => {
@@ -64,19 +62,17 @@ router.post('/session:id/order', cartController.order);
 
 // Payment
 
-router.get('/orderStatus', paymentController.orderStatus);
-router.post('/item:id/add', (req, res) => {
-});
+router.get('/session:session_id/users', paymentController.getSessionUsers);
+router.get('/session:session_id', paymentController.getSession);
+router.put('/session:session_id/user:user_id/cart', paymentController.updateUserCart);
+router.delete('/session:session_id/user:user_id/cart', paymentController.removeOneFromUserCart);
 
-router.post('/item:id/delete', (req, res) => {
-});
+router.get('/session:session_id/userInfo', paymentController.getUserInfo);
+router.put('/session:session_id/user:user_id/pay', paymentController.updateUserPay);
+router.put('/session:session_id/user:user_id/receipt', paymentController.updateReceipt);
 
-router.get('/user_id/cart', (req, res) => {
-});
-
-router.get('/pay', (req, res) => {
-});
-
+router.get('/session:session_id/retrieveTotal', (req, res) => {});
+router.put('/session:session_id/updateTotal', (req, res) => {});
 
 // Seed
 // router.get('/seedUser', seedController.seedUser);

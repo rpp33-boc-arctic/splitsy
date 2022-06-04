@@ -1,8 +1,5 @@
 import React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { Divider, Typography } from '@mui/material';
+import { ListItem, ListItemButton, ListItemText, Divider, Typography } from '@mui/material';
 
 class Item extends React.Component {
   constructor(props) {
@@ -19,7 +16,11 @@ class Item extends React.Component {
               // order_item_id
               // paid?
               // user_id
+  // props.selected
+  // props.disabled
 
+  //TODO
+  // item haven't show user yet// must wait for userlist fetch from db, then use the same one from Yufang to map id with username in <item>
 
   render() {
     return (
@@ -27,14 +28,14 @@ class Item extends React.Component {
         <ListItem disablePadding secondaryAction={
           <Typography>${this.props.item.menu_item_price.toLocaleString(undefined, {maximumFractionDigits:2})}</Typography>
         }>
-          <ListItemButton component="a" href="#simple-list">
+          <ListItemButton
+            component="a" href="#simple-list"
+            selected={this.props.selected}
+            disabled={this.props.disabled}
+            onClick={() => {this.props.handleClick(this.props.item.order_item_id)}} >
             <ListItemText
               primary={this.props.item.menu_item_name}
-              secondary={
-                <>
-                  Ordered by: {this.props.item.username}
-                </>
-              }
+              secondary={ <> Ordered by: {this.props.item.username} </> }
             />
           </ListItemButton>
         </ListItem>
