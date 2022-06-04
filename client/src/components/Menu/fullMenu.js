@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SubmenuItem from './menuItem.js';
 import SubmenuItemList from './submenuItemList.js';
 import { List, Button } from '@mui/material';
@@ -9,63 +9,72 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-class FullMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scrollerStyle: {
-        overflowY: 'scroll',
-				// overflowY: 'hidden',
-        border:'1px solid grey',
-        width:'1300px',
-        float: 'left',
-        height:'800px',
-        // position:'relative'
-      },
-			cart: [],
-			hideCart: false
-			// showComponent: false
-    }
-		// this.onMenuCardClick = this.onMenuCardClick.bind(this);
-				this.addToCart = this.addToCart.bind(this);
-				this.emptyCart = this.emptyCart.bind(this);
-				this.updateCart = this.updateCart.bind(this);
+function FullMenu() {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     scrollerStyle: {
+  //       overflowY: 'scroll',
+	// 			// overflowY: 'hidden',
+  //       border:'1px solid grey',
+  //       width:'1300px',
+  //       float: 'left',
+  //       height:'800px',
+  //       // position:'relative'
+  //     },
+	// 		cart: [],
+	// 		hideCart: false
+	// 		// showComponent: false
+  //   }
+	// 	// this.onMenuCardClick = this.onMenuCardClick.bind(this);
+	// 			this.addToCart = this.addToCart.bind(this);
+	// 			this.emptyCart = this.emptyCart.bind(this);
+	// 			this.updateCart = this.updateCart.bind(this);
 
-  }
+  // }
 
-	addToCart(currentItem) {
-		console.log('add to cart logic here!');
+	const [scrollerStyle, setScrollerStyle] = useState(0);
+	const [cart, setCart] = useState(1);
 
-		// var cartItem = {
-		// 	item: this.props.item,
-		// 	count: 1
-		// }
-		// var current_cart = this.state.add_to_cart;
-		// current_cart.push(cartItem);
-		// this.setState({
-		// 	add_to_cart: current_cart
-		// });
-		// console.log('current_cart is: ', current_cart);
-		// return <Cart cart={current_cart} />
+	useEffect(() => {
+		// Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+	});
 
-		var current_cart = this.state.cart;
-		current_cart.push(currentItem);
-		this.setState({
-			cart: current_cart
-		}, () => {console.log('cart state is now: ', this.state.cart)})
-	}
 
-	emptyCart() {
-		//empty cart logic here
-		this.setState({
-			cart: []
-		})
+	// addToCart(currentItem) {
+	// 	console.log('add to cart logic here!');
 
-	}
+	// 	// var cartItem = {
+	// 	// 	item: this.props.item,
+	// 	// 	count: 1
+	// 	// }
+	// 	// var current_cart = this.state.add_to_cart;
+	// 	// current_cart.push(cartItem);
+	// 	// this.setState({
+	// 	// 	add_to_cart: current_cart
+	// 	// });
+	// 	// console.log('current_cart is: ', current_cart);
+	// 	// return <Cart cart={current_cart} />
 
-	updateCart() {
-		return <Cart cart={this.state.cart}/>
-	}
+	// 	var current_cart = this.state.cart;
+	// 	current_cart.push(currentItem);
+	// 	this.setState({
+	// 		cart: current_cart
+	// 	}, () => {console.log('cart state is now: ', this.state.cart)})
+	// }
+
+	// emptyCart() {
+	// 	//empty cart logic here
+	// 	this.setState({
+	// 		cart: []
+	// 	})
+
+	// }
+
+	// updateCart() {
+	// 	return <Cart cart={this.state.cart}/>
+	// }
 
   render() {
     var items = this.props.fullMenu.menu.categories.map((item, i) => {
