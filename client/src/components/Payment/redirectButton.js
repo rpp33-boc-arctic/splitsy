@@ -6,11 +6,14 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { Link }  from "react-router-dom";
 
+import OrderModal from './orderModal.js';
+
 class RedirectButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      order_ready: false
+      order_ready: false,
+      ModalOpen: false
     }
   }
 
@@ -25,16 +28,18 @@ class RedirectButton extends React.Component {
   }
 
   handleOrderDone() {
-    axios({
-      method: 'put',
-      url: `/session${this.state.session_id}/updateOrderPaid`,
-    })
-    // .then((results) => {
-    //   console.log('results in updateOrderPaid', results.data);
-    // })
-    .catch((err) => {
-      console.log('error in handleOrderDone', err)
-    })
+    this.setState({ ModalOpen: true }, () =>
+      axios({
+        method: 'put',
+        url: `/session${this.state.session_id}/updateOrderPaid`,
+      })
+      // .then((results) => {
+      //   console.log('results in updateOrderPaid', results.data);
+      // })
+      .catch((err) => {
+        console.log('error in handleOrderDone', err)
+      })
+    )
   }
 
   checkOrderStatus() {
@@ -53,11 +58,15 @@ class RedirectButton extends React.Component {
       )
     } else {
       return (
-        <Button variant="contained" endIcon={<ArrowCircleRightIcon />} onClick={this.handleOrderDone}>
+        <Button variant="contained" endIcon={<ArrowCircleRightIcon />} onClick={this.handleOrderDone.bind(this)}>
           SUBMIT ORDER
         </Button>
       )
     }
+  }
+
+  handleModalClose() {
+    this.setState({ModalOpen: false});
   }
 
   render() {
@@ -72,6 +81,10 @@ class RedirectButton extends React.Component {
           PAY SELECTED
         </Button>
         {this.renderSubmitButton()}
+        <OrderModal
+          ModalOpen={this.state.ModalOpen}
+          ModalClose={this.handleModalClose.bind(this)}
+          session={this.props.session}/>
       </Stack>
     )
   }
