@@ -6,11 +6,11 @@ var App = ()=> {
 
     return (
       <div className="App">
-        <h1>Splitsy-hello thursday</h1>
-        <Link to="/Auth"> Auth</Link> <br/>
-        <Link to="/Dashboard"> Dashboard</Link><br/>
-        <Link to="/User"> User</Link><br/>
-        <Link to="/Restaurant/pick"> list of Restaurants</Link><br/>
+        <br></br>
+        <Link to="/Auth"> Auth</Link> <br />
+        <Link to="/Dashboard"> Dashboard</Link><br />
+        <Link to="/User"> User</Link><br />
+        <Link to="/Restaurant/pick"> Restaurants</Link><br />
         {/* <Link to="/Restaurant/menu"> menu</Link><br/> */}
         <Link to="/menu"> Menu</Link><br/>
         <Link to="/Cart"> Cart</Link><br/>

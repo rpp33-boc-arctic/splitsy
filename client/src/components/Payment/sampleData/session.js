@@ -24,7 +24,7 @@ module.exports = {
     }
   },
   'group_cart': {
-    "1":{
+    "1": {
       'order_item_id': 1,
       'menu_item_id': 40,
       'menu_item_name': "New! Wildberry Lemonade Splasher",
@@ -135,7 +135,7 @@ module.exports = {
   'order_paid?': true
 }
 
-  // 'receipt': [
+// 'receipt': [
   //   {
   //     'user_id': 10,
   //     'items': [ 1, 4, 5, 8 ], // [ order_item_id ]

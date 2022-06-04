@@ -21,7 +21,9 @@ const userSchema = new mongoose.Schema({
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [ Number ] // [ user_id ]
+  'friends': [ Number ], // [ user_id ]
+  'previous_session_codes': [ String ], // [ session_code ]
+  'session_cookie': [ { type: String, unique: true } ]
 });
 
 const sessionSchema = new mongoose.Schema({

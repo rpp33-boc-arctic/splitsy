@@ -4,7 +4,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 // import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
+import { Divider, Typography } from '@mui/material';
 
 class MenuItem extends React.Component {
 	constructor(props) {
@@ -17,7 +17,9 @@ class MenuItem extends React.Component {
 	render() {
 		return (
 			<>
-				<ListItem disablePadding>
+				<ListItem disablePadding secondaryAction={
+					<Typography variant='h1' component='h2'>h1. Heading</Typography>
+				}>
 					<ListItemButton component="a" href="#simple-list">
 						{/* <ListItemIcon>
 							{this.props.item.image}

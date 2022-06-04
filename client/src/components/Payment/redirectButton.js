@@ -1,8 +1,7 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import { Button, Stack } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import Stack from '@mui/material/Stack';
 import { Link }  from "react-router-dom";
 
 const RedirectButton = (props) => {
@@ -13,7 +12,7 @@ const RedirectButton = (props) => {
           BACK TO CART
         </Link>
       </Button>
-      <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
+      <Button variant="contained" endIcon={<ArrowCircleRightIcon />} onClick={e => props.handlePay(e)}>
         SUBMIT ORDER
       </Button>
     </Stack>
