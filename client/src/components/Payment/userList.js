@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { List, ListItem, ListItemAvatar, Avatar } from '@mui/material';
+import { List, ListItem, ListItemAvatar, Avatar, Typography } from '@mui/material';
 
 class UserList extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class UserList extends React.Component {
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
-                  {user.username}
+                  <Typography mb={2}>{user.username}</Typography>
                 </ListItemAvatar>
               </ListItem>
             ))}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, styled, Typography } from '@mui/material';
+import { Stack, styled, Typography, CircularProgress } from '@mui/material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 class UserPaidBar extends React.Component {
@@ -44,7 +44,7 @@ class UserPaidBar extends React.Component {
     if (percentage) {
       return ( <>{percentage}%</> )
     } else {
-      return ( <>Loading...</> )
+      return ( <CircularProgress /> )
     }
   }
 
@@ -56,7 +56,7 @@ class UserPaidBar extends React.Component {
           <Typography mb={2} variant="body2">USERS PAID</Typography>
           <br></br>
           <BorderLinearProgress variant="determinate" value={paidPercentage} />
-          {this.renderPercentage(paidPercentage)}
+          <Typography mb={2} variant="body2">{this.renderPercentage(paidPercentage)}</Typography>
         </Stack>
       </div >
     )
