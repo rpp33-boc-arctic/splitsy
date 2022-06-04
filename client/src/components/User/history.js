@@ -8,6 +8,7 @@ class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: 0,
       restaurant: 'Restaurant Name',
       items: ['Item'],
       total: 0
@@ -16,7 +17,7 @@ class History extends React.Component {
   }
 
   history() {
-    axios.get('/user/history') //pass in user_id as param?
+    axios.get('/user/history', { params: { user_id: this.user_id } }) //pass in user_id as param?
       .then((history) => {
         console.log('axios GET /user/history success: ', history)
         // this.setState({

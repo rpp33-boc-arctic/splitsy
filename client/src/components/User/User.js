@@ -11,9 +11,10 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: 0,
-      user_id: '',
+      login_token: '',
+      user_id: 0,
       username: '',
+      photo_url: '',
       scrollerOrderHistory: {
         overflowY: 'scroll',
         border: '1px solid white',
@@ -33,26 +34,27 @@ class User extends React.Component {
   }
 
   initialize() {
-    var username = '';    //get from cookie broswer
-    var userId = 0;     //get from cookie broswer
-    var session_id = 0;  //get session_id fro cookie from browswer
+    var login_tokenFromCookie = '';  //get session_id fro cookie from browswer
+    var user_idFromCookie = 0;      //get from cookie broswer
+    var usernameFromCookie = '';    //get from cookie broswer
 
     this.setState({
-      session_id: session_id,
-      username: username,
-      user_id: userId
+      login_token: login_tokenFromCookie,
+      user_id: user_idFromCookie,
+      username: usernameFromCookie
     }, () => {
-      axios.get('/user/profile')
-        .then((user) => {
-          console.log('axios GET /user/profile success: ', user)
-          // this.setState({
-          //   username: user.username
-          // })
+      axios.get('/user/profile', { params: { login_token: this.login_token, user_id: this.user_id, username: this.user } })
+        .then((success) => {
+          console.log('axios GET /user/profile success: ', success.data[0])
+          this.setState({
+            user_id: success.data[0].user_id,
+            username: success.data[0].username,
+            photo_url: success.data[0].photo_url
+          })
         })
         .catch((error) => {
           console.log('axios GET /user/profile error: ', error);
         })
-
     })
   }
 
@@ -61,32 +63,37 @@ class User extends React.Component {
   }
 
   render() {
+    // STATIC SAMPLE DATA
     var histories = sessionData.group_cart.map((history, i) => {
       return <History history={history} key={i} />
     })
     var friends = userData.results.map((friend, i) => {
       return <Friend friend={friend} key={i} />
     })
+
+    // DEPLOYED DB DATA
+
     return (
       <div>
         <br></br>
         <Grid container spacing={1} id="user-page">
           <Grid item xs={3}>
-            <img src={userData.results[1].photo_url} alt="userPhoto" width="150"></img>
-            <Typography>FirstName LastName</Typography>
-            <Typography>@userUsername</Typography> <br></br><br></br>
+            <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
+            <Typography>@{this.state.username}</Typography> <br></br><br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography align='center' variant='h6'>Order History</Typography>
             <List style={this.state.scrollerOrderHistory} >
               {histories}
+              {/* <History /> */}
             </List>
           </Grid>
           <Grid item xs={3}>
             <Typography align='center' variant='h6'>Friends List</Typography>
             <List style={this.state.scrollerFriendsList} >
               {friends}
+              {/* <Friends /> */}
             </List>
           </Grid>
         </Grid>
