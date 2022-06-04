@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemPaid from './itemPaid.js';
-import Stack from '@mui/material/Stack';
+import { Stack, Typography } from '@mui/material';
 
 class ItemPaidBar extends React.Component {
   constructor(props) {
@@ -14,8 +14,7 @@ class ItemPaidBar extends React.Component {
     return (
     <div id="item-paid-bar">
       <Stack direction="row" spacing={1}>
-        ITEMS PAID
-        <br></br>
+        <Typography mb={2} variant="body2">ITEMS PAID</Typography>
         {Object.values(this.props.group_cart).map((item, i) => (
           <ItemPaid item={item} key={i}/>
         ))}
