@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import {Link} from "react-router-dom";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class NavBar extends React.Component {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Splitsy
           </Typography>
-          <Button color="inherit">Login/User</Button>
+
+
+          <Button color="inherit"> <Link  to="/Auth" style={{color:"white",textDecoration:"none"}} >LOGIN</Link></Button>
         </Toolbar>
       </AppBar>
     </Box>

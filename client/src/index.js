@@ -7,19 +7,19 @@ import Cart from './components/Cart/Cart.js';
 import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu/Menu.js';
 import Payment from './components/Payment/Payment.js';
-import {RestaurantPick} from './components/rest/Restaurant.js';
-import NavBar from './components/header.js';
+import {RestaurantPick} from './components/Restaurant/Restaurant.js';
+import NavBar from './components/Navbar.js';
 import User from './components/User/User.js';
 import {
   BrowserRouter as Router,
   Routes,
-  useNavigate,
   Route} from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.Fragment>
-  <NavBar />
       <Router >
+      <NavBar />
+
          <Routes>
           <Route exact path="/" element={<App />} />
           <Route exact path="/Auth" element={<Auth/>} />
