@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Modal, Link} from '@mui/material';
+import { Box, Modal} from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 const style = {
@@ -14,30 +14,23 @@ const style = {
   p: 4,
 };
 
-const OrderModal = (props) => {
+const PayModal = (props) => {
   if (props.ModalOpen === false) {
     return null;
   }
 
   return (
-    <div id="order-modal">
+    <div id="pay-modal">
       <Modal
         open={props.ModalOpen}
         onClose={props.ModalClose}
       >
         <Box sx={style}>
           <Typography id="order-modal-title" variant="h6" component="h2">
-            WE'VE GOT YOUR ORDER!
+            Your Payment Total: <b>${props.myTotal}</b>
           </Typography>
           <Typography id="order-modal-description" sx={{ mt: 2 }}>
-            We will submit your order to {props.session.restaurant.name}.
-            <br></br>
-            Order ID: {props.session.order_id} <br></br>
-            Order Total: ${props.session.total_owed + props.session.total_tip}
-            <br></br>
-            <br></br>
-            Thanks for using Splitsy! To learn more, visit Splitsy.com
-            by clicking <Link href="https://github.com/rpp33-boc-arctic/splitsy">here</Link>.
+            REDIRECTING TO PAYMENT...
           </Typography>
         </Box>
       </Modal>
@@ -45,4 +38,4 @@ const OrderModal = (props) => {
   );
 }
 
-export default OrderModal;
+export default PayModal;

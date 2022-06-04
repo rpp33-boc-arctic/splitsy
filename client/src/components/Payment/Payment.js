@@ -7,6 +7,7 @@ import UserPaidBar from './userPaidBar.js';
 import Items from './items.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
+import PayModal from './payModal.js';
 import { Grid, Button } from '@mui/material';
 // import { group_cart } from './sampleData/session.js';
 // import session from './sampleData/session.js';
@@ -32,7 +33,9 @@ class Payment extends React.Component {
         myTotal: 0
       },
 
-      users: []
+      users: [],
+
+      payModalOpen: false
     }
   }
 
@@ -114,9 +117,14 @@ class Payment extends React.Component {
 
   handlePay() {
     console.log('Pay!');
+    this.setState({ payModalOpen: true });
     this.updateUserPay();
     this.updateReceipt();
     this.updateTotalTipAndTotalPaid();
+  }
+
+    handlePayModalClose() {
+    this.setState({payModalOpen: false});
   }
 
   //==========================     HELPER     ==========================
@@ -286,6 +294,11 @@ class Payment extends React.Component {
           <RedirectButton
           handlePay={this.handlePay.bind(this)}
           session={this.state.session}/>
+          <PayModal
+           ModalOpen={this.state.payModalOpen}
+           ModalClose={this.handlePayModalClose.bind(this)}
+           myTotal={this.state.myBill.myTotal}
+           />
         </Grid>
       </Grid>
     )

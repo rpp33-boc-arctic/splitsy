@@ -13,7 +13,7 @@ class RedirectButton extends React.Component {
     super(props);
     this.state = {
       order_ready: false,
-      ModalOpen: false
+      orderModalOpen: false
     }
   }
 
@@ -28,7 +28,7 @@ class RedirectButton extends React.Component {
   }
 
   handleOrderDone() {
-    this.setState({ ModalOpen: true }, () =>
+    this.setState({ orderModalOpen: true }, () =>
       axios({
         method: 'put',
         url: `/session${this.state.session_id}/updateOrderPaid`,
@@ -65,8 +65,8 @@ class RedirectButton extends React.Component {
     }
   }
 
-  handleModalClose() {
-    this.setState({ModalOpen: false});
+  handleOrderModalClose() {
+    this.setState({orderModalOpen: false});
   }
 
   render() {
@@ -82,8 +82,8 @@ class RedirectButton extends React.Component {
         </Button>
         {this.renderSubmitButton()}
         <OrderModal
-          ModalOpen={this.state.ModalOpen}
-          ModalClose={this.handleModalClose.bind(this)}
+          ModalOpen={this.state.orderModalOpen}
+          ModalClose={this.handleOrderModalClose.bind(this)}
           session={this.props.session}/>
       </Stack>
     )
