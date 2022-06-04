@@ -8,7 +8,7 @@ import Items from './items.js';
 import Bill from './bill.js';
 import RedirectButton from './redirectButton.js';
 import PayModal from './payModal.js';
-import { Grid, Button, CircularProgress } from '@mui/material';
+import { Grid, Button, CircularProgress, Typography} from '@mui/material';
 import _ from 'underscore';
 
 class Payment extends React.Component {
@@ -71,7 +71,7 @@ class Payment extends React.Component {
         })
         .then((session) => {
           if (session === "Unauthorized") { throw session};
-          
+
           this.setState({
             waitingForData: false,
             group_cart: session.data[0].group_cart,
@@ -252,19 +252,19 @@ class Payment extends React.Component {
   render() {
     if (this.state.waitingForData) {return (<CircularProgress />)}
     return (
-      <Grid container spacing={1} id="payment-page">
+      <Grid container spacing={1} id="payment-page" p={3} mt={1}>
 
-        <Grid item xs={2}>
+        <Grid item xs={2} p={2}>
           <Timer />
         </Grid>
 
-        <Grid item xs={7}>
+        <Grid item xs={7} p={2}>
           <ItemPaidBar group_cart={this.state.group_cart}/>
           <UserPaidBar session={this.state.session}/>
         </Grid>
 
-        <Grid item xs={3}>
-          FEELING GENEROUS...?
+        <Grid item xs={3} p={2}>
+          <Typography mb={1}>FEELING GENEROUS...?</Typography>
           <Button
             variant="outlined"
             size="medium"
@@ -273,13 +273,13 @@ class Payment extends React.Component {
           </Button>
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={2} p={2}>
           <UserList
             session_id={this.state.session_id}
             updateUserMap={this.updateUserMap.bind(this)}/>
         </Grid>
 
-        <Grid item xs={7}>
+        <Grid item xs={7} p={2}>
           <Items
             username={this.state.username}
             session_id={this.state.session_id}
@@ -293,14 +293,14 @@ class Payment extends React.Component {
             getUsername={this.getUsername.bind(this)} />
         </Grid>
 
-        <Grid item xs={3} container direction="column" justifyContent="flex-end">
+        <Grid item xs={3} container direction="column" justifyContent="flex-end" p={2}>
           <Bill
             session={this.state.session}
             user_pick={this.state.user_pick}
             getPrice={this.getPrice.bind(this)}
             updateMybill={this.updateMybill.bind(this)} />
         </Grid>
-        <Grid item xs={12} container justifyContent="flex-end">
+        <Grid item xs={12} container justifyContent="flex-end" p={2}>
           <RedirectButton
           handlePay={this.handlePay.bind(this)}
           session={this.state.session}/>

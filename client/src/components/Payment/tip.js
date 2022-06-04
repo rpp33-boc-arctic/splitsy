@@ -1,7 +1,5 @@
 import React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Stack, Button, TextField, Typography } from '@mui/material';
 
 class Tip extends React.Component {
   constructor(props) {
@@ -20,9 +18,7 @@ class Tip extends React.Component {
   render() {
     return (
       <div id="payment-user-tip">
-        ADD USER TIPS
-        <br></br>
-        <br></br>
+        <Typography mb={1}>ADD USER TIPS</Typography>
         <Stack direction="row" spacing={2}>
           <Button variant={this.props.tipOptions[15]} size="large" onClick={this.props.handleTipBtnClick}>15%</Button>
           <Button variant={this.props.tipOptions[20]} size="large" onClick={this.props.handleTipBtnClick}>20%</Button>

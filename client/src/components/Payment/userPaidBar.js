@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, styled } from '@mui/material';
+import { Stack, styled, Typography } from '@mui/material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 class UserPaidBar extends React.Component {
@@ -53,7 +53,7 @@ class UserPaidBar extends React.Component {
     return (
       <div id="user-paid-bar">
         <Stack direction="row" spacing={1}>
-          USERS PAID
+          <Typography mb={2} variant="body2">USERS PAID</Typography>
           <br></br>
           <BorderLinearProgress variant="determinate" value={paidPercentage} />
           {this.renderPercentage(paidPercentage)}
@@ -67,7 +67,7 @@ class UserPaidBar extends React.Component {
 export default UserPaidBar;
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  width: '80%',
+  width: '70%',
   height: 14,
   borderRadius: 7,
   [`&.${linearProgressClasses.colorPrimary}`]: {

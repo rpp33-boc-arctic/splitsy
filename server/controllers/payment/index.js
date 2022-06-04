@@ -100,6 +100,38 @@ module.exports = {
     })
   },
 
+  updateItemPay: (req, res) => {
+    ///session:session_id/user:user_id/item_paid
+    let session_id = req.params.session_id
+    let user_id = req.params.user_id
+
+    var updateItemPaid = (order_item_id) => {
+      Session.updateOne(
+        {session_code: session_id},
+        {$set:{[`group_cart.${order_item_id}.paid?`]: true}},
+        {upsert: true}
+      )
+    }
+    console.log(user_id)
+
+    return Session.findOne({session_code: session_id}, `users.${user_id}.user_cart`)
+      .then((users) => {
+        return users.users;
+        // users[0].users.updateOne()
+        // orders.forEach(async (order_item_id) => {
+        //   await updateItemPaid(order_item_id);
+        // })
+
+      })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((error) => {
+        console.log('error PUT update an item paid', error);
+        res.send(error);
+      })
+  },
+
   updateReceipt: (req, res) => {
     // console.log('param?', req.params);
     // console.log('body?', req.body);
