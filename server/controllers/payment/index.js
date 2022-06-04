@@ -102,8 +102,8 @@ module.exports = {
 
   updateItemPay: (req, res) => {
     ///session:session_id/user:user_id/item_paid
-    let session_id = req.params.session_id
-    let user_id = req.params.user_id
+    let session_id = req.params.session_id;
+    let user_id = req.params.user_id;
 
     var updateItemPaid = (order_item_id) => {
       Session.updateOne(
@@ -111,17 +111,21 @@ module.exports = {
         {$set:{[`group_cart.${order_item_id}.paid?`]: true}},
         {upsert: true}
       )
+        .then((result) => {
+          return result;
+        })
+        .catch((err) => {
+          return err;
+        })
     }
-    console.log(user_id)
 
-    return Session.findOne({session_code: session_id}, `users.${user_id}.user_cart`)
+    return Session.findOne({session_code: session_id}, 'users')
       .then((users) => {
-        return users.users;
-        // users[0].users.updateOne()
-        // orders.forEach(async (order_item_id) => {
-        //   await updateItemPaid(order_item_id);
-        // })
-
+        var orders = users.users.get(user_id).user_cart;
+        orders.forEach(async (order_item_id) => {
+          await updateItemPaid(order_item_id);
+        })
+        return user_id;
       })
       .then((result) => {
         res.send(result);

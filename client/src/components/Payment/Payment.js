@@ -128,6 +128,7 @@ class Payment extends React.Component {
     console.log('Pay!');
     this.setState({ payModalOpen: true });
     this.updateUserPay();
+    this.updateItemPay();
     this.updateReceipt();
     this.updateTotalTipAndTotalPaid();
   }
@@ -198,6 +199,17 @@ class Payment extends React.Component {
     // })
     .catch((err) => {
       console.log('error in updateUserPay', err)
+    })
+  }
+
+  updateItemPay () {
+    // update item_paid in group_cart
+    axios({
+      method: 'put',
+      url: `/session${this.state.session_id}/user${this.state.user_id}/item_paid`,
+    })
+    .catch((err) => {
+      console.log('error in updateItemPay', err)
     })
   }
 
