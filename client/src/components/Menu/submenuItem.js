@@ -6,10 +6,11 @@ import Button from '@mui/material/Button';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 
-class MenuItem extends React.Component {
+class SubmenuItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			quantity: 3
 		}
 	}
 
@@ -54,4 +55,4 @@ class MenuItem extends React.Component {
 }
 
 
-export default MenuItem;
+export default SubmenuItem;
