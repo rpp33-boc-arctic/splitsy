@@ -3,15 +3,21 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import Stack from '@mui/material/Stack';
+import { Link } from "react-router-dom";
+
 
 const RedirectButton = (props) => {
   return (
     <Stack direction="row" spacing={2}>
-      <Button variant="contained" endIcon={<ShoppingCartIcon />}>
-        Ready
+      <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
+        <Link to="/Restaurant/pick" style={{ 'textDecoration': 'none', color: 'white' }}>
+          Select Restaurant
+        </Link>
       </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
+        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }}>
         Checkout
+        </Link>
       </Button>
     </Stack>
   );

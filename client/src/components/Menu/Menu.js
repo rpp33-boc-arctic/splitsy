@@ -1,9 +1,10 @@
 import React from 'react';
 // import sampleData from './sampleData.js';
 // import MenuItemList from './menuItemList.js';
+import Button from '@mui/material/Button';
 import FullMenu from './fullMenu.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {useLocation} from "react-router-dom";
+import {useLocation, Link} from "react-router-dom";
 
 var Menu = (props)=> {
 
@@ -16,7 +17,14 @@ var Menu = (props)=> {
 					<h1>{state.item.name}</h1>
 					<h2>Address: {state.item.address.street_addr}</h2>
 					<h2>Phone Number: {state.item.phone_number}</h2>
-					<ShoppingCartIcon fontSize="large" />
+					{/* <ShoppingCartIcon fontSize="large" /> */}
+
+					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
+        <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}}>
+          GO TO CART
+        </Link>
+      </Button>
+
 				</div>
 				<div className='menu-title'>
 					<h2>Full Menu</h2>

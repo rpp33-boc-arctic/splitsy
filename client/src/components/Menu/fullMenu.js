@@ -4,6 +4,8 @@ import SubmenuItemList from './submenuItemList.js';
 import { List, Button } from '@mui/material';
 import sampleData from './sampleData.js';
 import menuStyles from './menuStyles.css';
+import Cart from '../Cart/Cart.js';
+
 
 
 class FullMenu extends React.Component {
@@ -18,17 +20,35 @@ class FullMenu extends React.Component {
         float: 'left',
         height:'800px',
         // position:'relative'
-      }
+      },
+			cart: []
 			// showComponent: false
     }
 		// this.onMenuCardClick = this.onMenuCardClick.bind(this);
+				this.addToCart = this.addToCart.bind(this);
   }
 
-	// onMenuCardClick() {
-	// 	this.setState({
-	// 		showComponent: !this.state.showComponent
-	// 	});
-	// }
+	addToCart(currentItem) {
+		console.log('add to cart logic here!');
+
+		// var cartItem = {
+		// 	item: this.props.item,
+		// 	count: 1
+		// }
+		// var current_cart = this.state.add_to_cart;
+		// current_cart.push(cartItem);
+		// this.setState({
+		// 	add_to_cart: current_cart
+		// });
+		// console.log('current_cart is: ', current_cart);
+		// return <Cart cart={current_cart} />
+
+		var current_cart = this.state.cart;
+		current_cart.push(currentItem);
+		this.setState({
+			cart: current_cart
+		})
+	}
 
   render() {
     var items = this.props.fullMenu.menu.categories.map((item, i) => {
@@ -36,18 +56,23 @@ class FullMenu extends React.Component {
 						{/* <submenuItemList submenu={item} key={i} />
 						<p>{item.name}</p> */}
 						{
-						<SubmenuItemList submenu={item} key={i} />
+						<SubmenuItemList submenu={item} key={i} addToCart={this.addToCart} />
 						}
 			</div>
     })
 		// console.log('menuStyles: ', menuStyles.toString().slice(0,1));
-		console.log('this.props.fullMenu is: ', this.props.fullMenu);
+		// console.log('this.props.fullMenu is: ', this.props.fullMenu);
+		console.log('cart inside fullMenu is now: ', this.props.cart);
+
     return (
 
       <div>
         <List className='example' style={this.state.scrollerStyle} >
         {items}
       </List>
+			<div>
+				cart currently is: {this.state.cart}
+			</div>
       </div>
 
     )

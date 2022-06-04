@@ -5,17 +5,36 @@ import RedirectButton from './redirectButton.js';
 import ItemList from './itemList.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Summary from './summary.js';
+import FullMenu from '../Menu/fullMenu.js';
+
 
 
 class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonAppBar: ButtonAppBar
+      buttonAppBar: ButtonAppBar,
+      cart: []
     }
+    this.fetchCart = this.fetchCart.bind(this);
+  }
+
+  fetchCart(event) {
+    console.log('fetch cart logic here!');
+    var cart = event.target.submenu;
+    console.log('event.target.submenu is: ', cart);
+    this.setState({
+      cart: cart
+    })
+  }
+
+  componentDidMount() {
+    // return <FullMenu fetchCart={this.fetchCart}/>
+    console.log('this.props inside Cart is: ', this.props);
   }
 
   render() {
+    console.log('current cart inside Cart.js is: ', this.props.cart);
     return (
       <div >
         {/* <ButtonAppBar /> */}
