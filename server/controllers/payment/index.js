@@ -49,8 +49,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error GET session.group_cart data')
-        res.send(null);
+        res.send(error);
       })
   },
 
@@ -65,8 +64,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error PUT more item to user cart')
-        res.send(null);
+        res.send(error);
       })
   },
 
@@ -81,8 +79,7 @@ module.exports = {
         res.send(result);
       })
       .catch((error) => {
-        console.log('error DELETE one item from user cart')
-        res.send(null);
+        res.send(error);
       })
   },
 
@@ -92,15 +89,52 @@ module.exports = {
 
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{[`users.${user_id}.checkout?`]: true}}
+      {$set:{[`users.${user_id}.checkout?`]: true}},
+      {upsert: true}
     )
     .then((result) => {
       res.send(result);
     })
     .catch((error) => {
-      console.log('error PUT pay sessions');
+      console.log('error PUT update user paid');
       res.send(null);
     })
+  },
+
+  updateItemPay: (req, res) => {
+    ///session:session_id/user:user_id/item_paid
+    let session_id = req.params.session_id;
+    let user_id = req.params.user_id;
+
+    var updateItemPaid = (order_item_id) => {
+      Session.updateOne(
+        {session_code: session_id},
+        {$set:{[`group_cart.${order_item_id}.paid?`]: true}},
+        {upsert: true}
+      )
+        .then((result) => {
+          return result;
+        })
+        .catch((err) => {
+          return err;
+        })
+    }
+
+    return Session.findOne({session_code: session_id}, 'users')
+      .then((users) => {
+        var orders = users.users.get(user_id).user_cart;
+        orders.forEach(async (order_item_id) => {
+          await updateItemPaid(order_item_id);
+        })
+        return user_id;
+      })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((error) => {
+        console.log('error PUT update an item paid', error);
+        res.send(error);
+      })
   },
 
   updateReceipt: (req, res) => {
@@ -108,25 +142,64 @@ module.exports = {
     // console.log('body?', req.body);
     let session_id = req.params.session_id
     let user_id = req.params.user_id
-    let user_cart = req.body.usercart
-    let user_tip = req.body.usertip
-    let user_paid = req.body.userpaid
+    let user_cart = req.body.userCart
+    let user_tip = req.body.userTip
+    let user_paid = req.body.userTotal
     let receipt = {
       'user_id': user_id,
       'items': user_cart,
       'user_tip': user_tip,
       'total_paid': user_paid
     };
-    // return Session.updateOne(
-    //   {session_code: session_id},
-    //   {$set:{[`receipt.${user_id}`]: receipt}}
-    // )
-    // .then((result) => {
-    //   res.send(result);
-    // })
-    // .catch((error) => {
-    //   console.log('error PUT pay sessions');
-    //   res.send(null);
-    // })
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{[`receipt.${user_id}`]: receipt}},
+      {upsert: true}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update receipt');
+      res.send(null);
+    })
   },
+
+  updateOrderPaid: (req, res) => {
+    let session_id = req.params.session_id;
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{'order_paid?': true}},
+      {upsert: true}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update order paid');
+      res.send(null);
+    })
+  },
+
+  updateTotalTipAndTotalPaid: (req, res) => {
+    let session_id = req.params.session_id;
+    let update_tip = req.body.update_tip;
+    let update_total_paid = req.body.update_total_paid;
+
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{
+        'total_tip': update_tip,
+        'total_paid': update_total_paid
+      }},
+      {upsert: true}
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log('error PUT update total tip and paid');
+      res.send(null);
+    })
+  }
 }

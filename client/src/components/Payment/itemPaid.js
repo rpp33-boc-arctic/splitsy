@@ -15,13 +15,13 @@ class ItemPaid extends React.Component {
     if (this.props.item['paid?']) {
       return (
         <div id="item-paid-bar">
-          <CircleRoundedIcon></CircleRoundedIcon>
+          <CircleRoundedIcon style={{ color: '#1976d2' }} ></CircleRoundedIcon>
         </div >
         )
       } else {
       return (
         <div id="item-paid-bar">
-          <CircleOutlinedIcon></CircleOutlinedIcon>
+          <CircleOutlinedIcon style={{ color: '#1976d2' }}></CircleOutlinedIcon>
         </div >
         )
       }

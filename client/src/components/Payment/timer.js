@@ -1,6 +1,5 @@
 import React from 'react';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
+import { Alert, Typography } from '@mui/material';
 
 class Timer extends React.Component {
   constructor(props) {
@@ -57,9 +56,9 @@ const CountTimer = ({MinSecs}) => {
 
   return (
     <>
-      <Button variant="outlined" size="large">
-        {`${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}
-      </Button>
+      <Typography mb={1} variant="body1">
+        TIMER: {`${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}
+      </Typography>
       {renderTimerAlert()}
     </>
   );

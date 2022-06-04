@@ -20,7 +20,7 @@ var billTemplate = (props) => (
             <TableCell >{props.subtotal}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell >TIP (%)</TableCell>
+            <TableCell >TIP</TableCell>
             <TableCell >{props.tip}</TableCell>
           </TableRow>
           <TableRow>
