@@ -41,7 +41,7 @@ class UserPaidBar extends React.Component {
   }
 
   renderPercentage(percentage) {
-    if (percentage) {
+    if (percentage >= 0) {
       return ( <>{percentage}%</> )
     } else {
       return ( <CircularProgress /> )

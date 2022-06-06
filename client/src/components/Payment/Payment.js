@@ -314,12 +314,12 @@ class Payment extends React.Component {
         </Grid>
         <Grid item xs={12} container justifyContent="flex-end" p={2}>
           <RedirectButton
-          handlePay={this.handlePay.bind(this)}
-          session={this.state.session}/>
+            handlePay={this.handlePay.bind(this)}
+            session={this.state.session}/>
           <PayModal
-           ModalOpen={this.state.payModalOpen}
-           ModalClose={this.handlePayModalClose.bind(this)}
-           myTotal={this.state.myBill.myTotal}
+            ModalOpen={this.state.payModalOpen}
+            ModalClose={this.handlePayModalClose.bind(this)}
+            myTotal={this.state.myBill.myTotal}
            />
         </Grid>
       </Grid>

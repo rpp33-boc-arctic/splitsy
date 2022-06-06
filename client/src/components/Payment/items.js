@@ -27,7 +27,7 @@ class Items extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.user_pick !== prevProps.user_pick || this.props.others_pick !== prevProps.others_pick) {
       this.initialize();
-      console.log('this.props.user_pick', this.props.user_pick)
+      // console.log('this.props.user_pick', this.props.user_pick)
     }
   }
 
