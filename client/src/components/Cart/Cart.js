@@ -33,6 +33,11 @@ function Cart(props) {
   //   console.log('this.props inside Cart is: ', this.props);
   // }
 
+  // function renderCart() {
+  //   // render cart logic here
+
+  // }
+
 
   const location = useLocation();
   const data = location.state;
@@ -52,7 +57,7 @@ function Cart(props) {
       <div>Item 3</div>
       <div>Item 4</div>
       <div>Item 5</div> */}
-      <ItemList />
+      <ItemList cart={data}/>
       {/* <div>Subtotal:      22.97</div>
         <div>Tax (10%):      2.97</div>
         <div>Delivery Fee:      22.97</div>

@@ -39,8 +39,8 @@ class ItemList extends React.Component {
   // scrollbar-width: thin;
 
   render() {
-    console.log(menu);
-    var items = menu.categories[0].menu_item_list.map((item, i) => {
+    console.log(this.props.cart);
+    var items = this.props.cart.map((item, i) => {
       return <Item item={item} key={i}/>
     })
 

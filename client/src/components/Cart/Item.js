@@ -27,7 +27,7 @@ class Item extends React.Component {
 						{/* <ListItemIcon>
 							{this.props.item.image}
 						</ListItemIcon> */}
-						<Button variant="outlined">{this.state.quantity}</Button>
+						{/* <Button variant="outlined">{this.state.quantity}</Button> */}
 						<img src={this.props.item.image} alt='food pic' width='100' height='100'></img>
             <ListItemText
               primary={this.props.item.name}

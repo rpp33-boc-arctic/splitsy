@@ -71,7 +71,7 @@ function FullMenu(props) {
 	// 		</div>
   //   })
 
-	function renderCart() {
+	function renderMenu() {
 		  var items = props.fullMenu.menu.categories.map((item, i) => {
       return <div>
 						{
@@ -106,7 +106,7 @@ useEffect(() => {
       </Button>
 
         <List className='example' style={scrollerStyle} >
-        {renderCart()}
+        {renderMenu()}
       </List>
 				{/* {
 					this.state.hideCart?
