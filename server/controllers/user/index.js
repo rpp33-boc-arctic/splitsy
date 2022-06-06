@@ -2,8 +2,9 @@ const { User, Session } = require('../../../database');
 
 module.exports = {
   profile: (req, res) => {
+    console.log('req.params: ', req.params);
     console.log('/user/profile server route hit!');
-    return User.find({})
+    return User.find({user_id: req.params.user_id})
       .then((success) => {
         res.send(success);
       })
@@ -13,14 +14,15 @@ module.exports = {
       })
   },
   history: (req, res) => {
+    console.log('req.params: ', req.params);
     console.log('/user/history server route hit!');
-    return Session.find({ user_id: params.user_id })
-      .then((success) => {
-        res.send(success);
-      })
-      .catch((error) => {
-        console.log('/user/history database Session.find error', error);
-        res.send(null);
-      })
+    // return Session.find({ user_id: params.user_id })
+    //   .then((success) => {
+    //     res.send(success);
+    //   })
+    //   .catch((error) => {
+    //     console.log('/user/history database Session.find error', error);
+    //     res.send(null);
+    //   })
   }
 }

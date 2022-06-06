@@ -35,7 +35,7 @@ class User extends React.Component {
 
   initialize() {
     var login_tokenFromCookie = '';  //get session_id fro cookie from browswer
-    var user_idFromCookie = 0;      //get from cookie broswer
+    var user_idFromCookie = 10;      //get from cookie broswer
     var usernameFromCookie = '';    //get from cookie broswer
 
     this.setState({
@@ -43,9 +43,9 @@ class User extends React.Component {
       user_id: user_idFromCookie,
       username: usernameFromCookie
     }, () => {
-      axios.get('/user/profile', { params: { login_token: this.login_token, user_id: this.user_id, username: this.user } })
+      axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {
-          console.log('axios GET /user/profile success: ', success.data[0])
+          console.log('axios GET /user/profile success: ', success.data)
           this.setState({
             user_id: success.data[0].user_id,
             username: success.data[0].username,
@@ -64,9 +64,9 @@ class User extends React.Component {
 
   render() {
     // STATIC SAMPLE DATA
-    var histories = sessionData.group_cart.map((history, i) => {
-      return <History history={history} key={i} />
-    })
+    // var histories = sessionData.group_cart.map((history, i) => {
+    //   return <History history={history} key={i} />
+    // })
     var friends = userData.results.map((friend, i) => {
       return <Friend friend={friend} key={i} />
     })
@@ -79,14 +79,15 @@ class User extends React.Component {
         <Grid container spacing={1} id="user-page">
           <Grid item xs={3}>
             <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
+            <Typography>Dennis Wang</Typography>
             <Typography>@{this.state.username}</Typography> <br></br><br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography align='center' variant='h6'>Order History</Typography>
             <List style={this.state.scrollerOrderHistory} >
-              {histories}
-              {/* <History /> */}
+              {/* {histories} */}
+              <History />
             </List>
           </Grid>
           <Grid item xs={3}>

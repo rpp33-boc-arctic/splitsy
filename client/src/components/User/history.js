@@ -8,20 +8,22 @@ class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: 0,
+      user_id: 10,
       restaurant: 'Restaurant Name',
-      items: ['Item'],
+      items: ['Item 1', 'Item 2'],
       total: 0
     }
     this.history = this.history.bind(this);
   }
 
   history() {
-    axios.get('/user/history', { params: { user_id: this.user_id } }) //pass in user_id as param?
-      .then((history) => {
-        console.log('axios GET /user/history success: ', history)
+    axios.get(`/user/history${this.state.user_id}`) //pass in user_id as param?
+      .then((success) => {
+        console.log('axios GET /user/history success: ', success)
         // this.setState({
-        //   username: user.username
+        //   restaurant: success.data[0],
+        //   items: [],
+        //   total: 0
         // })
       })
       .catch((error) => {
@@ -29,7 +31,7 @@ class History extends React.Component {
       })
   }
 
-  compmonentDidMount() {
+  componentDidMount() {
     this.history();
   }
 
@@ -42,11 +44,12 @@ class History extends React.Component {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>MM/DD/YYYY - Restaurant Name</Typography>
+            <Typography>MM/DD/YYYY - {this.state.restaurant}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              {this.props.history.menu_item_name} ${this.props.history.menu_item_price}
+              {/* {this.props.history.menu_item_name} ${this.props.history.menu_item_price} */}
+              {this.state.items} ${this.state.total}
             </Typography>
           </AccordionDetails>
         </Accordion>
