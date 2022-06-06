@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
 
 const sessionSchema = new mongoose.Schema({
   'session_code': { type: String, unique: true },
+  'timeUntilExpired': Date, // date + 1hour of time when checked and its not out make cookie for all users who have same session code
   'restaurant': {
     'restaurant_id': { type: String, unique: true },
     'name': String,
