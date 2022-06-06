@@ -76,8 +76,23 @@ function FullMenu(props) {
 
 	function addToCart(currentItem) {
 			// 	console.log('add to cart logic here!');
-			var currentCart = cart.push(currentItem);
-			setCart(cart.push(currentCart));
+			// var currentCart = cart;
+			// currentCart.push(currentItem);
+			// setCart(currentCart);
+		var isIncluded = false;
+			console.log('currentItem is: ', currentItem);
+			for (var i = 0; i < cart.length; i++) {
+				if (JSON.stringify(cart[i]) === JSON.stringify(currentItem)) {
+					isIncluded = true;
+				}
+			}
+		if (isIncluded) {
+			console.log('Item is already in cart!');
+		} else {
+			setCart( arr => [...arr, currentItem]);
+			// setCart({bob: 'I am bob'});
+			console.log('cart inside fullMenu is now: ', cart);
+		}
 	}
 
 	// emptyCart() {
@@ -89,6 +104,8 @@ function FullMenu(props) {
 
 	function emptyCart() {
 		setCart([]);
+		console.log('cart inside fullMenu is now: ', cart);
+
 	}
 
 	// updateCart() {
@@ -115,11 +132,18 @@ function FullMenu(props) {
 	return items;
 }
 
-	// 	console.log('cart inside fullMenu is now: ', this.state.cart);
+useEffect(() => {
+	console.log('cart inside fullMenu.js is now: ', JSON.stringify(cart));
+});
+
 
     return (
 
       <div>
+				{/* <div>
+					cart inside fullMenu is now: {JSON.stringify(cart)}
+				</div> */}
+
 					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} >
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} >
           GO TO CART
