@@ -8,6 +8,7 @@ class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      histories: [],
       user_id: 10,
       restaurant: 'Restaurant Name',
       items: ['Item 1', 'Item 2'],
@@ -19,12 +20,10 @@ class History extends React.Component {
   history() {
     axios.get(`/user/history${this.state.user_id}`) //pass in user_id as param?
       .then((success) => {
-        console.log('axios GET /user/history success: ', success)
-        // this.setState({
-        //   restaurant: success.data[0],
-        //   items: [],
-        //   total: 0
-        // })
+        console.log('axios GET /user/history success: ', success.data[0])
+        this.setState({
+          histories: success.data[0]
+        })
       })
       .catch((error) => {
         console.log('axios GET /user/history error: ', error);
@@ -35,6 +34,9 @@ class History extends React.Component {
     this.history();
   }
 
+  // this.state.histories.map(() => {
+  //   MUI Accordion Here
+  // })
   render() {
     return (
       <>
