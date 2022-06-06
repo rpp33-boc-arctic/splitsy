@@ -23,8 +23,5 @@ module.exports = {
         res.send(null);
       })
   },
-  friend: (req, res) => {
-
-module.exports = {
-  profile: (req, res) => {}
+  friend: (req, res) => {}
 }
