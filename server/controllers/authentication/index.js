@@ -80,7 +80,12 @@ module.exports = {
   },
   verifyUser: (cookieData) => {
 
-    const { token, username, userId } = cookieData;
+    if (cookieData.token !== undefined && cookieData.username !== undefined || cookieData.userId !== undefined) {
+      const { token, username, userId } = cookieData;
+    } else {
+      return false
+    }
+
 
     User.findOne({ 'session_cookie': token, 'username': username, 'user_id': userId })
       .then((user) => {
@@ -90,7 +95,7 @@ module.exports = {
           return false;
         }
       })
-      .catch((err) => errorHandler(err, res));
+      .catch((err) => {errorHandler(err, res)});
 
   },
 };
