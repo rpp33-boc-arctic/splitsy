@@ -57,7 +57,7 @@ class Map extends React.Component {
   }
   search(e){
 
-
+    this.props.setAddress(this.state.query);
     if (this.state.join.length >= 4){
       //joining session;
     } else {

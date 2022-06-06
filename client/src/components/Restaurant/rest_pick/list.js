@@ -15,8 +15,17 @@ var ListComponent = (props)=>{
       return null;
     }
     return props.rest.map((item,index)=>{
+
       var clicked = ()=>{
-        navigate('/menu', { state: { item:item } });
+        var obj = {
+          index:index,
+          name: item.name,
+          street_address: item.address.street_addr
+        }
+        props.clickRestaurant(obj, ()=>{
+          navigate('/menu', { state: { item:item } });
+        })
+
       }
       var retryindex=1;
       //state={{ menu: item }}

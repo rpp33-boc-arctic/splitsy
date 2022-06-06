@@ -3,7 +3,7 @@ const authController = require('./controllers/authentication');
 const userController = require('./controllers/user');
 const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
-const sessionController = require('./controllers/session');
+const orderSessionController = require('./controllers/orderSession');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
 
@@ -21,29 +21,28 @@ var isAuthenticated = (req, res, next) => {
 // router.get('/session:session_id', isAuthenticated, paymentController.getSession);
 
 
-// Authentication
-router.get('/getAddress', (req,res)=>{
-  //params->
-  axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json',{params:{fields:"formatted_address,geometry",input:"12145 west jessie",inputtype:"textquery",key:process.env.PlacesAPI}}).then(data=>{
-    console.log(data)
-  //make maker on map
-    res.send(JSON.stringify(data.data.candidates));
+//code bellow works but was only intended for trying to see if the api was better than what was given which indeed it was except no menus
+// if we have time we can put this back and call ubereeats api on every restraunt.
+// router.get('/getAddress', (req,res)=>{
+//   //params->
+//   axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json',{params:{fields:"formatted_address,geometry",input:"12145 west jessie",inputtype:"textquery",key:process.env.PlacesAPI}}).then(data=>{
+//     console.log(data)
+//   //make maker on map
+//     res.send(JSON.stringify(data.data.candidates));
+//   });
+// })
 
-  });
-})
-
-router.get('/placesNearby', (req,res)=>{
-    //params->
-var query = req.query
-var keyword;
-console.log(req.query)
-query.location = JSON.parse(query.location)
-  axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
-  {params:{fields:"name, photo",location:query.location.lat.toString()+','+query.location.lng.toString(),radius:"10000",type:"restaurant",keyword:"",key:process.env.PlacesAPI}}).then(response=>{
-    res.send(JSON.stringify(response.data));
-  });
-})
-
+// router.get('/placesNearby', (req,res)=>{
+//     //params->
+// var query = req.query
+// var keyword;
+// console.log(req.query)
+// query.location = JSON.parse(query.location)
+//   axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+//   {params:{fields:"name, photo",location:query.location.lat.toString()+','+query.location.lng.toString(),radius:"10000",type:"restaurant",keyword:"",key:process.env.PlacesAPI}}).then(response=>{
+//     res.send(JSON.stringify(response.data));
+//   });
+// })
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
@@ -51,9 +50,10 @@ router.get('/logout', authController.logout);
 
 
 // User profile
-router.get('/user/profile', userController.profile);
-router.get('/user/history', userController.history);
-router.get('/user/friend', userController.friends);
+//until sone one fixes the bug
+// router.get('/user/profile', userController.profile);
+// router.get('/user/history', userController.history);
+// router.get('/user/friend', userController.friends);
 
 
 // Restaurants
@@ -62,7 +62,7 @@ router.get('/:restaurant/menu', (req, res) => {});
 
 
 // Session
-router.post('/session:id', sessionController.createSession);
+router.get('/orderSession', orderSessionController.createSession);
 
 
 // Cart

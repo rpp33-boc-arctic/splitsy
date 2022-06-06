@@ -25,6 +25,6 @@ module.exports = {
   },
   friend: (req, res) => {
 
-module.exports = {
-  profile: (req, res) => {}
+  }
+
 }
