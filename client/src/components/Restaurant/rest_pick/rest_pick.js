@@ -21,6 +21,7 @@ class RestaurantPick extends React.Component {
   }
 
   getRestaurants(lat,long,miles){
+
         axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(data=>{
           console.log(data)
           this.setState({rest:data.data})
@@ -29,7 +30,7 @@ class RestaurantPick extends React.Component {
 
   clickRest(){
     //create session make code on server send to db and send to menu page with link tag
-
+    // grab cookie.
   }
 
 
