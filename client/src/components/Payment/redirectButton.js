@@ -31,7 +31,7 @@ class RedirectButton extends React.Component {
     this.setState({ orderModalOpen: true }, () =>
       axios({
         method: 'put',
-        url: `/session${this.state.session_id}/updateOrderPaid`,
+        url: `/session${this.props.session.session_code}/updateOrderPaid`,
       })
       // .then((results) => {
       //   console.log('results in updateOrderPaid', results.data);
@@ -44,9 +44,22 @@ class RedirectButton extends React.Component {
 
   checkOrderStatus() {
     // console.log('what?', this.props.session.total_paid, this.props.session.total_owed)
-    if (this.props.session.total_paid >= this.props.session.total_owed) {
-      this.setState({order_ready: true});
-    }
+    // if (this.props.session.total_paid >= this.props.session.total_owed) {
+    //   this.setState({order_ready: true});
+    // }
+    axios.get(`/session${this.props.session.session_code}`)
+    .then((session) => {
+      let current_cart = session.data[0].group_cart;
+      let result = true;
+      // console.log('session?', session.data[0].group_cart);
+      for (var key in current_cart) {
+        if (current_cart[key]['paid?'] === false) {
+          result = false;
+          return;
+        }
+      }
+      this.setState({order_ready: result});
+    })
   }
 
   renderSubmitButton() {

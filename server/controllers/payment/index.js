@@ -40,10 +40,11 @@ module.exports = {
   },
 
   getSession: (req, res) => {
-    // /session:session_id
-    var params = req.params;
 
-    return Session.find({ session_code: params.session_id })
+    // var params = req.params;
+    // return Session.find({ session_code: params.session_id })
+
+    return Session.find({})
       .then((result) => {
         res.send(result);
       })
@@ -144,18 +145,35 @@ module.exports = {
     let user_cart = req.body.userCart
     let user_tip = req.body.userTip
     let user_paid = req.body.userTotal
-    let receipt = {
-      'user_id': user_id,
-      'items': user_cart,
-      'user_tip': user_tip,
-      'total_paid': user_paid
-    };
-    return Session.updateOne(
-      {session_code: session_id},
-      {$set:{[`receipt.${user_id}`]: receipt}},
-      {upsert: true}
-    )
-    .then((result) => {
+
+    Session.find({session_code: session_id})
+    .then((session) => {
+      // console.log('session', session[0].receipt.get(user_id));
+      return session[0].receipt.get(user_id)
+    }).then((oldReceipt) => {
+      if (oldReceipt) {
+        var receipt = {
+          'user_id': user_id,
+          'items': oldReceipt.items.concat(user_cart),
+          'user_tip': oldReceipt.user_tip + user_tip,
+          'total_paid': oldReceipt.total_paid + user_paid
+        };
+      } else {
+        var receipt = {
+          'user_id': user_id,
+          'items': user_cart,
+          'user_tip': user_tip,
+          'total_paid': user_paid
+        };
+      }
+      return receipt;
+    }).then((receipt) => {
+      return Session.updateOne(
+        {session_code: session_id},
+        {$set:{[`receipt.${user_id}`]: receipt}},
+        {upsert: true}
+      )
+    }).then((result) => {
       res.send(result);
     })
     .catch((error) => {
