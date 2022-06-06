@@ -134,7 +134,7 @@ class Payment extends React.Component {
   }
 
     handlePayModalClose() {
-    this.setState({payModalOpen: false}, this.updateItemsOnMainBoard);
+    this.setState({payModalOpen: false}, this.initialize());
   }
 
   //==========================     HELPER     ==========================
