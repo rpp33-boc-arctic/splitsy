@@ -145,7 +145,7 @@ useEffect(() => {
 				</div> */}
 
 					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} >
-        <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} >
+        <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
           GO TO CART
         </Link>
 

@@ -28,10 +28,10 @@ class Cart extends React.Component {
     })
   }
 
-  componentDidMount() {
-    // return <FullMenu fetchCart={this.fetchCart}/>
-    // console.log('this.props inside Cart is: ', this.props);
-  }
+  // componentDidMount() {
+  //   return <FullMenu fetchCart={this.fetchCart}/>
+  //   console.log('this.props inside Cart is: ', this.props);
+  // }
 
   render() {
     console.log('current props inside Cart.js is: ', this.props);
