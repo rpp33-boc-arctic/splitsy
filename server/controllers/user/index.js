@@ -22,9 +22,5 @@ module.exports = {
         console.log('/user/history database Session.find error', error);
         res.send(null);
       })
-  },
-  friend: (req, res) => {
-
-module.exports = {
-  profile: (req, res) => {}
+  }
 }
