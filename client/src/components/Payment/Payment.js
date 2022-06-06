@@ -134,7 +134,7 @@ class Payment extends React.Component {
   }
 
     handlePayModalClose() {
-    this.setState({payModalOpen: false});
+    this.setState({payModalOpen: false}, this.initialize());
   }
 
   //==========================     HELPER     ==========================
@@ -288,7 +288,8 @@ class Payment extends React.Component {
         <Grid item xs={2} p={2}>
           <UserList
             session_id={this.state.session_id}
-            updateUserMap={this.updateUserMap.bind(this)}/>
+            updateUserMap={this.updateUserMap.bind(this)}
+            user_id={this.state.user_id}/>
         </Grid>
 
         <Grid item xs={7} p={2}>
@@ -314,12 +315,12 @@ class Payment extends React.Component {
         </Grid>
         <Grid item xs={12} container justifyContent="flex-end" p={2}>
           <RedirectButton
-          handlePay={this.handlePay.bind(this)}
-          session={this.state.session}/>
+            handlePay={this.handlePay.bind(this)}
+            session={this.state.session}/>
           <PayModal
-           ModalOpen={this.state.payModalOpen}
-           ModalClose={this.handlePayModalClose.bind(this)}
-           myTotal={this.state.myBill.myTotal}
+            ModalOpen={this.state.payModalOpen}
+            ModalClose={this.handlePayModalClose.bind(this)}
+            myTotal={this.state.myBill.myTotal}
            />
         </Grid>
       </Grid>
