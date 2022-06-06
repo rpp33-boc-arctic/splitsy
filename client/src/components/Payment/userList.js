@@ -9,6 +9,7 @@ class UserList extends React.Component {
       currentUserInfo: []
     }
     this.getUserInfo = this.getUserInfo.bind(this);
+    this.renderLoginUser = this.renderLoginUser.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,14 @@ class UserList extends React.Component {
     }
   }
 
+  renderLoginUser(currentUserID) {
+      if(currentUserID === this.props.user_id) {
+        return (<>(Me)</>);
+      } else {
+        return null;
+      }
+  }
+
   render() {
       return (
         <div id="payment-user-list">
@@ -48,7 +57,7 @@ class UserList extends React.Component {
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
-                  <Typography mb={2}>{user.username}</Typography>
+                  <Typography mb={2}>{user.username} {this.renderLoginUser(user.user_id)}</Typography>
                 </ListItemAvatar>
               </ListItem>
             ))}

@@ -134,7 +134,7 @@ class Payment extends React.Component {
   }
 
     handlePayModalClose() {
-    this.setState({payModalOpen: false});
+    this.setState({payModalOpen: false}, this.updateItemsOnMainBoard);
   }
 
   //==========================     HELPER     ==========================
@@ -288,7 +288,8 @@ class Payment extends React.Component {
         <Grid item xs={2} p={2}>
           <UserList
             session_id={this.state.session_id}
-            updateUserMap={this.updateUserMap.bind(this)}/>
+            updateUserMap={this.updateUserMap.bind(this)}
+            user_id={this.state.user_id}/>
         </Grid>
 
         <Grid item xs={7} p={2}>
