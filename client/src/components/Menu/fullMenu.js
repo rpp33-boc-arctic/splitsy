@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-function FullMenu() {
+function FullMenu(props) {
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -33,13 +33,23 @@ function FullMenu() {
 
   // }
 
-	const [scrollerStyle, setScrollerStyle] = useState(0);
-	const [cart, setCart] = useState(1);
+	const [scrollerStyle, setScrollerStyle] = useState(
+		{
+			      overflowY: 'scroll',
+						// overflowY: 'hidden',
+			      border:'1px solid grey',
+			      width:'1300px',
+			      float: 'left',
+			      height:'800px',
+			      // position:'relative'
+			    }
+	);
+	const [cart, setCart] = useState([]);
 
-	useEffect(() => {
+	// useEffect(() => {
 		// Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-	});
+    // document.title = `You clicked ${count} times`;
+	// });
 
 
 	// addToCart(currentItem) {
@@ -64,31 +74,48 @@ function FullMenu() {
 	// 	}, () => {console.log('cart state is now: ', this.state.cart)})
 	// }
 
+	function addToCart(currentItem) {
+			// 	console.log('add to cart logic here!');
+			var currentCart = cart.push(currentItem);
+			setCart(cart.push(currentCart));
+	}
+
 	// emptyCart() {
 	// 	//empty cart logic here
 	// 	this.setState({
 	// 		cart: []
 	// 	})
-
 	// }
+
+	function emptyCart() {
+		setCart([]);
+	}
 
 	// updateCart() {
 	// 	return <Cart cart={this.state.cart}/>
 	// }
 
-  render() {
-    var items = this.props.fullMenu.menu.categories.map((item, i) => {
+  // render() {
+  //   var items = this.props.fullMenu.menu.categories.map((item, i) => {
+  //     return <div>
+	// 					{
+	// 					<SubmenuItemList submenu={item} key={i} addToCart={this.addToCart} emptyCart={this.emptyCart} />
+	// 					}
+	// 		</div>
+  //   })
+
+	function renderCart() {
+		  var items = props.fullMenu.menu.categories.map((item, i) => {
       return <div>
-						{/* <submenuItemList submenu={item} key={i} />
-						<p>{item.name}</p> */}
 						{
-						<SubmenuItemList submenu={item} key={i} addToCart={this.addToCart} emptyCart={this.emptyCart} />
+						<SubmenuItemList submenu={item} key={i} addToCart={addToCart} emptyCart={emptyCart} />
 						}
 			</div>
-    })
-		// console.log('menuStyles: ', menuStyles.toString().slice(0,1));
-		// console.log('this.props.fullMenu is: ', this.props.fullMenu);
-		console.log('cart inside fullMenu is now: ', this.state.cart);
+	})
+	return items;
+}
+
+	// 	console.log('cart inside fullMenu is now: ', this.state.cart);
 
     return (
 
@@ -100,24 +127,24 @@ function FullMenu() {
 
       </Button>
 
-			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} onClick={this.emptyCart}>
+			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} onClick={emptyCart}>
         EMPTY CART
       </Button>
 
-        <List className='example' style={this.state.scrollerStyle} >
-        {items}
+        <List className='example' style={scrollerStyle} >
+        {renderCart()}
       </List>
-				{
+				{/* {
 					this.state.hideCart?
 					<Cart cart={this.state.cart} />:
 					null
 
-				}
+				} */}
       </div>
 
     )
   }
-}
+// }
 
 
 export default FullMenu;
