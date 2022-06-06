@@ -58,12 +58,17 @@ class Items extends React.Component {
 
   //==========================     RENDER     ==========================
   render() {
+    if(this.state.items) {
+      var itemList = this.state.items.sort((a, b) => {return a.props.item.user_id - b.props.item.user_id});
+    }
+
     if (!this.props.user_pick) {
       return (<CircularProgress />);
     } else {
       return (
         <List sx={{ overflow: 'auto'}}>
-          {this.state.items}
+          {/* {this.state.items} */}
+          {itemList}
         </List>
       )
     }

@@ -11,11 +11,13 @@ class ItemPaidBar extends React.Component {
   }
 
   render() {
+    var itemList = Object.values(this.props.group_cart).sort((a, b) => {return a.user_id - b.user_id});
+
     return (
     <div id="item-paid-bar">
       <Stack direction="row" spacing={1}>
         <Typography mb={2} variant="body2">ITEMS PAID</Typography>
-        {Object.values(this.props.group_cart).map((item, i) => (
+        {itemList.map((item, i) => (
           <ItemPaid item={item} key={i}/>
         ))}
       </Stack>

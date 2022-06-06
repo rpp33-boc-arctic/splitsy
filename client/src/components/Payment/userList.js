@@ -44,6 +44,7 @@ class UserList extends React.Component {
   }
 
   render() {
+    var userArray = this.state.currentUserInfo.sort((a, b) => {return a - b});
       return (
         <div id="payment-user-list">
           <List
@@ -53,7 +54,7 @@ class UserList extends React.Component {
             overflow: 'auto',
             maxHeight: '80%'}}
           >
-            {this.state.currentUserInfo.map((user, i) => (
+            {userArray.map((user, i) => (
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
