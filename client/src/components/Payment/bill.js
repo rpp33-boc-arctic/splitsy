@@ -18,11 +18,11 @@ class Bill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: "group", //groupBill, myBill, usernameBill (stretch)
       tipPercent: "",
 
       subtotal: "",
       tip: 20,
+      tipAmount: "",
       tipOptions: {
         15: "outlined",
         20: "contained",
@@ -37,15 +37,19 @@ class Bill extends React.Component {
   }
 
   componentDidMount () {
-    this.calculateMyBillSummary()
+    this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
+
   }
 
-  componentDidUpdate () {
-    this.calculateMyBillSummary()
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.user_pick !== prevProps.user_pick || prevState.tip !== this.state.tip ) {
+      this.calculateMyBillSummary(() => {this.props.updateMybill(this.state.tipAmount, this.state.total)});
+    }
   }
 
   handleTipBtnClick(e) {
     e.preventDefault();
+    document.getElementById("payment-tip-input").value = '';
     let tipSelected = e.target.innerText.slice(0, 2);
     this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
   }
@@ -69,53 +73,70 @@ class Bill extends React.Component {
     this.setState({tipOptions: currentOptions});
   }
 
-  calculateMyBillSummary () {
-    // var subtotal = 0
-    // iterate over user_pick
-      // subtotal+= getPrice(order_item_id)
-    // var tip = subtotal * this.state.tipPercent/100
-    // var tax = subtotal * 0.07
-    // var total = subtotal + tip + tax
-    // setState tip, tax, subtotal, total
+  calculateMyBillSummary (cb = () => {}) {
+    // console.log('this.props in bill', this.props);
+    var subtotal = 0;
+    this.props.user_pick.forEach((order_item_id) => {
+      subtotal += this.props.getPrice(order_item_id);
+    })
+    var tip = subtotal * this.state.tip/100;
+    var tax = subtotal * 0.07;
+    var total = subtotal + tip + tax;
+    this.setState({
+      subtotal: subtotal,
+      tipAmount: tip,
+      tax: tax,
+      total: total
+    }, () => {
+      cb();
+    })
+  }
+
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   render() {
-    return (
-      <>
-        <Tip
-          tip={this.state.tip}
-          handleTipBtnClick={this.handleTipBtnClick}
-          handleOtherTip={this.handleOtherTip}
-          // renderTipVariant={this.renderTipVariant}
-          tipOptions={this.state.tipOptions}
-        />
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>GROUP BILL SUMMARY</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <BillTemplate
-              subtotal={this.props.session.grand_total}
-              tip={this.props.session.total_tip}
-              tax={this.props.session.total_tax}
-              total={this.props.session.total_owed} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>MY BILL SUMMARY</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <BillTemplate
-              subtotal={this.state.subtotal}
-              tip={this.state.tip}
-              tax={this.state.tax}
-              total={this.state.total}
-            />
-          </AccordionDetails>
-        </Accordion>
-      </>
-    )
+    if (this.props.session.grand_total) {
+      return (
+        <>
+          <Tip
+            tip={this.state.tip}
+            handleTipBtnClick={this.handleTipBtnClick}
+            handleOtherTip={this.handleOtherTip}
+            tipOptions={this.state.tipOptions}
+          />
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>GROUP BILL SUMMARY</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <BillTemplate
+                subtotal={this.props.session.grand_total.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tip={(this.props.session.total_tip + this.state.tipAmount).toLocaleString('en-US', {maximumFractionDigits:2})}
+                tax={this.props.session.total_tax.toLocaleString('en-US', {maximumFractionDigits:2})}
+                total={(this.props.session.total_owed + this.state.tipAmount).toLocaleString('en-US', {maximumFractionDigits:2})} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={true}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>MY BILL SUMMARY</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <BillTemplate
+                subtotal={this.state.subtotal.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tip={this.state.tipAmount.toLocaleString('en-US', {maximumFractionDigits:2})}
+                tax={this.state.tax.toLocaleString('en-US', {maximumFractionDigits:2})}
+                total={this.state.total.toLocaleString('en-US', {maximumFractionDigits:2})}
+              />
+            </AccordionDetails>
+          </Accordion>
+        </>
+      )
+    } else {
+      return <div>Waiting for data</div>
+    }
+
   }
 }
 
