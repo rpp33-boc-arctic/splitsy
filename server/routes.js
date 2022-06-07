@@ -19,8 +19,6 @@ var isAuthenticated = (req, res, next) => {
 }
 // SAMPLE USAGE
 // router.get('/session:session_id', isAuthenticated, paymentController.getSession);
-
-
 //code bellow works but was only intended for trying to see if the api was better than what was given which indeed it was except no menus
 // if we have time we can put this back and call ubereeats api on every restraunt.
 // router.get('/getAddress', (req,res)=>{
