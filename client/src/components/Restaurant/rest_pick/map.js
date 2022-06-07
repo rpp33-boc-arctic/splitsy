@@ -2,7 +2,6 @@ import React from 'react';
 import './map.scss'
 import tt from '@tomtom-international/web-sdk-maps'
 import {MapAPI} from './maps.config';
-import axios from 'axios';
 import {Button,TextField} from '@mui/material';
 
 class Map extends React.Component {

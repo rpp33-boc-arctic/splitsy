@@ -8,16 +8,15 @@ import {PlacesAPI, MapAPI} from './maps.config.js';
 class RestaurantPick extends React.Component {
   constructor(props) {
     super(props);
+    this.googleAPI = PlacesAPI;
     this.state = {
       rest:[],
-
       query:"",
       error:false,
       keywords:"",
       helperText:"pleaes enter a valid address.",
       join:""
     }
-    console.log(this);
     this.getRestaurants = this.getRestaurants.bind(this);
     this.createCookie = this.createCookie.bind(this);
     this.getCookie = this.getCookie.bind(this);
@@ -25,7 +24,6 @@ class RestaurantPick extends React.Component {
     this.querychange = this.querychange.bind(this);
     this.search = this.search.bind(this);
     this.username = 'grant_22'
-    // this.getPlaces = this.getPlaces.bind(this)
   }
   querychange(e,name){
       if (name === "query"){

@@ -4,7 +4,6 @@
 import React from 'react';
 import './list.scss'
 import {ListItem,List,Divider,ListItemText} from '@mui/material';
-import Menu from '../../Menu/Menu.js'
 import { useNavigate }  from "react-router-dom";
 
 var ListComponent = (props)=>{
