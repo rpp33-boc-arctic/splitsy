@@ -20,7 +20,7 @@ const RedirectButton = (props) => {
         </Link>
       </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
-        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }}>
+        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} onClick={props.updateCartDatabase} >
         Checkout
         </Link>
       </Button>

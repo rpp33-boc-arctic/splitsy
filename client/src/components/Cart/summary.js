@@ -27,11 +27,12 @@ class Summary extends React.Component {
     return (
       <div>
         {/* <div>Subtotal:      22.97</div> */}
-        {/* <div>Total tax (10%):      2.97</div> */}
-        <div>Total tax (10%):      {this.calculateTotalTax()}</div>
+        <div>Total tax (7.25%):      {this.props.totalTax} </div>
+        {/* <div>Total tax (10%):      {this.calculateTotalTax()}</div> */}
 
         {/* <div>Delivery Fee:      22.97</div> */}
-        <div>Grand total:      {this.calculateGrandTotal()}  </div>
+        <div>Grand total:      {this.props.grandTotal}  </div>
+        {/* <div>Grand total:      {this.calculateGrandTotal()}  </div> */}
         {/* <div>Total owed:      22.97</div> */}
       </div >
     )

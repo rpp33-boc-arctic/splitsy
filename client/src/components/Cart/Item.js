@@ -33,7 +33,7 @@ class Item extends React.Component {
               primary={this.props.item.name}
               secondary={
                 <>
-								<Button variant="text">Edit</Button>
+								<Button variant="text"></Button>
 									  Current Price: {this.props.item.price}
                 </>
               }

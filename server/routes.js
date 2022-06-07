@@ -57,8 +57,8 @@ router.post('/session:id', sessionController.createSession);
 
 
 // Cart
-router.get('/session:id/cart', cartController.getCart);
-router.put('/session:id/add', cartController.updateCart);
+router.get('/session:session_id/cart', cartController.getCart);
+router.post('/session:session_id/add', cartController.updateCart);
 
 
 
