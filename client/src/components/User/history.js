@@ -14,29 +14,26 @@ class History extends React.Component {
       items: ['Item 1', 'Item 2'],
       total: 0
     }
-    this.history = this.history.bind(this);
+    // this.history = this.history.bind(this);
   }
 
-  history() {
-    axios.get(`/user/history${this.state.user_id}`) //pass in user_id as param?
-      .then((success) => {
-        console.log('axios GET /user/history success: ', success.data[0])
-        this.setState({
-          histories: success.data[0]
-        })
-      })
-      .catch((error) => {
-        console.log('axios GET /user/history error: ', error);
-      })
-  }
+  // history() {
+  //   axios.get(`/user/history${this.state.user_id}`)
+  //     .then((success) => {
+  //       console.log('axios GET /user/history success: ', success.data)
+  //       this.setState({
+  //         histories: success.data
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       console.log('axios GET /user/history error: ', error);
+  //     })
+  // }
 
-  componentDidMount() {
-    this.history();
-  }
+  // componentDidMount() {
+  //   this.history();
+  // }
 
-  // this.state.histories.map(() => {
-  //   MUI Accordion Here
-  // })
   render() {
     return (
       <>
@@ -46,12 +43,12 @@ class History extends React.Component {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>MM/DD/YYYY - {this.state.restaurant}</Typography>
+            <Typography>MM/DD/YYYY - {this.props.history.restaurant}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
               {/* {this.props.history.menu_item_name} ${this.props.history.menu_item_price} */}
-              {this.state.items} ${this.state.total}
+              {this.props.history.items} ${this.props.history.total}
             </Typography>
           </AccordionDetails>
         </Accordion>

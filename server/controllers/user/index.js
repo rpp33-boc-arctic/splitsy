@@ -13,21 +13,25 @@ module.exports = {
       })
   },
   history: (req, res) => {
-    console.log('req.params.user_id: ', req.params.user_id);
     console.log('/user/history server route hit!');
     return Session.find({})
       .then((allOrders) => {
         var results = [];
         allOrders.forEach((singleOrder) => {
-          console.log('individaul order data: ', singleOrder.receipt);
-          for(var key in singleOrder.receipt) {
-            if (key === req.params.user_id) {
-              results.push({
-                restaurant: singleOrder.restaurant.name,
-                items: singleOrder.receipt[key].items,
-                total: singleOrder.receipt[key].total_paid
-              })
-            }
+          if (singleOrder.receipt.get(req.params.user_id)) {
+            // var translatedItems = [];
+            // singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
+            //   console.log('item id: ', item);
+            //   if(singleOrder.group_cart.get(item)) {
+            //     console.log('found it in group cart!')
+            //     // translatedItems.push(singleOrder.group_cart.get(item).menu_item_name);
+            //   }
+            // })
+            results.push({
+              restaurant: singleOrder.restaurant.name,
+              items: singleOrder.receipt.get(req.params.user_id).items,
+              total: singleOrder.receipt.get(req.params.user_id).total_paid
+            })
           }
         })
         console.log('res.send results: ', results);

@@ -15,6 +15,7 @@ class User extends React.Component {
       user_id: 0,
       username: '',
       photo_url: '',
+      histories: [],
       scrollerOrderHistory: {
         overflowY: 'scroll',
         border: '1px solid white',
@@ -31,6 +32,7 @@ class User extends React.Component {
       }
     }
     this.initialize = this.initialize.bind(this);
+    this.history = this.history.bind(this);
   }
 
   initialize() {
@@ -50,6 +52,8 @@ class User extends React.Component {
             user_id: success.data[0].user_id,
             username: success.data[0].username,
             photo_url: success.data[0].photo_url
+          }, () => {
+            this.history();
           })
         })
         .catch((error) => {
@@ -58,20 +62,30 @@ class User extends React.Component {
     })
   }
 
+  history() {
+    axios.get(`/user/history${this.state.user_id}`)
+      .then((success) => {
+        console.log('axios GET /user/history success: ', success.data)
+        this.setState({
+          histories: success.data
+        })
+      })
+      .catch((error) => {
+        console.log('axios GET /user/history error: ', error);
+      })
+  }
+
   componentDidMount() {
     this.initialize();
   }
 
   render() {
-    // STATIC SAMPLE DATA
-    // var histories = sessionData.group_cart.map((history, i) => {
-    //   return <History history={history} key={i} />
-    // })
+    var histories = this.state.histories.map((history, i) => {
+      return <History history={history} key={i} />
+    })
     var friends = userData.results.map((friend, i) => {
       return <Friend friend={friend} key={i} />
     })
-
-    // DEPLOYED DB DATA
 
     return (
       <div>
@@ -86,8 +100,8 @@ class User extends React.Component {
           <Grid item xs={6}>
             <Typography align='center' variant='h6'>Order History</Typography>
             <List style={this.state.scrollerOrderHistory} >
-              {/* {histories} */}
-              <History />
+              {histories}
+              {/* <History /> */}
             </List>
           </Grid>
           <Grid item xs={3}>
