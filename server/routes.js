@@ -28,9 +28,9 @@ router.get('/logout', authController.logout);
 
 
 // User profile
-router.get('/user/profile', userController.profile);
-router.get('/user/history', userController.history);
-// router.get('/user/friend', userController.friends);
+router.get('/user/profile:user_id', userController.profile);
+router.get('/user/history:user_id', userController.history);
+router.get('/user/friends', userController.friends);
 
 
 // Restaurants
