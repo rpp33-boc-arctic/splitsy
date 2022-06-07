@@ -10,6 +10,14 @@ var jwt = require('jsonwebtoken');
 module.exports = {
 
   createSession: (req, res) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+
+
+
+    //if token then autheticate info lies in the token
+    //
+
 
     var address = req.query.address;
     var username = req.query.username;
