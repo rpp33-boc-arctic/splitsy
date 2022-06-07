@@ -4,8 +4,6 @@ var db  = require('../../../database/index.js')
 
 module.exports = {
   restaurantList: (req, response) => {
-
-    console.log(req.query);
     if (req.query){
 
       if (req.query.lat >=  33.692  && req.query.lat <= 33.695 ){

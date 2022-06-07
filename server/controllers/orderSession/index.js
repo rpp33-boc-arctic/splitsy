@@ -47,7 +47,6 @@ module.exports = {
 
     //create session;
 
-    console.log(obj);
 //  if cookie then verify token if out of time then create a new cookie  with same session_code
 //  if sesison still exist in db
 //if user does not have session in db create a new token with new session_code

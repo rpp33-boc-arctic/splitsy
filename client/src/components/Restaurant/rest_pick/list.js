@@ -29,7 +29,7 @@ var ListComponent = (props)=>{
       var retryindex=1;
       //state={{ menu: item }}
       return  ( <div onClick={clicked}>
-       <ListItem key={index} className="item" button style={{height:"150px", border:"1px solid black"}}>
+       <ListItem key={index} className="item" button style={{height:"150px", border:"1px solid grey"}}>
       <div className="img-ct">
           <img className="image" src={item.logo_photos[0]}  onError={({ currentTarget }) => {
     currentTarget.onerror = null; // prevents looping

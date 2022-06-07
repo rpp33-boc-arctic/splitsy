@@ -35,9 +35,6 @@ class NavBar extends React.Component {
   }
 
   detectOffClick(e){
-    console.log(e.target.classList);
-    // console.log(e.target.classList);
-
     var b1 = e.target.classList.contains('MuiTypography-root');
     var b2 = e.target.classList.contains('MuiList-root');
     var b3 = e.target.classList.contains('MuiBox-root');
@@ -49,8 +46,6 @@ class NavBar extends React.Component {
     } else {
       console.log('not closed')
     }
-    // console.log(e.target.className.includes('MuiList-root'))
-    // implement later as its a challenge because i have to get access to the parent to dect if clicked on the body
   }
   render() {
 
