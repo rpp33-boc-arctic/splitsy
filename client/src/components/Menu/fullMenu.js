@@ -24,26 +24,43 @@ function FullMenu(props) {
 	);
 	const [cart, setCart] = useState([]);
 
-	function addToCart(currentItem) {
-			// 	console.log('add to cart logic here!');
-			// var currentCart = cart;
-			// currentCart.push(currentItem);
-			// setCart(currentCart);
-		var isIncluded = false;
-			console.log('currentItem is: ', currentItem);
-			for (var i = 0; i < cart.length; i++) {
-				if (JSON.stringify(cart[i]) === JSON.stringify(currentItem)) {
-					isIncluded = true;
-				}
+	// useEffect(() => {
+  //   setCart(JSON.parse(window.localStorage.getItem('cart')))
+  // }, []);
+
+
+
+  useEffect(() => {
+			const data = localStorage.getItem('cart');
+			if (data){
+				setCart(JSON.parse(data));
 			}
-		if (isIncluded) {
-			console.log('Item is already in cart!');
-		} else {
+  }, []);
+
+	useEffect(() => {
+    // setCart(JSON.parse(localStorage.setItem('cart', cart)))
+		localStorage.setItem('cart', JSON.stringify(cart));
+  });
+
+	function addToCart(currentItem) {
+		// var isIncluded = false;
+		// 	console.log('currentItem is: ', currentItem);
+		// 	for (var i = 0; i < cart.length; i++) {
+		// 		if (JSON.stringify(cart[i]) === JSON.stringify(currentItem)) {
+		// 			isIncluded = true;
+		// 		}
+		// 	}
+		// if (isIncluded) {
+		// 	console.log('Item is already in cart!');
+		// } else {
+		// 	setCart( arr => [...arr, currentItem]);
+
 			setCart( arr => [...arr, currentItem]);
-			// setCart({bob: 'I am bob'});
+			localStorage.setItem('cart', cart);
+
 			console.log('cart inside fullMenu is now: ', cart);
 		}
-	}
+	// }
 
 	// emptyCart() {
 	// 	//empty cart logic here
@@ -86,6 +103,11 @@ useEffect(() => {
 	console.log('cart inside fullMenu.js is now: ', JSON.stringify(cart));
 });
 
+	function itemCount() {
+		var count = cart.length;
+		return count;
+	}
+
 
     return (
 
@@ -93,7 +115,9 @@ useEffect(() => {
 				{/* <div>
 					cart inside fullMenu is now: {JSON.stringify(cart)}
 				</div> */}
-
+				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} onClick={emptyCart}>
+				{itemCount()}
+		  </Button>
 					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} >
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
           GO TO CART

@@ -7,13 +7,32 @@ class Summary extends React.Component {
     }
   }
 
+  calculateTotalTax() {
+    // total tax logic here
+    var grandTotal = this.calculateGrandTotal();
+    var totalTax = Math.round((grandTotal * 7.25) / 100);
+    return totalTax;
+  }
+
+  calculateGrandTotal() {
+    // total tax logic here
+    var grandTotal = 0;
+    for (var i = 0; i < this.props.cart.length; i++) {
+      grandTotal += this.props.cart[i].price;
+    }
+    return grandTotal;
+  }
+
   render() {
     return (
       <div>
-        <div>Subtotal:      22.97</div>
-        <div>Tax (10%):      2.97</div>
-        <div>Delivery Fee:      22.97</div>
-        <div>Total:      22.97</div>
+        {/* <div>Subtotal:      22.97</div> */}
+        {/* <div>Total tax (10%):      2.97</div> */}
+        <div>Total tax (10%):      {this.calculateTotalTax()}</div>
+
+        {/* <div>Delivery Fee:      22.97</div> */}
+        <div>Grand total:      {this.calculateGrandTotal()}  </div>
+        {/* <div>Total owed:      22.97</div> */}
       </div >
     )
   }

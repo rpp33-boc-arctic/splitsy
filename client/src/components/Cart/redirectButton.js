@@ -14,6 +14,11 @@ const RedirectButton = (props) => {
           Select Restaurant
         </Link>
       </Button>
+      <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
+        <Link to="/menu" style={{ 'textDecoration': 'none', color: 'white' }}>
+          Back to Menu
+        </Link>
+      </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
         <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }}>
         Checkout

@@ -62,7 +62,7 @@ function Cart(props) {
         <div>Tax (10%):      2.97</div>
         <div>Delivery Fee:      22.97</div>
         <div>Total:      22.97</div> */}
-      <Summary />
+      <Summary cart={data} />
       <RedirectButton />
     </div >
   )
