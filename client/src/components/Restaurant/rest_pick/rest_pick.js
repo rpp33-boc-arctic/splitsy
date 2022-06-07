@@ -82,7 +82,8 @@ class RestaurantPick extends React.Component {
 
     axios.get('http://127.0.0.1:3001/orderSession',{params:restData, headers:{'Authorization':'Bearer ' + this.getCookie('orderSession').orderSession}} ).then(response=>{
       this.createCookie(response.data);
-       var cookie = window.getCookie('orderSession')
+      //  var cookie = window.getCookie('orderSession');
+
         cb();
     });
   }
