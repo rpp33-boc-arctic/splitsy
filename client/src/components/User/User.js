@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import History from './history.js';
 import Friend from './Friend.js';
-import userData from './sampleData/exampleUser.js';
-import sessionData from './sampleData/exampleSession.js';
+// import userData from './sampleData/exampleUser.js';
+// import sessionData from './sampleData/exampleSession.js';
 import Grid from '@mui/material/Grid';
 import { List, Typography } from '@mui/material';
 
@@ -16,6 +16,7 @@ class User extends React.Component {
       username: '',
       photo_url: '',
       histories: [],
+      friends: [],
       scrollerOrderHistory: {
         overflowY: 'scroll',
         border: '1px solid white',
@@ -33,6 +34,7 @@ class User extends React.Component {
     }
     this.initialize = this.initialize.bind(this);
     this.history = this.history.bind(this);
+    this.friends = this.friends.bind(this);
   }
 
   initialize() {
@@ -75,15 +77,29 @@ class User extends React.Component {
       })
   }
 
+  friends() {
+    axios.get(`/user/friends`)
+      .then((success) => {
+        console.log('axios GET /user/friends success: ', success.data)
+        this.setState({
+          friends: success.data
+        })
+      })
+      .catch((error) => {
+        console.log('axios GET /user/friends error: ', error);
+      })
+  }
+
   componentDidMount() {
     this.initialize();
+    this.friends();
   }
 
   render() {
     var histories = this.state.histories.map((history, i) => {
       return <History history={history} key={i} />
     })
-    var friends = userData.results.map((friend, i) => {
+    var friends = this.state.friends.map((friend, i) => {
       return <Friend friend={friend} key={i} />
     })
 

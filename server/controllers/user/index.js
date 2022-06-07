@@ -41,5 +41,16 @@ module.exports = {
         console.log('/user/history database Session.find error', error);
         res.send(null);
       })
+  },
+  friends: (req, res) => {
+    console.log('/user/friends server route hit!');
+    return User.find({})
+      .then((success) => {
+        res.send(success);
+      })
+      .catch((error) => {
+        console.log('/user/friends database User.find error', error);
+        res.send(null);
+      })
   }
 }

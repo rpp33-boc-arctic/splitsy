@@ -30,6 +30,7 @@ router.get('/logout', authController.logout);
 // User profile
 router.get('/user/profile:user_id', userController.profile);
 router.get('/user/history:user_id', userController.history);
+router.get('/user/friends', userController.friends);
 
 
 // Restaurants

@@ -46,8 +46,8 @@ class Friend extends React.Component {
           </Grid>
           <Grid item xs={8}>
             <br></br>
-            <Typography>{this.props.friend.username}</Typography>
-            <Typography>{`@friendUsername`}</Typography><br></br>
+            <Typography>My Friend</Typography>
+            <Typography>@{this.props.friend.username}</Typography><br></br>
             {/* <ListItem disablePadding>
               <ListItemButton>
                 <ListItemText
