@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 const sessionSchema = new mongoose.Schema({
   'session_code': { type: String, unique: true },
   'restaurant': {
-    'restaurant_id': { type: String, unique: true },
+    'restaurant_id': String,
     'name': String,
     'address': String,
   },
