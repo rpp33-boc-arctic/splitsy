@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import History from './History.js';
+import History from './history.js';
 import Friend from './Friend.js';
 import userData from './sampleData/exampleUser.js';
 import sessionData from './sampleData/exampleSession.js';
