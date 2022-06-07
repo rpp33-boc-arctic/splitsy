@@ -8,7 +8,8 @@ var Menu = (props)=> {
 
 	console.log(props);
 	const {state} = useLocation();
-	console.log(state)
+	console.log(window.getCookie('orderSession'))
+
 		return (
 			<div className='menu'>
 				<div className='title-container'>

@@ -3,7 +3,14 @@ import React from 'react';
 import { Link}  from "react-router-dom";
 
 var App = ()=> {
-
+  window.getCookie = function(name){
+    console.log('cookie',document.cookie)
+    if ( document.cookie){
+     return {[name]: document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''}
+    } else {
+      return {[name]:''}
+    }
+  }
     return (
       <div className="App">
         <br></br>

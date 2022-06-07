@@ -34,11 +34,29 @@ class NavBar extends React.Component {
     this.setState({openNav:!this.state.openNav})
   }
 
+  detectOffClick(e){
+    console.log(e.target.classList);
+    // console.log(e.target.classList);
+
+    var b1 = e.target.classList.contains('MuiTypography-root');
+    var b2 = e.target.classList.contains('MuiList-root');
+    var b3 = e.target.classList.contains('MuiBox-root');
+    var b4 = e.target.classList.contains('bob');
+
+    if (b1 || b2 || b3 || b4 ){
+      console.log("box is close")
+      this.setState({openNav:false});
+    } else {
+      console.log('not closed')
+    }
+    // console.log(e.target.className.includes('MuiList-root'))
+    // implement later as its a challenge because i have to get access to the parent to dect if clicked on the body
+  }
   render() {
 
     return (
-      <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <Box  className="nav_container" onClick={e=>{this.detectOffClick(e)}} sx={{ flexGrow: 1 }}>
+      <AppBar  position="static">
         <Toolbar style={{position:'relative'}}>
           <IconButton
             size="large"
@@ -49,20 +67,16 @@ class NavBar extends React.Component {
             onClick={this.openNav}
           >
             <MenuIcon />
-
           </IconButton>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Splitsy
+           <Link to="/" className="bob"  style={{color:"white",textDecoration:"none"}}> Splitsy</Link>
           </Typography>
-          {this.isAuthenticated? <Link  to="/userProfile" style={{color:"white",textDecoration:"none"}}> {this.user} </Link>: null}
-          <Button color="inherit"> {this.isAuthenticated? <Link  to="/logout" style={{color:"white",textDecoration:"none"}} >LOGOUT</Link>:<Link  to="/Auth" style={{color:"white",textDecoration:"none"}} >LOGIN</Link> } </Button>
+          {this.isAuthenticated? <Link className="bob"  to="/userProfile" style={{color:"white",textDecoration:"none"}}> {this.user} </Link>: null}
+          <Button color="inherit"> {this.isAuthenticated? <Link  className="bob"  to="/logout" style={{color:"white",textDecoration:"none"}} >LOGOUT</Link>:<Link  to="/Auth" style={{color:"white",textDecoration:"none"}} >LOGIN</Link> } </Button>
         </Toolbar>
       </AppBar>
-
-
       {this.state.openNav? this.displayNav():null}
-
     </Box>
     )
   }

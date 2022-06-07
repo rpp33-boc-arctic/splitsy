@@ -48,24 +48,32 @@ module.exports = {
     //create session;
 
     console.log(obj);
+//  if cookie then verify token if out of time then create a new cookie  with same session_code
+//  if sesison still exist in db
+//if user does not have session in db create a new token with new session_code
+//send token to client
+//jwt verify (session_code);
+// if user enters a code and it matches database session code then pull that info down add them to the users
+// send new token down with same code.
+
+
     db.Session.find({user:{username:username}}).then(results=>{
       if (results){
         // if session found verify that they are there and create token
+        //return session code from db
         var payload = {
-          code: session_code,
           username: username,
           index: index
         };
-        var token = jwt.sign(payload,"server password",{ expiresIn: '1h' });
+        var token = jwt.sign(payload,session_code,{ expiresIn: '1h' });
         res.send(token)
       } else {
         db.Session.create(obj).then(result=>{
         var payload = {
-        code: session_code,
         username: username,
         index: index
       };
-      var token = jwt.sign(payload,"server password",{ expiresIn: '1h' });
+      var token = jwt.sign(payload,session_code,{ expiresIn: '1h' });
       res.send(token)
         });
       }
