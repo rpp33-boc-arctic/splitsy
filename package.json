@@ -6,6 +6,7 @@
   "scripts": {
     "server": "npx nodemon server/server.js",
     "test": "jest --detectOpenHandles",
+    "payment-test": "jest client/src/components/Payment/test --coverage --detectOpenHandles",
     "buildCICD": "cd client && npm i &&npm run build"
   },
   "dependencies": {
@@ -16,7 +17,8 @@
     "express": "^4.18.1",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
   },
   "devDependencies": {
     "jest": "^28.1.0"

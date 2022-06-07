@@ -154,7 +154,7 @@ module.exports = {
       if (oldReceipt) {
         var receipt = {
           'user_id': user_id,
-          'items': oldReceipt.items.concat(user_cart),
+          'items': [...new Set(oldReceipt.items.concat(user_cart))],
           'user_tip': oldReceipt.user_tip + user_tip,
           'total_paid': oldReceipt.total_paid + user_paid
         };
