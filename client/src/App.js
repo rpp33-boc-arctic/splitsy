@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { withCookies, Cookies } from 'react-cookie';
 
 import NavBar from './components/Navbar.js';
@@ -35,6 +35,7 @@ class App extends React.Component {
   }
 
   render() {
+
     const userData = {
       username: this.state.username,
       userId: this.state.userId
@@ -43,10 +44,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <Routes>
-          <Route index element={<Auth />} />
-          <Route path="Auth" element={<Auth />} />
-          <Route path="RestaurantList"
-            element={
+          {/* <Route index element={<Auth verifyUser={this.authCheck} />} /> */}
+          <Route path="Auth" element={<Auth verifyUser={this.authCheck} />} />
+          <Route /* path="RestaurantList" */
+            index element={
               <Private user={userData}>
                 <RestaurantPick />
               </Private>
@@ -99,7 +100,7 @@ class App extends React.Component {
 
 const Private = ({ user, privateRoute }) => {
   if (user.username && user.userId) {
-    return privateRoute;
+    return privateRoute ? privateRoute : <Outlet />;
   } else {
     return <Navigate to="/Auth" replace />;
   }

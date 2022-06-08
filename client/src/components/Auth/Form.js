@@ -87,14 +87,7 @@ class AuthForm extends React.Component {
           required
           inputProps={{ 'aria-label': 'authorization form password field' }}
         />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
-          </Grid>
-          <Grid item xs={8}>
-            <Button variant="contained">{registerUser ? 'google signup' : 'google login'}</Button>
-          </Grid>
-        </Grid>
+        <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
       </Stack>
     );
   }
