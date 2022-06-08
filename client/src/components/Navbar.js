@@ -41,10 +41,10 @@ class NavBar extends React.Component {
     var b4 = e.target.classList.contains('bob');
 
     if (b1 || b2 || b3 || b4 ){
-      console.log("box is close")
+      // console.log("box is close")
       this.setState({openNav:false});
     } else {
-      console.log('not closed')
+      // console.log('not closed')
     }
   }
   render() {
