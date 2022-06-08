@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 
 import NavBar from './components/Navbar.js';
 import Auth from './components/Auth/Auth.js';
@@ -32,6 +32,8 @@ class App extends React.Component {
       username: username,
       userId: userId
     });
+
+    return <Navigate to="/" replace />;
   }
 
   render() {
@@ -41,53 +43,21 @@ class App extends React.Component {
       userId: this.state.userId
     };
 
+    // console.log('data1: ', userData.username, '; data2: ', userData.userId);
+
     return (
       <div className="App">
         <Routes>
           {/* <Route index element={<Auth verifyUser={this.authCheck} />} /> */}
           <Route path="Auth" element={<Auth verifyUser={this.authCheck} />} />
-          <Route /* path="RestaurantList" */
-            index element={
-              <Private user={userData}>
-                <RestaurantPick />
-              </Private>
-            }
-          />
-          <Route path="User"
-            element={
-              <Private user={userData}>
-                <User />
-              </Private>
-            }
-          />
-          <Route path="RestauarantMenu"
-            element={
-              <Private user={userData}>
-                <RestaurantMenu />
-              </Private>
-            }
-          />
-          <Route path="Menu"
-            element={
-              <Private user={userData}>
-                <Menu />
-              </Private>
-            }
-          />
-          <Route path="Cart"
-            element={
-              <Private user={userData}>
-                <Cart />
-              </Private>
-            }
-          />
-          <Route path="Payment"
-            element={
-              <Private user={userData}>
-                <Payment />
-              </Private>
-            }
-          />
+          <Route element={<Private user={userData} />}>
+            <Route /* path="RestaurantList" */index element={<RestaurantPick />} />
+            <Route path="User" element={<User />} />
+            <Route path="RestauarantMenu" element={<RestaurantMenu />} />
+            <Route path="Menu" element={<Menu />} />
+            <Route path="Cart" element={<Cart />} />
+            <Route path="Payment" element={<Payment />} />
+          </Route>
           {/* <NavBar /> */}
         </Routes>
 
@@ -98,12 +68,11 @@ class App extends React.Component {
 
 }
 
-const Private = ({ user, privateRoute }) => {
-  if (user.username && user.userId) {
-    return privateRoute ? privateRoute : <Outlet />;
-  } else {
+const Private = ({ user, children }) => {
+  if (!user.username && !user.userId) {
     return <Navigate to="/Auth" replace />;
   }
+  return children;
 };
 
 export default withCookies(App);

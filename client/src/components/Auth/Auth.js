@@ -29,6 +29,8 @@ class Auth extends React.Component {
 
       if (response.data.loggedIn) {
         this.props.verifyUser();
+
+        // return <Navigate to="/" replace />;
       } else if (response.data.existingUser) {
 
         this.handleSwitch();
