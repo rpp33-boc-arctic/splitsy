@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 
 
 const RedirectButton = (props) => {
+
+function updateDatabase() {
+  props.updateCartDatabase();
+  props.updateSummaryDatabase();
+
+}
+
   return (
     <Stack direction="row" spacing={2}>
       <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
@@ -20,7 +27,7 @@ const RedirectButton = (props) => {
         </Link>
       </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
-        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} onClick={props.updateCartDatabase} >
+        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} onClick={props.updateDatabase} >
         Checkout
         </Link>
       </Button>

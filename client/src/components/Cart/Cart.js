@@ -151,6 +151,41 @@ function Cart(props) {
  });
 }
 
+
+function updateSummaryDatabase() {
+  // update database logic here, then send function to RedirectButton
+  var session_id = 1;
+ var link = `/session${session_id}/update_summary`;
+ $.ajax({
+   method: "POST",
+   url: link,
+   // contentType: 'text/plain',
+   data: {
+     cart: data,
+     totalTax: totalTax,
+     grandTotal: grandTotal,
+     // session_id: session_id
+   },
+   success: (response) => {
+     if (response === 'POST summary request received!') {
+       console.log('POST summary request success!');
+     }
+
+   },
+   statusCode: {
+     200: function() {
+       console.log( "Status Code 200 ajax cart request!" );
+     }
+   },
+   error: (err) => {
+     console.log('Error: ', err);
+   }
+ })
+ .done(function() {
+   console.log("cart ajax call is done!");
+ });
+}
+
   return (
     <div >
       {/* <ButtonAppBar /> */}
@@ -170,7 +205,7 @@ function Cart(props) {
         <div>Delivery Fee:      22.97</div>
         <div>Total:      22.97</div> */}
       <Summary cart={data} totalTax={totalTax} grandTotal={grandTotal} />
-      <RedirectButton updateCartDatabase={updateCartDatabase} />
+      <RedirectButton updateCartDatabase={updateCartDatabase} updateSummaryDatabase={updateSummaryDatabase} />
     </div >
   )
 }

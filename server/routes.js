@@ -59,7 +59,7 @@ router.post('/session:id', sessionController.createSession);
 // Cart
 router.get('/session:session_id/cart', cartController.getCart);
 router.post('/session:session_id/add', cartController.updateCart);
-
+router.post('/session:session_id/update_summary', cartController.updateSummary);
 
 
 // Payment
