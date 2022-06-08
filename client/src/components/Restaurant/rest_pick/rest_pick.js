@@ -53,7 +53,7 @@ class RestaurantPick extends React.Component {
   }
 
   componentDidMount(){
-    this.getCookie('orderSession')
+    // this.getCookie('orderSession')
   }
 
   createCookie(token){
