@@ -8,9 +8,18 @@ import Summary from './summary.js';
 import FullMenu from '../Menu/fullMenu.js';
 import { useLocation } from 'react-router-dom';
 import $ from 'jquery';
+import { useNavigate } from "react-router-dom";
+
 
 
 function Cart(props) {
+  var getCookie = function(name){
+    if ( document.cookie){
+     return {[name]: document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''}
+    } else {
+      return {[name]:''}
+    }
+  }
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -38,6 +47,7 @@ function Cart(props) {
   //   // render cart logic here
 
   // }
+  let navigate = useNavigate();
 
   const [totalTax, setTotalTax] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
@@ -80,13 +90,13 @@ function Cart(props) {
   const location = useLocation();
   const data = location.state;
   console.log('current cart in Cart.js is: ', data);
-
+  console.log('new window log: ', getCookie('orderSession'));
   // console.log('current props inside Cart.js is: ', props);
 
- function updateCartDatabase() {
+ var updateCartDatabase = () => {
    // update database logic here, then send function to RedirectButton
-   var session_id = 1;
-  var link = `/session${session_id}/add`;
+  //  var session_id = 1;
+  var link = `/session/update_cart`;
   $.ajax({
     method: "POST",
     url: link,
@@ -95,21 +105,17 @@ function Cart(props) {
       cart: data,
       totalTax: totalTax,
       grandTotal: grandTotal,
-      // session_id: session_id
     },
+    headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession},
     success: (response) => {
       if (response === 'POST cart request received!') {
         console.log('POST cart request success!');
       }
 
     },
-    statusCode: {
-      200: function() {
-        console.log( "Status Code 200 ajax cart request!" );
-      }
-    },
-    error: (err) => {
-      console.log('Error: ', err);
+    error: (error) => {
+      console.log('Error: ', error);
+      navigate(`/Restaurant/pick`);
     }
   })
   .done(function() {

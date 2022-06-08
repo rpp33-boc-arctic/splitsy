@@ -33,8 +33,8 @@ class SubmenuItemList extends React.Component {
 
   displaySubmenu() {
      return this.props.submenu.menu_item_list.map((item, i) => {
-      return <div>
-      <SubmenuItem item={item} key={i} addToCart={this.props.addToCart}  />
+      return <div key={i}>
+      <SubmenuItem item={item}  addToCart={this.props.addToCart}  />
       </div>
     })
     // return <SubmenuItem />

@@ -1,14 +1,50 @@
 import React from 'react';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
+import { Stack, styled, Typography, CircularProgress } from '@mui/material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 class UserPaidBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      paidUsers: [1, 2, 4],
-      totalUsers:[1, 2, 3, 4, 5]
+      paidUsers: [],
+      totalUsers: []
+    }
+    this.getUserStatus = this.getUserStatus.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserStatus();
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.session !== prevProps.session) {
+      this.getUserStatus();
+    }
+  }
+
+  getUserStatus() {
+    let userObj = this.props.session.users;
+    if (userObj) {
+      let paidUsers = this.state.paidUsers;
+      let totalUsers = this.state.totalUsers;
+      for(var key in userObj) {
+        totalUsers.push(userObj[key]);
+        if (userObj[key]['checkout?']) {
+          paidUsers.push(userObj[key].user_id)
+        }
+      }
+      this.setState({
+        paidUsers: paidUsers,
+        totalUsers: totalUsers
+      })
+    }
+  }
+
+  renderPercentage(percentage) {
+    if (percentage >= 0) {
+      return ( <>{percentage}%</> )
+    } else {
+      return ( <CircularProgress /> )
     }
   }
 
@@ -17,10 +53,10 @@ class UserPaidBar extends React.Component {
     return (
       <div id="user-paid-bar">
         <Stack direction="row" spacing={1}>
-          USERS PAID
+          <Typography mb={2} variant="body2">USERS PAID</Typography>
           <br></br>
           <BorderLinearProgress variant="determinate" value={paidPercentage} />
-          {paidPercentage}%
+          <Typography mb={2} variant="body2">{this.renderPercentage(paidPercentage)}</Typography>
         </Stack>
       </div >
     )
@@ -31,7 +67,7 @@ class UserPaidBar extends React.Component {
 export default UserPaidBar;
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  width: '80%',
+  width: '70%',
   height: 14,
   borderRadius: 7,
   [`&.${linearProgressClasses.colorPrimary}`]: {

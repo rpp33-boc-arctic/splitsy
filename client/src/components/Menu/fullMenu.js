@@ -90,9 +90,9 @@ function FullMenu(props) {
 
 	function renderMenu() {
 		  var items = props.fullMenu.menu.categories.map((item, i) => {
-      return <div>
+      return <div key={i}>
 						{
-						<SubmenuItemList submenu={item} key={i} addToCart={addToCart} emptyCart={emptyCart} />
+						<SubmenuItemList submenu={item} addToCart={addToCart} emptyCart={emptyCart} />
 						}
 			</div>
 	})
@@ -115,17 +115,17 @@ useEffect(() => {
 				{/* <div>
 					cart inside fullMenu is now: {JSON.stringify(cart)}
 				</div> */}
-				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} onClick={emptyCart}>
+				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} onClick={emptyCart}>
 				{itemCount()}
 		  </Button>
-					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} >
+					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} >
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
           GO TO CART
         </Link>
 
       </Button>
 
-			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" class='go-to-cart'/>} onClick={emptyCart}>
+			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} onClick={emptyCart}>
         EMPTY CART
       </Button>
 

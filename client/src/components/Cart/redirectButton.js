@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 
 const RedirectButton = (props) => {
 
-function updateDatabase() {
-  props.updateCartDatabase();
-  props.updateSummaryDatabase();
+// function updateDatabase() {
+//   props.updateCartDatabase();
+//   props.updateSummaryDatabase();
 
-}
+// }
 
   return (
     <Stack direction="row" spacing={2}>
@@ -26,8 +26,13 @@ function updateDatabase() {
           Back to Menu
         </Link>
       </Button>
+      <Button onClick={props.updateCartDatabase} variant="contained" endIcon={<ArrowCircleRightIcon />}>
+
+        update cart
+
+      </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
-        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} onClick={props.updateDatabase} >
+        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} >
         Checkout
         </Link>
       </Button>

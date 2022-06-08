@@ -4,7 +4,6 @@
 import React from 'react';
 import './list.scss'
 import {ListItem,List,Divider,ListItemText} from '@mui/material';
-import Menu from '../../Menu/Menu.js'
 import { useNavigate }  from "react-router-dom";
 
 var ListComponent = (props)=>{
@@ -15,13 +14,22 @@ var ListComponent = (props)=>{
       return null;
     }
     return props.rest.map((item,index)=>{
+
       var clicked = ()=>{
-        navigate('/menu', { state: { item:item } });
+        var obj = {
+          restaurant_id:index,
+          name: item.name,
+          street_address: item.address.street_addr
+        }
+        props.clickRestaurant(obj, ()=>{
+          navigate('/menu', { state: { item:item } });
+        })
+
       }
       var retryindex=1;
       //state={{ menu: item }}
-      return  ( <div onClick={clicked}>
-       <ListItem key={index} className="item" button style={{height:"150px", border:"1px solid black"}}>
+      return  ( <div key={index} onClick={clicked}>
+       <ListItem key={index} className="item" button style={{height:"150px", border:"1px solid grey"}}>
       <div className="img-ct">
           <img className="image" src={item.logo_photos[0]}  onError={({ currentTarget }) => {
     currentTarget.onerror = null; // prevents looping

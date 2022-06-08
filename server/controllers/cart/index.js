@@ -1,4 +1,4 @@
-const { User, Session } = require('../../../database');
+const { OrderSession } = require('../../../database');
 
 module.exports = {
   // order: (req, res) => {
@@ -6,40 +6,62 @@ module.exports = {
   // }
 
   updateCart: (req, res) => {
-    // /session:session_id/user:user_id/cart
-    // var order_item_id_to_update = req.body.order_item_id;
-    // var user_id = req.params.user_id;
-    var cart = req.body.cart;
-    var totalTax = req.body.totalTax;
-    var grandTotal = req.body.grandTotal;
-    var session_id = req.params.session_id;
-    // var order_item_id = req.body.order_item_id
-    // console.log('req.params.session_id is: ', session_id);
+    // var cart = req.body.cart;
+    // var totalTax = req.body.totalTax;
+    // var grandTotal = req.body.grandTotal;
+    // var session_id = req.params.session_id;
+    // for (var i = 0; i < cart.length; i++) {
+    //   var currentItem = {
+    //     order_item_id: order_item_id,
+    //     menu_item_name: cart[i].name,
+    //     menu_item_description: cart[i].description,
+    //     menu_item_photo: cart[i].image,
+    //     menu_item_price: cart[i].price,
+    //   }
+    // }
 
-    for (var i = 0; i < cart.length; i++) {
-      var currentItem = {
-        order_item_id: order_item_id,
-        menu_item_name: cart[i].name,
-        menu_item_description: cart[i].description,
-        menu_item_photo: cart[i].image,
-        menu_item_price: cart[i].price,
-        // user_id: cart[i].description,
-        // paid?: cart[i].paid
-      }
+    var updatedCart = req.body.cart.map(item =>
+       {return {
+      product_id: item.name,
+      description: item.description,
+      photo: item.image,
+      price: item.price,
+      name: item.name,
+      username: req.jwtObject.owner,
+      paid: false
+       }
     }
+      )
 
-    console.log('session_id is: ', session_id);
-    var group_cart = 'group_cart.' + JSON.stringify(order_item_id);
-    console.log('group_cart is: ', group_cart);
+    console.log('req.jwtObject is: ', req.jwtObject);
+    // var group_cart = 'group_cart.' += ;
+    // console.log('group_cart is: ', group_cart);
+    // Person.update({'items.id': 2}, {'$set':  {'items.$': update}}, function(err) { ...
+    var group_cart = 'group_cart.' + req.jwtObject.owner;
 
-    return Session.updateOne({ session_code: session_id }, { $set: {[group_cart]: currentItem}})
-    .then((result) => {
-      res.status(200).send('POST cart request received!');
-    })
-    .catch((error) => {
-      console.log('error ADDING one item from user cart, error is: ', error);
-      res.status(500).send(error);
-    })
+    // Function needs to be fixed to update group_cart correctly
+    return OrderSession.updateOne({ _id: req.jwtObject.session_id },  {'$set': {[group_cart] :updatedCart}})
+    // .then((result) => {
+    //   res.status(200).send('POST cart request received!');
+    // })
+    // .catch((error) => {
+    //   console.log('error ADDING one item from user cart, error is: ', error);
+    //   res.status(500).send(error);
+    // })
+
+    if (req.jwtObject) {
+      // update cart and database
+      console.log('jwtObject is: ', req.jwtObject);
+      // if req.jwtObject exists, then session_id exists
+      OrderSession.updateOne({ _id: req.jwtObject.session_id }, { $set: { [group_cart]: req.body.cart } })
+      // use updateOne to update databse with req.jwtObject.session_id
+      // and req.body.cart, also req.body.totalTax and req.body.grandTotal
+      // send back group_cart (set up timer on client side to update server every 2 sec)
+    } else {
+      // redirect to client page and send back error code
+      res.status(500).send('error: failed to update cart, jwt token invalid');
+
+    }
 
   },
   getCart: (req, res) => {
@@ -65,14 +87,14 @@ module.exports = {
     var grandTotal = req.body.grandTotal;
     var session_id = req.params.session_id;
 
-    return Session.updateOne({ session_code: session_id }, { $set: {total_tax: totalTax, grand_total: grandTotal}})
-    .then((result) => {
-      console.log('GET cart server success! Cart is: ', result);
-      res.status(200).send('POST summary request received!');
-    })
-    .catch((error) => {
-      console.log('error updating summary data, error is: ', error);
+    return Session.updateOne({ session_code: session_id }, { $set: { total_tax: totalTax, grand_total: grandTotal } })
+      .then((result) => {
+        console.log('GET cart server success! Cart is: ', result);
+        res.status(200).send('POST summary request received!');
+      })
+      .catch((error) => {
+        console.log('error updating summary data, error is: ', error);
         res.status(500).send(error);
-    })
+      })
   }
 }
