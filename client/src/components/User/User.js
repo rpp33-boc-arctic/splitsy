@@ -11,9 +11,7 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login_token: '',
       user_id: 0,
-      username: '',
       photo_url: '',
       histories: [],
       friends: [],
@@ -38,14 +36,10 @@ class User extends React.Component {
   }
 
   initialize() {
-    var login_tokenFromCookie = '';  //get session_id fro cookie from browswer
-    var user_idFromCookie = 10;      //get from cookie broswer
-    var usernameFromCookie = '';    //get from cookie broswer
+    var user_idFromCookie = 4;      //get from cookie broswer
 
     this.setState({
-      login_token: login_tokenFromCookie,
-      user_id: user_idFromCookie,
-      username: usernameFromCookie
+      user_id: user_idFromCookie
     }, () => {
       axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {

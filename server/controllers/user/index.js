@@ -14,27 +14,29 @@ module.exports = {
   },
   history: (req, res) => {
     console.log('/user/history server route hit!');
-    return Session.find({})
+    return Session.find({ session_code: 1 })
       .then((allOrders) => {
         var results = [];
         allOrders.forEach((singleOrder) => {
-          if (singleOrder.receipt.get(req.params.user_id)) {
-            // var translatedItems = [];
-            // singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
-            //   console.log('item id: ', item);
-            //   if(singleOrder.group_cart.get(item)) {
-            //     console.log('found it in group cart!')
-            //     // translatedItems.push(singleOrder.group_cart.get(item).menu_item_name);
-            //   }
-            // })
+          if ((singleOrder.receipt) && singleOrder.receipt.get(req.params.user_id)) {
+            var translatedItems = [];
+            singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
+              if (singleOrder.group_cart.get(JSON.stringify(item))) {
+                translatedItems.push({
+                  name: singleOrder.group_cart.get(JSON.stringify(item)).menu_item_name,
+                  price: singleOrder.group_cart.get(JSON.stringify(item)).menu_item_price
+                });
+              }
+            })
+            console.log('translatedItems: ', translatedItems);
             results.push({
               restaurant: singleOrder.restaurant.name,
-              items: singleOrder.receipt.get(req.params.user_id).items,
+              items: translatedItems,
+              tip: singleOrder.receipt.get(req.params.user_id).user_tip,
               total: singleOrder.receipt.get(req.params.user_id).total_paid
             })
           }
         })
-        console.log('res.send results: ', results);
         res.send(results);
       })
       .catch((error) => {
