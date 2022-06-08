@@ -26,8 +26,9 @@ const userSchema = new mongoose.Schema({
   'session_cookie': [ { type: String, unique: true } ]
 });
 
-const sessionSchema = new mongoose.Schema({
+const OrderSession = new mongoose.Schema({
   'order_code': { type: String, unique: true },
+  'owner': String,
   'timeUntilExpired': Date, // date + 1hour of time when checked and its not out make cookie for all users who have same session code
   'restaurant': {
     'restaurant_id': String,
@@ -39,6 +40,7 @@ const sessionSchema = new mongoose.Schema({
     type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
       'user_id': Number,
+      'username': String,
       'checkout?': Boolean,
       'user_cart': [ Number ] // [ order_item_id ]
     })
@@ -77,4 +79,4 @@ module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
 
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
-module.exports.Session = mongoose.model('Session', sessionSchema);
+module.exports.OrderSession = mongoose.model('OrderSession', OrderSession);

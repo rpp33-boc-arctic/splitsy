@@ -17,7 +17,7 @@ var ListComponent = (props)=>{
 
       var clicked = ()=>{
         var obj = {
-          index:index,
+          restaurant_id:index,
           name: item.name,
           street_address: item.address.street_addr
         }
@@ -28,7 +28,7 @@ var ListComponent = (props)=>{
       }
       var retryindex=1;
       //state={{ menu: item }}
-      return  ( <div onClick={clicked}>
+      return  ( <div key={index} onClick={clicked}>
        <ListItem key={index} className="item" button style={{height:"150px", border:"1px solid grey"}}>
       <div className="img-ct">
           <img className="image" src={item.logo_photos[0]}  onError={({ currentTarget }) => {

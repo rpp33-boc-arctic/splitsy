@@ -15,11 +15,18 @@ class RestaurantPick extends React.Component {
       error:false,
       keywords:"",
       helperText:"pleaes enter a valid address.",
-      join:""
+      order_code:""
+    }
+    window.getCookie = function(name){
+      if ( document.cookie){
+       return {[name]: document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''}
+      } else {
+        return {[name]:''}
+      }
     }
     this.getRestaurants = this.getRestaurants.bind(this);
     this.createCookie = this.createCookie.bind(this);
-    this.getCookie = this.getCookie.bind(this);
+    // this.getCookie = this.getCookie.bind(this);
     this.clickRestaurant = this.clickRestaurant.bind(this)
     this.querychange = this.querychange.bind(this);
     this.search = this.search.bind(this);
@@ -37,12 +44,13 @@ class RestaurantPick extends React.Component {
       if (name === "keywords"){
           this.setState({keywords:e.target.value})
       }
-      if (name === "join"){
-        this.setState({join:e.target.value})
+      if (name === "order_code"){
+        this.setState({order_code:e.target.value})
        }
   }
 
   search(e){
+    //join code;
     var url = `https://api.tomtom.com/search/2/search/${this.state.query}.{json}?key=${MapAPI}`;
     setTimeout(()=>{
       axios.get(url).then((data)=>{
@@ -52,9 +60,7 @@ class RestaurantPick extends React.Component {
     },2000);
   }
 
-  componentDidMount(){
-    // this.getCookie('orderSession')
-  }
+
 
   createCookie(token){
     if (document.cookie === undefined){
@@ -63,27 +69,41 @@ class RestaurantPick extends React.Component {
     document.cookie += ` orderSession=${token};`
   }
 
-
-  getRestaurants(lat,long,miles,code){
-      if (code === undefined || code === null){
+  getRestaurants(lat,long,miles){
         axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(data=>{
           this.setState({rest:data.data})
         });
-      } else {
-        this.clickRestaurant()
-      }
+   }
+
+   routeIfCookie(){
+    // headers:{'Authorization':'Bearer ' + window.getCookie('orderSession').orderSession}
+    //make axios request check cookie data
+    // if exists make requests to get menu
+    //this.setState({query: tokendata.address}, function(){ after});
+    //search() // set state for query and cal getRestraunts()
+    // imidatly use item = this.state.rest[tokendata.restraunt_id]  ;
+  //  navigate('/menu', { state: { item:item } });
+
    }
 
 
   clickRestaurant(restData,cb){
-    restData.username = this.username;
+    restData.username = "grant_22";
+    //this is a static username above when muizz finished cookie grab from that.
     restData.address = this.state.query;
-    restData.orderCode = this.state.join
+    restData.orderCode = this.state.order_code
 
-    axios.get('http://127.0.0.1:3001/orderSession',{params:restData, headers:{'Authorization':'Bearer ' + this.getCookie('orderSession').orderSession}} ).then(response=>{
-      this.createCookie(response.data);
-      //  var cookie = window.getCookie('orderSession');
-
+    axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
+      function delete_cookie( name, path, domain ) {
+        if( window.getCookie(name) ) {
+          document.cookie = name + "=" +
+            ((path) ? ";path="+path:"")+
+            ((domain)?";domain="+domain:"") +
+            ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+        }
+      }
+        delete_cookie('orderSession','/','localhost');
+        this.createCookie(response.data.token);
         cb();
     });
   }

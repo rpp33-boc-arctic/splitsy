@@ -9,19 +9,7 @@ var jwt = require('jsonwebtoken');
 
 module.exports = {
 
-  createSession: (req, res) => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader.split(' ')[1];
-
-
-
-    //if token then autheticate info lies in the token
-    //
-
-
-    var address = req.query.address;
-    var username = req.query.username;
-    var index = req.query.index;
+  createSession: (req, res,next) => {
 
     function codeGenerator(){
       var array = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
@@ -35,76 +23,57 @@ module.exports = {
       }
       return symbols;
     }
-    var session_code = codeGenerator();
 
-    // make requests to find userid in db
-    var obj = {
-      session_code:session_code,
-      restaurant: {'restaurant_id': index, 'searchNear':address, 'address':req.query.street_address, 'name': req.query.name},
-      orderId:uuidv4(),
-      users:{username:username,checkout:false,user_cart:[]},
-      group_cart:{ },
-      receipt:{},
-      total_tip: 0,
-      total_tax: 0,
-      total_paid: 0,
-      grand_total: 0,
-      total_owed: 0,
-      order_paid: 0
-    };
+function generateSession(username,restaurant_id,address,street_address,name){
+var obj = {
+  order_code:codeGenerator(),
+  restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
+  order_id:uuidv4(),
+  owner: username,
+  users:{  [username]:{checkout:false,user_cart:[]}},
+  group_cart:{ },
+  receipt:{},
+  total_tip: 0,
+  total_tax: 0,
+  total_paid: 0,
+  grand_total: 0,
+  total_owed: 0,
+  order_paid: 0
+};
+return obj;
+}
 
-    //create session;
-
-//  if cookie then verify token if out of time then create a new cookie  with same session_code
-//  if sesison still exist in db
-//if user does not have session in db create a new token with new session_code
-//send token to client
-//jwt verify (session_code);
-// if user enters a code and it matches database session code then pull that info down add them to the users
-// send new token down with same code.
+//     //create session;
 
 
-    db.Session.find({user:{username:username}}).then(results=>{
-      if (results){
-        // if session found verify that they are there and create token
-        //return session code from db
-        var payload = {
-          username: username,
-          index: index
-        };
-        var token = jwt.sign(payload,session_code,{ expiresIn: '1h' });
-        res.send(token)
-      } else {
-        db.Session.create(obj).then(result=>{
-        var payload = {
-        username: username,
-        index: index
-      };
-      var token = jwt.sign(payload,session_code,{ expiresIn: '1h' });
-      res.send(token)
+//when user creates new session in db
+// whole new token is created with owner user;
+// if user is not the owner of the token then user is added to the users[]
+// order code join db lookup find by session_code if match add user to db session and
+// /create cookie with session code and users in the cookie;
+
+  // console.log('req jwtObject', req.jwtObject)
+if (req.jwtObject === undefined){
+
+        var sessionobj  = generateSession(req.query.username,req.query.restaurant_id,req.query.address,req.query.street_address,req.query.name);
+        db.OrderSession.create(sessionobj).then(session=>{
+          var payload = {
+                session_id: session._id,
+                owner: session.owner,
+                code: session.order_code,
+                address: session.restaurant.address,
+                restaurant_id: session.restaurant_id
+            };
+           var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
+              console.log(token);
+          res.json({createCookie:true,token:token});
+        }).catch(err=>{
+          console.log(err);
         });
-      }
-    }).catch(err=>{
-      console.log(err)
-    })
 
-    db.Session.find().then(data=>{
-      // console.log('data from orderSession',data);
-      //check db if
-      //if session found return them back to menu else create new session return back to menu
-      // var payload = {
-      //   code: sessioncode,
-      //   username: username,
-      //   index: index
-      // };
-      // // //for sessionuuid code
-      // var token = jwt.sign(payload,"server password",{ expiresIn: '1h' });
-      // res.send(token)
-    })
-    // db.sessionSchema.create(obj).then(result=>{
-    //   //jwt cookie with session and can add people to session as well
-    //   res.send()
-    // })
+  } else {
+    res.json({createCookie:false,data:req.jwtObject})
+  }
 
   }
 
