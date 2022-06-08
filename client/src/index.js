@@ -7,7 +7,7 @@ import Cart from './components/Cart/Cart.js';
 import Dashboard from './components/Dashboard.js';
 import Menu from './components/Menu/Menu.js';
 import Payment from './components/Payment/Payment.js';
-import {RestaurantPick} from './components/Restaurant/rest_pick/rest_pick.js';
+import RestaurantPick from './components/Restaurant/rest_pick.js';
 import NavBar from './components/Navbar.js';
 import User from './components/User/User.js';
 import {
