@@ -2,7 +2,6 @@ const { User, Session } = require('../../../database');
 
 module.exports = {
   profile: (req, res) => {
-    console.log('/user/profile server route hit!');
     return User.find({ user_id: req.params.user_id })
       .then((success) => {
         res.send(success);
@@ -13,28 +12,30 @@ module.exports = {
       })
   },
   history: (req, res) => {
-    console.log('/user/history server route hit!');
     return Session.find({})
       .then((allOrders) => {
         var results = [];
         allOrders.forEach((singleOrder) => {
-          if (singleOrder.receipt.get(req.params.user_id)) {
-            // var translatedItems = [];
-            // singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
-            //   console.log('item id: ', item);
-            //   if(singleOrder.group_cart.get(item)) {
-            //     console.log('found it in group cart!')
-            //     // translatedItems.push(singleOrder.group_cart.get(item).menu_item_name);
-            //   }
-            // })
+          if ((singleOrder.receipt) && singleOrder.receipt.get(req.params.user_id)) {
+            var translatedItems = [];
+            var translatedDate = new Date(parseInt(singleOrder.date)).toLocaleString('en-GB', { timeZone: 'UTC' });
+            singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
+              if (singleOrder.group_cart.get(JSON.stringify(item))) {
+                translatedItems.push({
+                  name: singleOrder.group_cart.get(JSON.stringify(item)).menu_item_name,
+                  price: singleOrder.group_cart.get(JSON.stringify(item)).menu_item_price
+                });
+              }
+            })
             results.push({
               restaurant: singleOrder.restaurant.name,
-              items: singleOrder.receipt.get(req.params.user_id).items,
-              total: singleOrder.receipt.get(req.params.user_id).total_paid
+              items: translatedItems,
+              tip: singleOrder.receipt.get(req.params.user_id).user_tip,
+              total: singleOrder.receipt.get(req.params.user_id).total_paid,
+              date: translatedDate.slice(0, 10)
             })
           }
         })
-        console.log('res.send results: ', results);
         res.send(results);
       })
       .catch((error) => {
@@ -43,7 +44,6 @@ module.exports = {
       })
   },
   friends: (req, res) => {
-    console.log('/user/friends server route hit!');
     return User.find({})
       .then((success) => {
         res.send(success);

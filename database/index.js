@@ -64,7 +64,8 @@ const sessionSchema = new mongoose.Schema({
   'total_paid': Number,
   'grand_total': Number,
   'total_owed': Number,
-  'order_paid?': Boolean
+  'order_paid?': Boolean,
+  'date': String
 });
 
 // export const User = mongoose.model('User', userSchema);
