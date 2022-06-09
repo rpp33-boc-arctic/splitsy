@@ -11,9 +11,7 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login_token: '',
       user_id: 0,
-      username: '',
       photo_url: '',
       histories: [],
       friends: [],
@@ -35,21 +33,17 @@ class User extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.history = this.history.bind(this);
     this.friends = this.friends.bind(this);
+    this.friendClick = this.friendClick.bind(this);
   }
 
   initialize() {
-    var login_tokenFromCookie = '';  //get session_id fro cookie from browswer
-    var user_idFromCookie = 10;      //get from cookie broswer
-    var usernameFromCookie = '';    //get from cookie broswer
+    var user_idFromCookie = 4;      //get from cookie broswer
 
     this.setState({
-      login_token: login_tokenFromCookie,
-      user_id: user_idFromCookie,
-      username: usernameFromCookie
+      user_id: user_idFromCookie
     }, () => {
       axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {
-          console.log('axios GET /user/profile success: ', success.data)
           this.setState({
             user_id: success.data[0].user_id,
             username: success.data[0].username,
@@ -67,7 +61,6 @@ class User extends React.Component {
   history() {
     axios.get(`/user/history${this.state.user_id}`)
       .then((success) => {
-        console.log('axios GET /user/history success: ', success.data)
         this.setState({
           histories: success.data
         })
@@ -80,7 +73,6 @@ class User extends React.Component {
   friends() {
     axios.get(`/user/friends`)
       .then((success) => {
-        console.log('axios GET /user/friends success: ', success.data)
         this.setState({
           friends: success.data
         })
@@ -88,6 +80,10 @@ class User extends React.Component {
       .catch((error) => {
         console.log('axios GET /user/friends error: ', error);
       })
+  }
+
+  friendClick() {
+    console.log('FRIEND CLICKED!');
   }
 
   componentDidMount() {
@@ -100,7 +96,7 @@ class User extends React.Component {
       return <History history={history} key={i} />
     })
     var friends = this.state.friends.map((friend, i) => {
-      return <Friend friend={friend} key={i} />
+      return <Friend friend={friend} key={i} onClick={this.friendClick}/>
     })
 
     return (
