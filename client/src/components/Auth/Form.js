@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Stack, Grid } from '@mui/material';
+import { TextField, Button, Stack } from '@mui/material';
 
 
 class AuthForm extends React.Component {
