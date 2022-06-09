@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Outlet } from 'react-router-dom';
+
 class NavBar extends React.Component {
   constructor(props) {
     super(props);

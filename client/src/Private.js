@@ -1,9 +1,6 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
-//Props:
-//this.props.user.username
-//this.props.user.userId
 
 class Private extends React.Component {
   constructor(props) {
@@ -19,14 +16,12 @@ class Private extends React.Component {
   }
 
   render () {
-    console.log('props', this.props)
 
     if (!this.props.user.username || !this.props.user.userId) {
-      console.log('no')
-      // document.location.href = "/" // this works but refresh cookie
-      return (<Navigate to="/" replace />)
+
+      return (<Navigate to="/" replace />);
     }
-    console.log('yes')
+
     return (
       <div>
         <Outlet />

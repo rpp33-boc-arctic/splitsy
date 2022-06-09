@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.cookies.get('splitsy').username !==  this.props.cookies.get('splitsy').username || prevProps.cookies.get('splitsy').userId !==  this.props.cookies.get('splitsy').userId) {
+    if (prevProps.cookies.get('splitsy').username !== this.props.cookies.get('splitsy').username || prevProps.cookies.get('splitsy').userId !== this.props.cookies.get('splitsy').userId) {
       this.render();
     }
   }
@@ -36,8 +36,7 @@ class App extends React.Component {
   authCheck(cb = () => {}) {
     var { cookies } = this.props;
     var { username, userId } = cookies.get('splitsy');
-    console.log('username', username)
-    console.log('userId', userId)
+
     this.setState({
       username: username,
       userId: userId
@@ -59,15 +58,19 @@ class App extends React.Component {
       userId: this.state.userId
     };
 
-    console.log('user pass to Private', userData);
-
     return (
       <Routes className="App">
           <Route path="/" element={<NavBar />}>
             <Route index element={
               <>
                 {this.state.verified}
-                {(userData.username !== "" || userData.userId !== 0)?(<Auth verifyUser={() => {this.authCheck(this.navigateToPage)}}/>): (<Auth verifyUser={() => {}}/>)}
+                {
+                  (userData.username !== "" || userData.userId !== 0)
+                  ?
+                  (<Auth verifyUser={() => {this.authCheck(this.navigateToPage)}}/>)
+                  :
+                  (<Auth verifyUser={() => {}}/>)
+                }
               </>
             }/>
             <Route path="/protected" element={<Private user={userData} />} >
