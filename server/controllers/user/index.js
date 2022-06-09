@@ -18,6 +18,7 @@ module.exports = {
         allOrders.forEach((singleOrder) => {
           if ((singleOrder.receipt) && singleOrder.receipt.get(req.params.user_id)) {
             var translatedItems = [];
+            var translatedDate = new Date(parseInt(singleOrder.date)).toLocaleString('en-GB', { timeZone: 'UTC' });
             singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
               if (singleOrder.group_cart.get(JSON.stringify(item))) {
                 translatedItems.push({
@@ -30,7 +31,8 @@ module.exports = {
               restaurant: singleOrder.restaurant.name,
               items: translatedItems,
               tip: singleOrder.receipt.get(req.params.user_id).user_tip,
-              total: singleOrder.receipt.get(req.params.user_id).total_paid
+              total: singleOrder.receipt.get(req.params.user_id).total_paid,
+              date: translatedDate.slice(0, 10)
             })
           }
         })

@@ -1,5 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
@@ -20,7 +19,8 @@ class History extends React.Component {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>05/28/2022 - {this.props.history.restaurant}</Typography>
+            <Typography>{this.props.history.date} - {this.props.history.restaurant}</Typography>
+
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -28,7 +28,7 @@ class History extends React.Component {
                 return <Typography>{item.name} ${item.price}</Typography>
               })}<br></br>
               Tip: ${this.props.history.tip} <br></br>
-              Total: ${this.props.history.total}
+              Total: ${this.props.history.total} <br></br>
             </Typography>
           </AccordionDetails>
         </Accordion>
