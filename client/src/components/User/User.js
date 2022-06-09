@@ -43,7 +43,6 @@ class User extends React.Component {
     }, () => {
       axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {
-          console.log('axios GET /user/profile success: ', success.data)
           this.setState({
             user_id: success.data[0].user_id,
             username: success.data[0].username,
@@ -61,7 +60,6 @@ class User extends React.Component {
   history() {
     axios.get(`/user/history${this.state.user_id}`)
       .then((success) => {
-        console.log('axios GET /user/history success: ', success.data)
         this.setState({
           histories: success.data
         })
@@ -74,7 +72,6 @@ class User extends React.Component {
   friends() {
     axios.get(`/user/friends`)
       .then((success) => {
-        console.log('axios GET /user/friends success: ', success.data)
         this.setState({
           friends: success.data
         })

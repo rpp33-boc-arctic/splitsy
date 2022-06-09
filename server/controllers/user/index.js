@@ -2,7 +2,6 @@ const { User, Session } = require('../../../database');
 
 module.exports = {
   profile: (req, res) => {
-    console.log('/user/profile server route hit!');
     return User.find({ user_id: req.params.user_id })
       .then((success) => {
         res.send(success);
@@ -13,8 +12,7 @@ module.exports = {
       })
   },
   history: (req, res) => {
-    console.log('/user/history server route hit!');
-    return Session.find({ session_code: 1 })
+    return Session.find({})
       .then((allOrders) => {
         var results = [];
         allOrders.forEach((singleOrder) => {
@@ -28,7 +26,6 @@ module.exports = {
                 });
               }
             })
-            console.log('translatedItems: ', translatedItems);
             results.push({
               restaurant: singleOrder.restaurant.name,
               items: translatedItems,
@@ -45,7 +42,6 @@ module.exports = {
       })
   },
   friends: (req, res) => {
-    console.log('/user/friends server route hit!');
     return User.find({})
       .then((success) => {
         res.send(success);
