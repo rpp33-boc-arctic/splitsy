@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Button, Stack, Switch, Typography } from '@mui/material';
+import axios from 'axios';
+import { Box, Stack, Switch, Typography } from '@mui/material';
 import AuthForm from './Form.js';
 
 class Auth extends React.Component {
@@ -7,12 +8,10 @@ class Auth extends React.Component {
     super(props);
     this.state = {
       newUser: false,
-      formSubmitted: false,
-      formData: ''
+      error: ' '
     };
     this.submitForm = this.submitForm.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
-    this.resetFormField = this.resetFormField.bind(this);
   }
 
   handleSwitch() {
@@ -22,27 +21,47 @@ class Auth extends React.Component {
     });
   }
 
-  submitForm(data) {
-    const { formSubmitted } = this.state;
+  async submitForm(data) {
+    const { newUser } = this.state;
 
-    this.setState({
-      formSubmitted: !formSubmitted,
-      formData: data
-    });
-  }
+    if (newUser) { // register route for new users
+      const response = await axios.post('/register', data);
 
-  resetFormField() {
-    const { formSubmitted } = this.state;
+      if (response.data.loggedIn) {
+        this.props.verifyUser();
+      } else if (response.data.existingUser) {
 
-    this.setState({
-      formSubmitted: !formSubmitted,
-      formData: ''
-    });
+        this.handleSwitch();
+        this.setState({
+          error: response.data.message
+        });
+
+      }
+    } else { // login route for existing users
+      const response = await axios.post('/login', data);
+
+      if (response.data.loggedIn) {
+        this.props.verifyUser();
+      } else if (response.data.wrongPassword) {
+
+        this.setState({
+          error: response.data.message
+        });
+
+      } else if (response.data.noSuchUser) {
+
+        this.handleSwitch();
+        this.setState({
+          error: response.data.message
+        });
+
+      }
+    }
   }
 
   render() {
 
-    const { formSubmitted, formData } = this.state;
+    const { error } = this.state;
 
     return (
       <div className="Auth" style={{ textAlign: 'center', height: '100%' }}>
@@ -59,25 +78,17 @@ class Auth extends React.Component {
             width: 500
           }}>
           <Typography sx={{ margin: '70px 45px', fontSize: 64, fontWeight: 700, height: '20%' }}>Splitsy</Typography>
-          {
-            !formSubmitted
-            ?
             <Stack direction="column" spacing={2} alignItems="center" justifyContent="center">
               <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
                 <Typography sx={{ fontWeight: 700 }}>LOGIN</Typography>
                 <Switch checked={this.state.newUser} onChange={this.handleSwitch} inputProps={{ 'aria-label': 'login or signup form display switch' }}/>
                 <Typography sx={{ fontWeight: 700 }}>SIGNUP</Typography>
               </Stack>
+              <Typography sx={{ color: 'red' }}>
+                {error}
+              </Typography>
               <AuthForm registerUser={this.state.newUser} formHandler={this.submitForm}/>
             </Stack>
-            :
-            <Stack>
-              <Box>
-                {`You submitted:\n${JSON.stringify(formData)}`}
-              </Box>
-              <Button onClick={this.resetFormField}>RESET</Button>
-            </Stack>
-          }
         </Box>
       </div>
     );
