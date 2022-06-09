@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { List, ListItem, ListItemAvatar, Avatar } from '@mui/material';
+import { List, ListItem, ListItemAvatar, Avatar, Typography } from '@mui/material';
 
 class UserList extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class UserList extends React.Component {
       currentUserInfo: []
     }
     this.getUserInfo = this.getUserInfo.bind(this);
+    this.renderLoginUser = this.renderLoginUser.bind(this);
   }
 
   componentDidMount() {
@@ -22,16 +23,28 @@ class UserList extends React.Component {
   }
 
   getUserInfo() {
-    axios.get(`/session${this.props.session_id}/userInfo`)
-    .then((users) => {
-      this.setState({currentUserInfo: users.data})
-    })
-    .catch((err) => {
-      console.log('error in getting user info', err)
-    })
+    if(this.props.session_id) {
+      axios.get(`/session${this.props.session_id}/userInfo`)
+      .then((users) => {
+        this.setState({currentUserInfo: users.data});
+        this.props.updateUserMap(users.data);
+      })
+      .catch((err) => {
+        console.log('error in getting user info', err);
+      })
+    }
+  }
+
+  renderLoginUser(currentUserID) {
+      if(currentUserID === this.props.user_id) {
+        return (<>(Me)</>);
+      } else {
+        return null;
+      }
   }
 
   render() {
+    var userArray = this.state.currentUserInfo.sort((a, b) => {return a - b});
       return (
         <div id="payment-user-list">
           <List
@@ -39,13 +52,13 @@ class UserList extends React.Component {
             maxWidth: 240,
             bgcolor: 'background.paper',
             overflow: 'auto',
-            maxHeight: 500}}
+            maxHeight: '80%'}}
           >
-            {this.state.currentUserInfo.map((user, i) => (
+            {userArray.map((user, i) => (
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={user.username} src={user.photo_url} sx={{ width: 84, height: 84 }}/>
-                  {user.username}
+                  <Typography mb={2}>{user.username} {this.renderLoginUser(user.user_id)}</Typography>
                 </ListItemAvatar>
               </ListItem>
             ))}

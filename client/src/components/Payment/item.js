@@ -19,9 +19,6 @@ class Item extends React.Component {
   // props.selected
   // props.disabled
 
-  //TODO
-  // item haven't show user yet// must wait for userlist fetch from db, then use the same one from Yufang to map id with username in <item>
-
   render() {
     return (
       <>
@@ -29,7 +26,6 @@ class Item extends React.Component {
           <Typography>${this.props.item.menu_item_price.toLocaleString(undefined, {maximumFractionDigits:2})}</Typography>
         }>
           <ListItemButton
-            component="a" href="#simple-list"
             selected={this.props.selected}
             disabled={this.props.disabled}
             onClick={() => {this.props.handleClick(this.props.item.order_item_id)}} >
