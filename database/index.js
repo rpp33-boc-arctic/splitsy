@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 const sessionSchema = new mongoose.Schema({
   'session_code': { type: String, unique: true },
   'restaurant': {
-    'restaurant_id': { type: String, unique: true },
+    'restaurant_id': String,
     'name': String,
     'address': String,
   },
@@ -64,7 +64,8 @@ const sessionSchema = new mongoose.Schema({
   'total_paid': Number,
   'grand_total': Number,
   'total_owed': Number,
-  'order_paid?': Boolean
+  'order_paid?': Boolean,
+  'date': String
 });
 
 // export const User = mongoose.model('User', userSchema);

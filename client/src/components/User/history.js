@@ -1,8 +1,7 @@
 import React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 
 class History extends React.Component {
   constructor(props) {
@@ -14,19 +13,26 @@ class History extends React.Component {
   render() {
     return (
       <>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              primary={this.props.history.menu_item_name}
-              secondary={
-                <>
-                  05/28/2022 ${this.props.history.menu_item_price}
-                </>
-              }
-            />
-          </ListItemButton>
-        </ListItem>
-        <Divider/>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>{this.props.history.date} - {this.props.history.restaurant}</Typography>
+
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {this.props.history.items.map((item) => {
+                return <Typography>{item.name} ${item.price}</Typography>
+              })}<br></br>
+              Tip: ${this.props.history.tip} <br></br>
+              Total: ${this.props.history.total} <br></br>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Divider />
       </>
     )
   }

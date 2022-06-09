@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './item.js';
-import { List } from '@mui/material';
+import { List, CircularProgress } from '@mui/material';
 
 
 class Items extends React.Component {
@@ -27,14 +27,17 @@ class Items extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.user_pick !== prevProps.user_pick || this.props.others_pick !== prevProps.others_pick) {
       this.initialize();
+      // console.log('this.props.user_pick', this.props.user_pick)
     }
   }
 
   initialize () {
     var items = Object.values(this.props.group_cart).map((item, i) => {
+      item.username = this.props.getUsername(item.user_id)
+
       if (this.props.user_pick.has(item.order_item_id)) {
         return <Item item={item} key={i} selected={true} handleClick={this.unClickItem.bind(this)}/>
-      } else if (this.props.others_pick.has(item.order_item_id)) {
+      } else if (this.props.others_pick.has(item.order_item_id) || item['paid?'] === true) {
         return <Item item={item} key={i} selected={false} disabled={true} />
       } else {
         return <Item item={item} key={i} selected={false} handleClick={this.clickItem.bind(this)}/>
@@ -55,11 +58,20 @@ class Items extends React.Component {
 
   //==========================     RENDER     ==========================
   render() {
-    return (
-      <List sx={{ overflow: 'auto', maxHeight: 500 }}>
-        {this.state.items}
-      </List>
-    )
+    if(this.state.items) {
+      var itemList = this.state.items.sort((a, b) => {return a.props.item.user_id - b.props.item.user_id});
+    }
+
+    if (!this.props.user_pick) {
+      return (<CircularProgress />);
+    } else {
+      return (
+        <List sx={{ overflow: 'auto'}}>
+          {/* {this.state.items} */}
+          {itemList}
+        </List>
+      )
+    }
   }
 }
 
