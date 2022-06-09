@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Box, Button, Stack, Switch, Typography } from '@mui/material';
+import { Box, Stack, Switch, Typography } from '@mui/material';
 import AuthForm from './Form.js';
 
 class Auth extends React.Component {

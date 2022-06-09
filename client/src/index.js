@@ -12,6 +12,7 @@ root.render(
     <React.Fragment>
       <Router >
         <App />
+        ©2022 Splitsy Inc. All rights reserved.
       </Router>
     </React.Fragment>
   </CookiesProvider>

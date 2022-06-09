@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { withCookies } from 'react-cookie';
 
 import NavBar from './components/Navbar.js';
@@ -9,70 +9,81 @@ import Menu from './components/Menu/Menu.js';
 import Payment from './components/Payment/Payment.js';
 import { RestaurantPick,RestaurantMenu } from './components/Restaurant/Restaurant.js';
 import User from './components/User/User.js';
+import Private from './Private.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      userId: 0
+      userId: 0,
+      verified: null
     };
     this.authCheck = this.authCheck.bind(this);
+    this.navigateToPage = this.navigateToPage.bind(this);
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.authCheck();
   }
 
-  authCheck() {
-    const { cookies } = this.props;
-    const { username, userId } = cookies.get('splitsy');
+  componentDidUpdate(prevProps) {
+    if (prevProps.cookies.get('splitsy').username !==  this.props.cookies.get('splitsy').username || prevProps.cookies.get('splitsy').userId !==  this.props.cookies.get('splitsy').userId) {
+      this.render();
+    }
+  }
 
+  authCheck(cb = () => {}) {
+    var { cookies } = this.props;
+    var { username, userId } = cookies.get('splitsy');
+    console.log('username', username)
+    console.log('userId', userId)
     this.setState({
       username: username,
       userId: userId
+    }, () => {
+      cb()
     });
+  }
 
-    return <Navigate to="/" replace />;
+  navigateToPage () {
+    this.setState({
+      verified: (<Navigate to="/protected/RestaurantList" replace={true} />)
+    })
   }
 
   render() {
 
-    const userData = {
+    var userData = {
       username: this.state.username,
       userId: this.state.userId
     };
 
-    // console.log('data1: ', userData.username, '; data2: ', userData.userId);
+    console.log('user pass to Private', userData);
 
     return (
-      <div className="App">
-        <Routes>
-          {/* <Route index element={<Auth verifyUser={this.authCheck} />} /> */}
-          <Route path="Auth" element={<Auth verifyUser={this.authCheck} />} />
-          <Route element={<Private user={userData} />}>
-            <Route /* path="RestaurantList" */index element={<RestaurantPick />} />
-            <Route path="User" element={<User />} />
-            <Route path="RestauarantMenu" element={<RestaurantMenu />} />
-            <Route path="Menu" element={<Menu />} />
-            <Route path="Cart" element={<Cart />} />
-            <Route path="Payment" element={<Payment />} />
+      <Routes className="App">
+          <Route path="/" element={<NavBar />}>
+            <Route index element={
+              <>
+                {this.state.verified}
+                {(userData.username !== "" || userData.userId !== 0)?(<Auth verifyUser={() => {this.authCheck(this.navigateToPage)}}/>): (<Auth verifyUser={() => {}}/>)}
+              </>
+            }/>
+            <Route path="/protected" element={<Private user={userData} />} >
+              <Route path="RestaurantList" element={<RestaurantPick />} />
+              <Route path="User" element={<User />} />
+              <Route path="RestauarantMenu" element={<RestaurantMenu />} />
+              <Route path="Menu" element={<Menu />} />
+              <Route path="Cart" element={<Cart />} />
+              <Route path="Payment" element={<Payment />} />
+            </Route>
           </Route>
-          {/* <NavBar /> */}
-        </Routes>
-
-        ©2022 Splitsy Inc. All rights reserved.
-      </div>
+      </Routes>
     );
+
   }
 
 }
-
-const Private = ({ user, children }) => {
-  if (!user.username && !user.userId) {
-    return <Navigate to="/Auth" replace />;
-  }
-  return children;
-};
 
 export default withCookies(App);

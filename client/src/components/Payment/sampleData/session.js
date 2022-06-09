@@ -132,7 +132,8 @@ module.exports = {
   'total_paid': 10000,
   'grand_total': 10000,
   'total_owed': 10307,
-  'order_paid?': true
+  'order_paid?': true,
+  'date': '05302022'
 }
 
 // 'receipt': [
