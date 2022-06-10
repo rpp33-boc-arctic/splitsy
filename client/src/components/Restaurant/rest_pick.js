@@ -1,126 +1,157 @@
-import React from 'react';
+import {React,useState,useEffect} from 'react';
 import Map from './map.js'
 import ListComponent from './list.js'
 import './rest.scss';
 import axios from 'axios';
 import {PlacesAPI, MapAPI} from './maps.config.js';
+import { useNavigate }  from "react-router-dom";
 
-class RestaurantPick extends React.Component {
-  constructor(props) {
-    super(props);
-    this.googleAPI = PlacesAPI;
-    this.state = {
+var  RestaurantPick = (props)=>  {
+
+    var state = {
       rest:[],
       query:"",
       error:false,
       keywords:"",
       helperText:"pleaes enter a valid address.",
-      order_code:""
+      join_code:"",
+      showErrorBar:false,
+      errorbar:"Invalid Join Code."
     }
-    window.getCookie = function(name){
-      if ( document.cookie){
-       return {[name]: document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''}
-      } else {
-        return {[name]:''}
-      }
+
+    var [state,setState]= useState(state)
+    const navigate = useNavigate();
+
+
+
+  function getCookie(name){
+    if ( document.cookie){
+     return {[name]: document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''}
+    } else {
+      return {[name]:''}
     }
-    this.getRestaurants = this.getRestaurants.bind(this);
-    this.createCookie = this.createCookie.bind(this);
-    // this.getCookie = this.getCookie.bind(this);
-    this.clickRestaurant = this.clickRestaurant.bind(this)
-    this.querychange = this.querychange.bind(this);
-    this.search = this.search.bind(this);
-    this.username = 'grant_22'
   }
 
-  querychange(e,name){
+   var joinCodeChange = (e)=>{
+    var val = e.target.value;
+     state['join_code'] = val;
+    setState(state);
+  }
+
+  var joinSearch = (e)=>{
+
+    var throwerror = false;
+    console.log(state)
+    // since there is a code entered we can throw an error because it is invalid
+    if (state.join_code.length > 4){
+      throwerror = true
+    }
+
+    var url = 'http://127.0.0.1:3001/joinOrder';
+    axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
+      // if redirect True and menu exists route to menu with usenavigate  throw error = false because route is true
+      // if redirect false throw error if code length > 4;
+      if (response.data.redirect){
+        navigate('/menu', { state: { menu:response.data.menu } });
+      }
+    }).catch(err=>{
+      if (throwerror){
+        state['showErrorBar']=true;
+        setState(state)
+        }
+      setState(state)
+    });
+    // state['query']="fiwonfoweinfowinefioewfnioew"
+    //   setState(state)
+
+  }
+
+  var querychange = (e,name)=>{
       if (name === "query"){
+        state['query']=e.target.value;
+
         if (e.target.value.length > 10 ){
-          this.setState({query:e.target.value,error:false,helperText:"congrats it valid"})
+          state['error']=false;
+          state['helperText']="congrats its valid";
+          setState(state)
         } else {
-          this.setState({query:e.target.value, helperText:"pleaes enter a valid address."})
+          state['helperText']="pleaes enter a valid address";
+          setState(state);
         }
       }
       if (name === "keywords"){
-          this.setState({keywords:e.target.value})
+        state['keywords']=e.target.value;
+          setState(state)
       }
-      if (name === "order_code"){
-        this.setState({order_code:e.target.value})
-       }
   }
 
-  search(e){
+  var search = (e)=>{
     //join code;
-    var url = `https://api.tomtom.com/search/2/search/${this.state.query}.{json}?key=${MapAPI}`;
+    var url = `https://api.tomtom.com/search/2/search/${state.query}.{json}?key=${MapAPI}`;
     setTimeout(()=>{
       axios.get(url).then((data)=>{
-        this.getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
+        getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
+        state['query']="";
+        state['error']=false;
+        setState(state)
       });
-      this.setState({query:"",error:false})
-    },2000);
+    },500);
   }
 
 
 
-  createCookie(token){
+ var createCookie = (token)=>{
     if (document.cookie === undefined){
       document.cookie = '';
     }
     document.cookie += ` orderSession=${token};`
   }
 
-  getRestaurants(lat,long,miles){
-        axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(data=>{
-          this.setState({rest:data.data})
+  var getRestaurants = (lat,long,miles)=>{
+        axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(response=>{
+          setState(shopCart => ({
+            ...rest,
+            ...response.data
+          }));
+          console.log(state);
         });
    }
 
-   routeIfCookie(){
-    // headers:{'Authorization':'Bearer ' + window.getCookie('orderSession').orderSession}
-    //make axios request check cookie data
-    // if exists make requests to get menu
-    //this.setState({query: tokendata.address}, function(){ after});
-    //search() // set state for query and cal getRestraunts()
-    // imidatly use item = this.state.rest[tokendata.restraunt_id]  ;
-  //  navigate('/menu', { state: { item:item } });
-
-   }
-
-
-  clickRestaurant(restData,cb){
-    restData.username = "grant_22";
-    //this is a static username above when muizz finished cookie grab from that.
-    restData.address = this.state.query;
-    restData.orderCode = this.state.order_code
-
-    axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
-      function delete_cookie( name, path, domain ) {
-        if( window.getCookie(name) ) {
-          document.cookie = name + "=" +
-            ((path) ? ";path="+path:"")+
-            ((domain)?";domain="+domain:"") +
-            ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        }
-      }
-        delete_cookie('orderSession','/','localhost');
-        this.createCookie(response.data.token);
-        cb();
-    });
+  var delete_cookie = ( name, path, domain )=> {
+    if( getCookie(name) ) {
+      document.cookie = name + "=" +
+        ((path) ? ";path="+path:"")+
+        ((domain)?";domain="+domain:"") +
+        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    }
   }
 
+  var clickRestaurant= (restData,cb)=>{
+    restData.username = "grant_22";
+    restData.address = state.query;
+    axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
+      delete_cookie('orderSession','/','localhost');
+      createCookie(response.data.token);
+      cb();
+    });
+  }
+  useEffect(() => {
+    joinSearch()
+  });
 
 
-  render() {
     return (
       <div className="rest">
+      {state.showErrorBar? <div className="errorBar"><span>{state.errorbar}</span></div> : null}
       <p> Restaurants near me </p>
+
       <div className="container">
-       <ListComponent  address={this.state.address} clickRestaurant={this.clickRestaurant} rest={this.state.rest}></ListComponent>
-      <Map search={this.search} error={this.state.error} helperText={this.state.helperText} querychange={this.querychange} getRestaurants={this.getRestaurants}></Map>
+       <ListComponent  address={state.address} clickRestaurant={clickRestaurant} rest={state.rest}></ListComponent>
+       <Map joinCodeChange={joinCodeChange} joinSearch={joinSearch} search={search} error={state.error} helperText={state.helperText} querychange={querychange} getRestaurants={getRestaurants}></Map>
         </div>
       </div >
     )
-  }
+
 }
 
 export default RestaurantPick;

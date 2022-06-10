@@ -6,8 +6,7 @@ const restaurantController = require('./controllers/restaurant');
 const orderSessionController = require('./controllers/orderSession');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
-var jwt = require('jsonwebtoken');
-
+const joinOrder = require('./controllers/joinOrder');
 
 var isAuthenticated = (req, res, next) => {
   // console.log('req.cookies', req.cookies);
@@ -19,42 +18,8 @@ var isAuthenticated = (req, res, next) => {
     next();
   }
 }
-// SAMPLE USAGE
-// router.get('/session:session_id', isAuthenticated, paymentController.getSession);
-//code bellow works but was only intended for trying to see if the api was better than what was given which indeed it was except no menus
-// if we have time we can put this back and call ubereeats api on every restraunt.
-// router.get('/getAddress', (req,res)=>{
-//   //params->
-//   axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json',{params:{fields:"formatted_address,geometry",input:"12145 west jessie",inputtype:"textquery",key:process.env.PlacesAPI}}).then(data=>{
-//     console.log(data)
-//   //make maker on map
-//     res.send(JSON.stringify(data.data.candidates));
-//   });
-// })
 
-// router.get('/placesNearby', (req,res)=>{
-//     //params->
-// var query = req.query
-// var keyword;
-// console.log(req.query)
-// query.location = JSON.parse(query.location)
-//   axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
-//   {params:{fields:"name, photo",location:query.location.lat.toString()+','+query.location.lng.toString(),radius:"10000",type:"restaurant",keyword:"",key:process.env.PlacesAPI}}).then(response=>{
-//     res.send(JSON.stringify(response.data));
-//   });
-// })
 
-var jwtMiddleware = function (req,res,next){
-  const authHeader = req.headers.authorization;
-  const token = authHeader.split(' ')[1];
- try {
-      req.jwtObject = jwt.verify(token, 'Server Password');
-      next()
-  } catch(err){
-    req.jwtObject = undefined;
-    next()
-  }
-}
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
@@ -69,11 +34,10 @@ router.get('/user/friends', userController.friends);
 
 // Restaurants
 router.get('/restaurant', restaurantController.restaurantList);
-router.get('/:restaurant/menu', (req, res) => {});
+router.get('/restaurant/menu', (req, res) => {});
+router.get('/joinOrder',joinOrder.joinOrder);
+router.get('/orderSession', orderSessionController.createSession);
 
-
-// Session
-router.get('/orderSession', jwtMiddleware, orderSessionController.createSession);
 
 
 // Cart

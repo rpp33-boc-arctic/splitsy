@@ -24,36 +24,24 @@ module.exports = {
       return symbols;
     }
 
-function generateSession(username,restaurant_id,address,street_address,name){
-var obj = {
-  order_code:codeGenerator(),
-  restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
-  order_id:uuidv4(),
-  owner: username,
-  users:{  [username]:{checkout:false,user_cart:[]}},
-  group_cart:{ },
-  receipt:{},
-  total_tip: 0,
-  total_tax: 0,
-  total_paid: 0,
-  grand_total: 0,
-  total_owed: 0,
-  order_paid: 0
-};
-return obj;
-}
-
-//     //create session;
-
-
-//when user creates new session in db
-// whole new token is created with owner user;
-// if user is not the owner of the token then user is added to the users[]
-// order code join db lookup find by session_code if match add user to db session and
-// /create cookie with session code and users in the cookie;
-
-  // console.log('req jwtObject', req.jwtObject)
-if (req.jwtObject === undefined){
+    function generateSession(username,restaurant_id,address,street_address,name){
+    var obj = {
+      order_code:codeGenerator(),
+      restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
+      order_id:uuidv4(),
+      owner: username,
+      users:{  [username]:{checkout:false,user_cart:[]}},
+      group_cart:{ },
+      receipt:{},
+      total_tip: 0,
+      total_tax: 0,
+      total_paid: 0,
+      grand_total: 0,
+      total_owed: 0,
+      order_paid: 0
+    };
+    return obj;
+    }
 
         var sessionobj  = generateSession(req.query.username,req.query.restaurant_id,req.query.address,req.query.street_address,req.query.name);
         db.OrderSession.create(sessionobj).then(session=>{
@@ -71,9 +59,7 @@ if (req.jwtObject === undefined){
           console.log(err);
         });
 
-  } else {
-    res.json({createCookie:false,data:req.jwtObject})
-  }
+
 
   }
 
