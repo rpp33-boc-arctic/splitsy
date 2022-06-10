@@ -26,7 +26,7 @@ module.exports = {
 
 function generateSession(username,restaurant_id,address,street_address,name){
 var obj = {
-  order_code:codeGenerator(),
+  session_code:codeGenerator(),
   restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
   order_id:uuidv4(),
   owner: username,
@@ -56,11 +56,11 @@ return obj;
 if (req.jwtObject === undefined){
 
         var sessionobj  = generateSession(req.query.username,req.query.restaurant_id,req.query.address,req.query.street_address,req.query.name);
-        db.OrderSession.create(sessionobj).then(session=>{
+        db.Session.create(sessionobj).then(session=>{
           var payload = {
                 session_id: session._id,
                 owner: session.owner,
-                code: session.order_code,
+                code: session.session_code,
                 address: session.restaurant.address,
                 restaurant_id: session.restaurant_id
             };

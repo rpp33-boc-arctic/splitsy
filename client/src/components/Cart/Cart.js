@@ -90,7 +90,7 @@ function Cart(props) {
   const location = useLocation();
   const data = location.state;
   console.log('current cart in Cart.js is: ', data);
-  console.log('new window log: ', getCookie('orderSession'));
+  console.log('new window log: ', getCookie('Session'));
   // console.log('current props inside Cart.js is: ', props);
 
  var updateCartDatabase = () => {
@@ -106,7 +106,7 @@ function Cart(props) {
       totalTax: totalTax,
       grandTotal: grandTotal,
     },
-    headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession},
+    headers:{'Authorization':'Bearer ' + getCookie('Session').Session},
     success: (response) => {
       if (response === 'POST cart request received!') {
         console.log('POST cart request success!');
@@ -115,7 +115,7 @@ function Cart(props) {
     },
     error: (error) => {
       console.log('Error: ', error);
-      navigate(`/Restaurant/pick`);
+      navigate(`/protected/RestaurantList`);
     }
   })
   .done(function() {

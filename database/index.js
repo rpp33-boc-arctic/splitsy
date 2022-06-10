@@ -21,11 +21,13 @@ const userSchema = new mongoose.Schema({
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [ Number ] // [ user_id ]
+  'friends': [ Number ], // [ user_id ]
+  'previous_session_codes': [ String ], // [ session_code ]
+  'session_cookie': [ { type: String, unique: true } ]
 });
 
-const orderSessionSchema = new mongoose.Schema({
-  'order_code': { type: String, unique: true },
+const sessionSchema = new mongoose.Schema({
+  'session_code': { type: String, unique: true },
   'restaurant': {
     'restaurant_id':String ,
     'name': String,
@@ -74,5 +76,4 @@ const orderSessionSchema = new mongoose.Schema({
 module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
 
 module.exports.User = mongoose.model('User', userSchema);
-// export const Session = mongoose.model('Session', sessionSchema);
-module.exports.OrderSession = mongoose.model('OrderSession', orderSessionSchema);
+module.exports.Session = mongoose.model('Session', sessionSchema);

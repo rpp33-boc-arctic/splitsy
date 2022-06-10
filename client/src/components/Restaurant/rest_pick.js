@@ -15,7 +15,7 @@ class RestaurantPick extends React.Component {
       error:false,
       keywords:"",
       helperText:"pleaes enter a valid address.",
-      order_code:""
+      session_code:""
     }
 
     this.getRestaurants = this.getRestaurants.bind(this);
@@ -59,8 +59,8 @@ class RestaurantPick extends React.Component {
       if (name === "keywords"){
           this.setState({keywords:e.target.value})
       }
-      if (name === "order_code"){
-        this.setState({order_code:e.target.value})
+      if (name === "session_code"){
+        this.setState({session_code:e.target.value})
        }
   }
 
@@ -81,7 +81,7 @@ class RestaurantPick extends React.Component {
     if (document.cookie === undefined){
       document.cookie = '';
     }
-    document.cookie += ` orderSession=${token};`
+    document.cookie += ` Session=${token};`
   }
 
   getRestaurants(lat,long,miles){
@@ -91,7 +91,7 @@ class RestaurantPick extends React.Component {
    }
 
    routeIfCookie(){
-    // headers:{'Authorization':'Bearer ' + window.getCookie('orderSession').orderSession}
+    // headers:{'Authorization':'Bearer ' + window.getCookie('Session').Session}
     //make axios request check cookie data
     // if exists make requests to get menu
     //this.setState({query: tokendata.address}, function(){ after});
@@ -106,11 +106,11 @@ class RestaurantPick extends React.Component {
     restData.username = "grant_22";
     //this is a static username above when muizz finished cookie grab from that.
     restData.address = this.state.query;
-    restData.orderCode = this.state.order_code
+    restData.orderCode = this.state.session_code
 
-    axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
+    axios.get('http://127.0.0.1:3001/Session',{params:restData} ).then(response=>{
 
-        this.delete_cookie('orderSession','/','localhost');
+        this.delete_cookie('Session','/','localhost');
         this.createCookie(response.data.token);
         cb();
     });

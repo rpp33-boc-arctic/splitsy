@@ -17,7 +17,7 @@ const RedirectButton = (props) => {
   return (
     <Stack direction="row" spacing={2}>
       <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
-        <Link to="/Restaurant/pick" style={{ 'textDecoration': 'none', color: 'white' }}>
+        <Link to="/protected/Restaurant/pick" style={{ 'textDecoration': 'none', color: 'white' }}>
           Select Restaurant
         </Link>
       </Button>
@@ -32,7 +32,7 @@ const RedirectButton = (props) => {
 
       </Button>
       <Button variant="contained" endIcon={<ArrowCircleRightIcon />}>
-        <Link to="/Payment" style={{ 'textDecoration': 'none', color: 'white' }} >
+        <Link to="/protected/Payment" style={{ 'textDecoration': 'none', color: 'white' }} >
         Checkout
         </Link>
       </Button>
