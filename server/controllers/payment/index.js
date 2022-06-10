@@ -41,10 +41,10 @@ module.exports = {
 
   getSession: (req, res) => {
 
-    // var params = req.params;
-    // return Session.find({ session_code: params.session_id })
+    var params = req.params;
+    return Session.find({ session_code: params.session_id })
 
-    return Session.find({})
+    // return Session.find({})
       .then((result) => {
         res.send(result);
       })
@@ -154,7 +154,7 @@ module.exports = {
       if (oldReceipt) {
         var receipt = {
           'user_id': user_id,
-          'items': [...new Set(oldReceipt.items.concat(user_cart))],
+          'items': oldReceipt.items.concat(user_cart),
           'user_tip': oldReceipt.user_tip + user_tip,
           'total_paid': oldReceipt.total_paid + user_paid
         };
@@ -186,7 +186,7 @@ module.exports = {
     let session_id = req.params.session_id;
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{'order_paid?': true, 'date': Date.now()}},
+      {$set:{'order_paid?': true}},
       {upsert: true}
     )
     .then((result) => {
