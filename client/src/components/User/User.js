@@ -96,7 +96,7 @@ class User extends React.Component {
       return <History history={history} key={i} />
     })
     var friends = this.state.friends.map((friend, i) => {
-      return <Friend friend={friend} key={i} onClick={this.friendClick}/>
+      return <Friend friend={friend} key={i} onClick={this.friendClick} />
     })
 
     return (
@@ -106,21 +106,25 @@ class User extends React.Component {
           <Grid item xs={3}>
             <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
             <Typography>Dennis Wang</Typography>
-            <Typography>@{this.state.username}</Typography> <br></br><br></br>
-            <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography>
+            <Typography>@{this.state.username}</Typography> <br></br>
+            <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography> <br></br><br></br>
+            <Typography>About</Typography><br></br>
+            <Typography>Documents</Typography><br></br>
+            <Typography>Settings</Typography><br></br>
+            <Typography>Help</Typography><br></br>
+            <Typography>Terms and Conditions</Typography><br></br>
+            <Typography>Contact Us</Typography><br></br>
           </Grid>
           <Grid item xs={6}>
-            <Typography align='center' variant='h6'>Order History</Typography>
+            <Typography align='center' variant='h6'>Orders</Typography>
             <List style={this.state.scrollerOrderHistory} >
               {histories}
-              {/* <History /> */}
             </List>
           </Grid>
           <Grid item xs={3}>
-            <Typography align='center' variant='h6'>Friends List</Typography>
+            <Typography align='center' variant='h6'>Friends</Typography>
             <List style={this.state.scrollerFriendsList} >
               {friends}
-              {/* <Friends /> */}
             </List>
           </Grid>
         </Grid>
