@@ -50,20 +50,16 @@ var  RestaurantPick = (props)=>  {
     delete_cookie('orderSession');
     var expires = "";
       document.cookie = "orderSession" + "=" + (token || "")  + expires + "; path=/";
-      // document.cookie += ` orderSession=${token}`
     }
+
   var joinSearch = (e)=>{
     var newstate = Object.assign({}, state);
     var throwerror = false;
-    // since there is a code entered we can throw an error because it is invalid
     if (state.join_code.length > 4){
       throwerror = true
     }
-    // console.log(getCookie('orderSession').orderSession)
     var url = 'http://127.0.0.1:3001/joinOrder';
-    axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
-      // if redirect True and menu exists route to menu with usenavigate  throw error = false because route is true
-      // if redirect false throw error if code length > 4;
+    axios.get(url,{params:{user_id:props.cookieData.userId},headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
       console.log('respoonse',response);
       if (response.data.redirect){
         if (response.data.token){
@@ -77,8 +73,7 @@ var  RestaurantPick = (props)=>  {
         setState(newstate)
         }
     });
-    // state['query']="fiwonfoweinfowinefioewfnioew"
-    //   setState(state)
+
 
   }
 
@@ -135,6 +130,7 @@ var  RestaurantPick = (props)=>  {
   var clickRestaurant= (restData,cb)=>{
     restData.username = "grant_22";
     restData.address = state.query;
+    restData.user_id = props.cookieData.userId;
     axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
       createCookie(response.data.token);
       cb();

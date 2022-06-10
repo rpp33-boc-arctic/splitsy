@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import SubmenuItem from './menuItem.js';
+// import SubmenuItem from './menuItem.js';
 import SubmenuItemList from './submenuItemList.js';
 import { List, Button } from '@mui/material';
-import sampleData from './sampleData.js';
-import menuStyles from './menuStyles.css';
-import Cart from '../Cart/Cart.js';
+// import sampleData from './sampleData.js';
+// import menuStyles from './menuStyles.css';
+// import Cart from '../Cart/Cart.js';
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 function FullMenu(props) {
 
+	// eslint-disable-next-line no-unused-vars
 	const [scrollerStyle, setScrollerStyle] = useState(
 		{
 			      overflowY: 'scroll',

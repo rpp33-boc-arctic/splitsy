@@ -33,7 +33,7 @@ class App extends React.Component {
     }
   }
 
-  authCheck(cb = () => {}) {
+  authCheck(cb = () => { }) {
     var { cookies } = this.props;
     if (cookies.get('splitsy')) {
       var { username, userId } = cookies.get('splitsy');
@@ -46,21 +46,11 @@ class App extends React.Component {
     }
   }
 
-  navigateToPage () {
+  navigateToPage() {
     this.setState({
       verified: (<Navigate to="/protected/RestaurantList" replace={true} />)
     })
   }
-  // render(){
-  //     return (
-  //       <div className="App">
-  //         <br></br>
-  //         <Link to="/Dashboard"> Dashboard</Link><br />
-  //         <Link to="/User"> User</Link><br />
-  //         <Link to="/Restaurant/pick"> Restaurants</Link><br />
-  //         <Link to="/Menu"> Menu</Link><br />
-  //         <Link to="/Cart"> Cart</Link><br />
-  //         <Link to="/Payment"> Payment</Link><br /><br />
 
   render() {
 
@@ -71,40 +61,39 @@ class App extends React.Component {
 
 
     if (userData.username !== '' || userData.userId !== 0) {
-          return (
-            <Routes className="App">
-                <Route path="/" element={<NavBar />}>
-                  <Route index element={
-                    <>
-                      {this.state.verified}
-                      <Auth verifyUser={() => {this.authCheck(this.navigateToPage)}}/>
-                    </>}
-                  />
-                  <Route path="/protected" element={<Private user={userData} />} >
-                    <Route path="RestaurantList" element={<RestaurantPick />} />
-                    <Route path="User" element={<User />} />
-                    {/* <Route path="RestauarantMenu" element={<RestaurantMenu />} /> */}
-                    <Route path="Menu" element={<Menu />} />
-                    <Route path="Cart" element={<Cart />} />
-                    <Route path="Payment" element={<Payment />} />
-                  </Route>
-                </Route>
-            </Routes>
-          );
-        } else {
-          return (
-            <Routes className="App">
-                <Route path="*" element={<NavBar />}>
-                  <Route path="*" element={
-                    <>
-                      {this.state.verified}
-                      <Auth verifyUser={() => {this.authCheck(this.navigateToPage)}}/>
-                    </>}
-                  />
-                </Route>
-            </Routes>
-          );
-        }
+      return (
+        <Routes className="App">
+          <Route path="/" element={<NavBar cookieData={userData} verifyUser={() => { this.authCheck(this.navigateToPage) }} />}>
+            <Route index element={
+              <>
+                {this.state.verified}
+                <Auth verifyUser={() => { this.authCheck(this.navigateToPage) }} />
+              </>}
+            />
+            <Route path="/protected" element={<Private user={userData} />} >
+              <Route path="RestaurantList" element={<RestaurantPick cookieData={userData}/>} />
+              <Route path="User" element={<User cookieData={userData} />} />
+              <Route path="Menu" element={<Menu cookieData={userData}/>} />
+              <Route path="Cart" element={<Cart cookieData={userData}/>} />
+              <Route path="Payment" element={<Payment cookieData={userData} />} />
+            </Route>
+          </Route>
+        </Routes>
+      );
+    } else {
+      return (
+        <Routes className="App">
+          <Route path="*" element={<NavBar />}>
+            <Route path="*" element={
+              <>
+                {this.state.verified}
+                <Auth verifyUser={() => { this.authCheck(this.navigateToPage) }} />
+              </>}
+            />
+          </Route>
+        </Routes>
+      );
+    }
   }
 
 }

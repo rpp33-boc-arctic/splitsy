@@ -1,8 +1,8 @@
 import React from 'react';
 import SubmenuItem from './submenuItem.js';
-import { List, Button } from '@mui/material';
-import sampleData from './sampleData.js';
-import menuStyles from './menuStyles.css';
+import { Button } from '@mui/material';
+// import sampleData from './sampleData.js';
+// import menuStyles from './menuStyles.css';
 
 
 class SubmenuItemList extends React.Component {

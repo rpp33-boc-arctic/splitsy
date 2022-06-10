@@ -75,5 +75,6 @@ const sessionSchema = new mongoose.Schema({
 });
 
 module.exports.User = mongoose.model('User', userSchema);
-module.exports.Session = mongoose.model('Session2', sessionSchema);
+// module.exports.Session = mongoose.model('Session2', sessionSchema);//temporary
 module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
+module.exports.Session = mongoose.model('Session', sessionSchema);

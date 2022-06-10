@@ -41,6 +41,7 @@ module.exports = {
         'paid?': false
       }
       group_cart_obj[index] = currentItem;
+      console.log('menu_item_id is: ', currentItem.menu_item_id);
     })
 
     // for (var i = 9; i < cart.length; i++) {
@@ -83,6 +84,13 @@ module.exports = {
     // return Session.updateOne({ _id: req.jwtObject.session_id },  {'$set': {[group_cart] :updatedCart}});
 
 
+    // COOKIE
+    // res.status(200)
+    //     .cookie('sessionCode',
+    //       { 'session_code': <actual-session-code>, 'session_id': <actual-session-id> },
+    //       { sameSite: true }
+    //     );
+
     console.log('jwtObject is: ', req.jwtObject);
     if (req.jwtObject) {
       Session.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
@@ -106,7 +114,7 @@ module.exports = {
       // update cart and database
 
       // if req.jwtObject exists, then session_id exists
-      // OrderSession.updateOne({ _id: req.jwtObject.session_id }, { $set: { [group_cart]: req.body.cart } })
+      // Session.updateOne({ _id: req.jwtObject.session_id }, { $set: { [group_cart]: req.body.cart } })
       // use updateOne to update databse with req.jwtObject.session_id
       // and req.body.cart, also req.body.totalTax and req.body.grandTotal
       // send back group_cart (set up timer on client side to update server every 2 sec)
@@ -141,7 +149,7 @@ module.exports = {
     // var grandTotal = req.body.grandTotal;
     // var session_id = req.params.session_id;
 
-    // return OrderSession.updateOne({ session_code: session_id }, { $set: { total_tax: totalTax, grand_total: grandTotal } })
+    // return Session.updateOne({ session_code: session_id }, { $set: { total_tax: totalTax, grand_total: grandTotal } })
     //   .then((result) => {
     //     console.log('GET cart server success! Cart is: ', result);
     //     res.status(200).send('POST summary request received!');

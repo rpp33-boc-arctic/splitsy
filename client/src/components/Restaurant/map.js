@@ -24,7 +24,6 @@ class Map extends React.Component {
   });
   this.map.addControl(new tt.FullscreenControl());
   this.map.addControl(new tt.NavigationControl());
-  // console.log(this.map)
   }
 
 

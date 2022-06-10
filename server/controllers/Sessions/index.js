@@ -23,27 +23,27 @@ module.exports = {
       }
       return symbols;
     }
-
-    function generateSession(username,restaurant_id,address,street_address,name){
+//make sure user_id passed in
+    function generateSession(username,restaurant_id,address,street_address,name,user_id){
     var obj = {
-      session_code:codeGenerator(),
-      restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
-      order_id:uuidv4(),
-      owner: username,
-      users:{  [username]:{checkout:false,user_cart:[]}},
-      group_cart:{ },
-      receipt:{},
-      total_tip: 0,
-      total_tax: 0,
-      total_paid: 0,
-      grand_total: 0,
-      total_owed: 0,
-      order_paid: 0
+      'session_code':codeGenerator(),
+      'restaurant': {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
+      'order_id':uuidv4(),
+      'owner': username,
+      'users':{  [username]:{'checkout?':false,'user_cart':[],'user_id':user_id}},
+      'group_cart':{ },
+      'receipt':{},
+      'total_tip': 0,
+      'total_tax': 0,
+      'total_paid': 0,
+      'grand_total': 0,
+      'total_owed': 0,
+      'order_paid?':false
     };
     return obj;
     }
 
-        var sessionobj  = generateSession(req.query.username,req.query.restaurant_id,req.query.address,req.query.street_address,req.query.name);
+        var sessionobj  = generateSession(req.query.username,req.query.restaurant_id,req.query.address,req.query.street_address,req.query.name,req.query.user_id);
         db.Session.create(sessionobj).then(session=>{
           var payload = {
                 session_id: session._id,
@@ -53,7 +53,6 @@ module.exports = {
                 restaurant_id: req.query.restaurant_id
             };
            var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
-              console.log(token);
           res.json({createCookie:true,token:token});
         }).catch(err=>{
           console.log(err);
