@@ -10,18 +10,32 @@ var jwt = require('jsonwebtoken');
 module.exports = {
 
   joinOrder: (req, res,next) => {
-
-    // if code not provided and cookie is cookie has the code and session id send over to client navigate over
-    if (req.jwtToken){
-
-      db.Restaurant.find({restaurant_id:req.jwtToken.restaurant_id}).then(data=>{
-        res.json({redirect:true,menu:data});
+    if (req.jwtObject){
+      db.Restaurant.find({restaurant_id:req.jwtObject.restaurant_id}).then(data=>{
+        res.json({redirect:true,menu:data[req.jwtObject.restaurant_id]});
       })
-
-      //token is valid
-
     } else {
-      //token invalid or gone
+      var code = req.query.join_code;
+      db.Session.find({session_code:code}).then(foundSession=>{
+
+        if (foundSession){
+          var payload = {
+            session_id: foundSession._id,
+            owner: foundSession.owner,
+            code: foundSession.session_code,
+            address: foundSession.restaurant.address,
+            restaurant_id: foundSession.restaurant_id
+        };
+       var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
+       db.updateOne({_id:foundSession._id}, {'$set': {['users.'+req.query.username]:{'user_id':null,'checkout?':false,'user_cart':[]} } }).then(response=>{
+
+        res.json({redirect:true,token:token})
+
+       })
+        } else {
+          res.json({redirect:false})
+        }
+      })
       res.status(400);
       res.json({redirect:false,data:undefined});
     }

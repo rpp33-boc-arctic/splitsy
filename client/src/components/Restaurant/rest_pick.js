@@ -33,33 +33,49 @@ var  RestaurantPick = (props)=>  {
   }
 
    var joinCodeChange = (e)=>{
+    var newstate = Object.assign({}, state);
+
     var val = e.target.value;
-     state['join_code'] = val;
-    setState(state);
+    newstate['join_code'] = val;
+    setState(newstate);
   }
 
-  var joinSearch = (e)=>{
+  var delete_cookie = ( name, path, domain )=> {
+    if( getCookie(name).orderSession ) {
+      document.cookie = name + '=; Max-Age=-99999999;';
+    }
+  }
 
+  var createCookie = (token)=>{
+    delete_cookie('orderSession');
+    var expires = "";
+      document.cookie = "orderSession" + "=" + (token || "")  + expires + "; path=/";
+      // document.cookie += ` orderSession=${token}`
+    }
+  var joinSearch = (e)=>{
+    var newstate = Object.assign({}, state);
     var throwerror = false;
-    console.log(state)
     // since there is a code entered we can throw an error because it is invalid
     if (state.join_code.length > 4){
       throwerror = true
     }
-
+    // console.log(getCookie('orderSession').orderSession)
     var url = 'http://127.0.0.1:3001/joinOrder';
     axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
       // if redirect True and menu exists route to menu with usenavigate  throw error = false because route is true
       // if redirect false throw error if code length > 4;
+      console.log('respoonse',response);
       if (response.data.redirect){
-        navigate('/protected/menu', { state: { menu:response.data.menu } });
+        if (response.data.token){
+          createCookie(response.data.token)
+        }
+        navigate('/protected/menu', { state: { item:response.data.menu, menu:response.data.menu } });
       }
     }).catch(err=>{
       if (throwerror){
-        state['showErrorBar']=true;
-        setState(state)
+        newstate['showErrorBar']=true;
+        setState(newstate)
         }
-      setState(state)
     });
     // state['query']="fiwonfoweinfowinefioewfnioew"
     //   setState(state)
@@ -67,21 +83,23 @@ var  RestaurantPick = (props)=>  {
   }
 
   var querychange = (e,name)=>{
+    var newstate = Object.assign({}, state);
+
       if (name === "query"){
-        state['query']=e.target.value;
+        newstate['query']=e.target.value;
 
         if (e.target.value.length > 10 ){
-          state['error']=false;
-          state['helperText']="congrats its valid";
-          setState(state)
+          newstate['error']=false;
+          newstate['helperText']="congrats its valid";
+          setState(newstate)
         } else {
-          state['helperText']="pleaes enter a valid address";
-          setState(state);
+          newstate['helperText']="pleaes enter a valid address";
+          setState(newstate);
         }
       }
       if (name === "keywords"){
-        state['keywords']=e.target.value;
-          setState(state)
+        newstate['keywords']=e.target.value;
+          setState(newstate)
       }
   }
 
@@ -91,52 +109,42 @@ var  RestaurantPick = (props)=>  {
     setTimeout(()=>{
       axios.get(url).then((data)=>{
         getRestaurants(data.data.results[0].position['lat'],data.data.results[0].position['lon'])
-        state['query']="";
-        state['error']=false;
-        setState(state)
+        var newstate = Object.assign({}, state);
+        newstate['query']="";
+        newstate['error']=false;
+        setState(newstate)
       });
     },500);
   }
 
 
 
- var createCookie = (token)=>{
-    if (document.cookie === undefined){
-      document.cookie = '';
-    }
-    document.cookie += ` orderSession=${token};`
-  }
+
+
 
   var getRestaurants = (lat,long,miles)=>{
         axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(response=>{
-          setState(state => ({
-            ...state.rest,
-            ...response.data
-          }));
-          console.log(state);
+          var newstate = Object.assign({}, state);  // creating copy of state variable jasper
+          newstate.rest = response.data;
+          setState(newstate)
         });
    }
 
-  var delete_cookie = ( name, path, domain )=> {
-    if( getCookie(name) ) {
-      document.cookie = name + "=" +
-        ((path) ? ";path="+path:"")+
-        ((domain)?";domain="+domain:"") +
-        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-    }
-  }
+
 
   var clickRestaurant= (restData,cb)=>{
     restData.username = "grant_22";
     restData.address = state.query;
     axios.get('http://127.0.0.1:3001/orderSession',{params:restData} ).then(response=>{
-      delete_cookie('orderSession','/','localhost');
       createCookie(response.data.token);
       cb();
     });
   }
+
   useEffect(() => {
-    joinSearch()
+    if (getCookie('orderSession').orderSession){
+       joinSearch()
+    }
   });
 
 

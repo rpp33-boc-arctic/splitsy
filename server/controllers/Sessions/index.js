@@ -50,7 +50,7 @@ module.exports = {
                 owner: session.owner,
                 code: session.session_code,
                 address: session.restaurant.address,
-                restaurant_id: session.restaurant_id
+                restaurant_id: req.query.restaurant_id
             };
            var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
               console.log(token);

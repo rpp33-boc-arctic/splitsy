@@ -12,20 +12,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
 var jwt = require('jsonwebtoken');
 
-app.use(cors())
+app.use(cors());
+
 var jwtMiddleware = function (req,res,next){
-  const authHeader = req.headers.authorization;
  try {
+  const authHeader = req.headers.authorization;
       const token = authHeader.split(' ')[1];
       req.jwtObject = jwt.verify(token, 'Server Password');
+      console.log('jwt in middleware',req.jwtObject)
       next()
   } catch(err){
-    req.jwtObject = undefined;
+    req.jwtObject = null;
     next()
   }
 }
-app.use(jwtMiddleware);
-
+// app.use(jwtMiddleware);
+app.use(jwtMiddleware)
 app.use('/', routes);
 
 // app.get("/serverStatus", (req, res) => {

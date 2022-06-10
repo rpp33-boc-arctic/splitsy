@@ -9,9 +9,7 @@ module.exports = {
         var check1 = (parseFloat(req.query.long.toString().replace('-',''))  >=  112.320)
         var check2 = (parseFloat(req.query.long.toString().replace('-',''))  <=  112.325)
         if (check1 && check2 ){
-          // console.log('in range of address');
-          db.Restaurant.find().then(res=>{
-            console.log(res);
+          db.Restaurant.find({}).then(res=>{
             response.send(JSON.stringify(res))
           })
         } else {
