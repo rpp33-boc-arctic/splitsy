@@ -119,7 +119,7 @@ useEffect(() => {
 				{itemCount()}
 		  </Button>
 					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} >
-        <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
+        <Link to="/protected/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
           GO TO CART
         </Link>
 

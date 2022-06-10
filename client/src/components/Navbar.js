@@ -2,7 +2,8 @@ import React from 'react';
 
 import {Button, Typography, Toolbar, Box, AppBar, ListItem, List, Divider, ListItemText, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Outlet } from 'react-router-dom';
+
+import {Link, Outlet } from 'react-router-dom';
 
 class NavBar extends React.Component {
   constructor(props) {

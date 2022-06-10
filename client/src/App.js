@@ -7,7 +7,7 @@ import Auth from './components/Auth/Auth.js';
 import Cart from './components/Cart/Cart.js';
 import Menu from './components/Menu/Menu.js';
 import Payment from './components/Payment/Payment.js';
-import { RestaurantPick,RestaurantMenu } from './components/Restaurant/Restaurant.js';
+import RestaurantPick from './components/Restaurant/rest_pick.js';
 import User from './components/User/User.js';
 import Private from './Private.js';
 
@@ -51,16 +51,16 @@ class App extends React.Component {
       verified: (<Navigate to="/protected/RestaurantList" replace={true} />)
     })
   }
-  render(){
-      return (
-        <div className="App">
-          <br></br>
-          <Link to="/Dashboard"> Dashboard</Link><br />
-          <Link to="/User"> User</Link><br />
-          <Link to="/Restaurant/pick"> Restaurants</Link><br />
-          <Link to="/Menu"> Menu</Link><br />
-          <Link to="/Cart"> Cart</Link><br />
-          <Link to="/Payment"> Payment</Link><br /><br />
+  // render(){
+  //     return (
+  //       <div className="App">
+  //         <br></br>
+  //         <Link to="/Dashboard"> Dashboard</Link><br />
+  //         <Link to="/User"> User</Link><br />
+  //         <Link to="/Restaurant/pick"> Restaurants</Link><br />
+  //         <Link to="/Menu"> Menu</Link><br />
+  //         <Link to="/Cart"> Cart</Link><br />
+  //         <Link to="/Payment"> Payment</Link><br /><br />
 
   render() {
 
@@ -83,7 +83,7 @@ class App extends React.Component {
                   <Route path="/protected" element={<Private user={userData} />} >
                     <Route path="RestaurantList" element={<RestaurantPick />} />
                     <Route path="User" element={<User />} />
-                    <Route path="RestauarantMenu" element={<RestaurantMenu />} />
+                    {/* <Route path="RestauarantMenu" element={<RestaurantMenu />} /> */}
                     <Route path="Menu" element={<Menu />} />
                     <Route path="Cart" element={<Cart />} />
                     <Route path="Payment" element={<Payment />} />
