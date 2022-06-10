@@ -33,13 +33,26 @@ var  RestaurantPick = (props)=>  {
   }
 
    var joinCodeChange = (e)=>{
+    var val = e.target.value;
+     state['join_code'] = val;
+    setState(state);
+  }
+
+  var joinSearch = (e)=>{
+
+    var throwerror = false;
+    console.log(state)
+    // since there is a code entered we can throw an error because it is invalid
+    if (state.join_code.length > 4){
+      throwerror = true
+    }
 
     var url = 'http://127.0.0.1:3001/joinOrder';
     axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
       // if redirect True and menu exists route to menu with usenavigate  throw error = false because route is true
       // if redirect false throw error if code length > 4;
       if (response.data.redirect){
-        navigate('/menu', { state: { menu:response.data.menu } });
+        navigate('/protected/menu', { state: { menu:response.data.menu } });
       }
     }).catch(err=>{
       if (throwerror){
@@ -96,8 +109,8 @@ var  RestaurantPick = (props)=>  {
 
   var getRestaurants = (lat,long,miles)=>{
         axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(response=>{
-          setState(shopCart => ({
-            ...rest,
+          setState(state => ({
+            ...state.rest,
             ...response.data
           }));
           console.log(state);
