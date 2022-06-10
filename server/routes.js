@@ -34,14 +34,18 @@ router.get('/user/friends', userController.friends);
 
 // Restaurants
 router.get('/restaurant', restaurantController.restaurantList);
-router.get('/restaurant/menu', (req, res) => {});
+// router.get('/restaurant/menu', (req, res) => {});
 router.get('/joinOrder',joinOrder.joinOrder);
 router.get('/orderSession', orderSessionController.createSession);
+router.get('/:restaurant/menu', (req, res) => { });
+
 
 
 
 // Cart
-router.post('/session:id/order', cartController.order);
+router.get('/session/get_cart', jwtMiddleware, cartController.getCart);
+router.post('/session/update_cart', jwtMiddleware, cartController.updateCart);
+router.post('/session/update_summary', jwtMiddleware, cartController.updateSummary);
 
 
 // Payment

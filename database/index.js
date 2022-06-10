@@ -21,17 +21,13 @@ const userSchema = new mongoose.Schema({
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [ Number ], // [ user_id ]
-  'previous_session_codes': [ String ], // [ session_code ]
-  'session_cookie': [ { type: String, unique: true } ]
+  'friends': [ Number ] // [ user_id ]
 });
 
-const OrderSession = new mongoose.Schema({
+const orderSessionSchema = new mongoose.Schema({
   'order_code': { type: String, unique: true },
-  'owner': String,
-  'timeUntilExpired': Date, // date + 1hour of time when checked and its not out make cookie for all users who have same session code
   'restaurant': {
-    'restaurant_id': String,
+    'restaurant_id':String ,
     'name': String,
     'address': String,
   },
@@ -40,7 +36,6 @@ const OrderSession = new mongoose.Schema({
     type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
       'user_id': Number,
-      'username': String,
       'checkout?': Boolean,
       'user_cart': [ Number ] // [ order_item_id ]
     })
@@ -71,7 +66,8 @@ const OrderSession = new mongoose.Schema({
   'total_paid': Number,
   'grand_total': Number,
   'total_owed': Number,
-  'order_paid?': Boolean
+  'order_paid?': Boolean,
+  'date': String
 });
 
 // export const User = mongoose.model('User', userSchema);
@@ -79,4 +75,4 @@ module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
 
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
-module.exports.OrderSession = mongoose.model('OrderSession', OrderSession);
+module.exports.OrderSession = mongoose.model('OrderSession', orderSessionSchema);

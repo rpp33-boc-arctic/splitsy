@@ -129,10 +129,11 @@ module.exports = {
   },
   'total_tip': 200,
   'total_tax': 107,
-  'total_paid': 10000, // tracking user pays (not include tip), eventaully = total_owed
-  'grand_total': 10000, // group subtotal
-  'total_owed': 10307, // total_tax + grand_total
-  'order_paid?': true
+  'total_paid': 10000,
+  'grand_total': 10000,
+  'total_owed': 10307,
+  'order_paid?': true,
+  'date': '05302022'
 }
 
 // 'receipt': [

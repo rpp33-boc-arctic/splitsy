@@ -33,19 +33,6 @@ var  RestaurantPick = (props)=>  {
   }
 
    var joinCodeChange = (e)=>{
-    var val = e.target.value;
-     state['join_code'] = val;
-    setState(state);
-  }
-
-  var joinSearch = (e)=>{
-
-    var throwerror = false;
-    console.log(state)
-    // since there is a code entered we can throw an error because it is invalid
-    if (state.join_code.length > 4){
-      throwerror = true
-    }
 
     var url = 'http://127.0.0.1:3001/joinOrder';
     axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{

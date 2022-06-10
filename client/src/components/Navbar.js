@@ -2,7 +2,8 @@ import React from 'react';
 
 import {Button, Typography, Toolbar, Box, AppBar, ListItem, List, Divider, ListItemText, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link} from "react-router-dom";
+
+import {Link, Outlet } from 'react-router-dom';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -50,29 +51,26 @@ class NavBar extends React.Component {
   render() {
 
     return (
-      <Box  className="nav_container" onClick={e=>{this.detectOffClick(e)}} sx={{ flexGrow: 1 }}>
-      <AppBar  position="static">
-        <Toolbar style={{position:'relative'}}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={this.openNav}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-           <Link to="/" className="bob"  style={{color:"white",textDecoration:"none"}}> Splitsy</Link>
-          </Typography>
-          {this.isAuthenticated? <Link className="bob"  to="/userProfile" style={{color:"white",textDecoration:"none"}}> {this.user} </Link>: null}
-          <Button color="inherit"> {this.isAuthenticated? <Link  className="bob"  to="/logout" style={{color:"white",textDecoration:"none"}} >LOGOUT</Link>:<Link  to="/Auth" style={{color:"white",textDecoration:"none"}} >LOGIN</Link> } </Button>
-        </Toolbar>
-      </AppBar>
-      {this.state.openNav? this.displayNav():null}
-    </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Splitsy
+            </Typography>
+            <Button color="inherit">Login/User</Button>
+          </Toolbar>
+        </AppBar>
+        <Outlet />
+      </Box>
     )
   }
 }
