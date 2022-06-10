@@ -7,6 +7,8 @@ class AuthForm extends React.Component {
     super(props);
     this.state = {
       username: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: ''
     };
@@ -25,12 +27,14 @@ class AuthForm extends React.Component {
   submitForm(e) {
     e.preventDefault();
 
-    const { username, email, password } = this.state;
+    const { username, firstname, lastname, email, password } = this.state;
 
     if (this.props.registerUser) {
 
       this.props.formHandler({
         username: username,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         password: password
       });
@@ -46,6 +50,8 @@ class AuthForm extends React.Component {
 
     this.setState({
       username: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: ''
     });
@@ -60,14 +66,32 @@ class AuthForm extends React.Component {
         {
           registerUser
           &&
-          <TextField
-            label="Username"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            required
-            inputProps={{ 'aria-label': 'authorization form name field' }}
-          />
+          <>
+            <TextField
+              label="Username"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+              required
+              inputProps={{ 'aria-label': 'authorization form username field' }}
+            />
+            <TextField
+              label="First Name"
+              name="firstname"
+              value={this.state.firstname}
+              onChange={this.handleChange}
+              required
+              inputProps={{ 'aria-label': 'authorization form firstname field' }}
+            />
+            <TextField
+              label="Last Name"
+              name="lastname"
+              value={this.state.lastname}
+              onChange={this.handleChange}
+              required
+              inputProps={{ 'aria-label': 'authorization form lastname field' }}
+            />
+          </>
         }
         <TextField
           label="Email"
