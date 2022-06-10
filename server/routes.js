@@ -43,9 +43,9 @@ router.get('/:restaurant/menu', (req, res) => { });
 
 
 // Cart
-router.get('/session/get_cart', jwtMiddleware, cartController.getCart);
-router.post('/session/update_cart', jwtMiddleware, cartController.updateCart);
-router.post('/session/update_summary', jwtMiddleware, cartController.updateSummary);
+router.get('/session/get_cart', cartController.getCart);
+router.post('/session/update_cart', cartController.updateCart);
+router.post('/session/update_summary', cartController.updateSummary);
 
 
 // Payment
