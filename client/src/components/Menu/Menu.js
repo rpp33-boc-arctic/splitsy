@@ -20,7 +20,7 @@ var Menu = (props)=> {
 		if (data){
 			setFullMenu(JSON.parse(data));
 		}
-});
+}, [fullMenu]);
 
 useEffect(() => {
 	// setCart(JSON.parse(localStorage.setItem('cart', cart)))

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import ButtonAppBar from './navbar.js';
 import OrderCode from './orderCode.js';
 import RedirectButton from './redirectButton.js';
@@ -49,7 +49,9 @@ function Cart(props) {
   // }
   let navigate = useNavigate();
 
+  // eslint-disable-next-line no-unused-vars
   const [totalTax, setTotalTax] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [grandTotal, setGrandTotal] = useState(0);
   // const [session_id, setSessionID] = useState(1);
 
