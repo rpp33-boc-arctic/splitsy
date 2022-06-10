@@ -3,9 +3,11 @@ const authController = require('./controllers/authentication');
 const userController = require('./controllers/user');
 const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
-const orderSessionController = require('./controllers/orderSession');
+const SessionController = require('./controllers/Session');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
+var jwt = require('jsonwebtoken');
+
 
 var isAuthenticated = (req, res, next) => {
   // console.log('req.cookies', req.cookies);
@@ -42,6 +44,19 @@ var isAuthenticated = (req, res, next) => {
 //   });
 // })
 
+var jwtMiddleware = function (req, res, next) {
+  const authHeader = req.headers.authorization;
+  try {
+    const token = authHeader.split(' ')[1];
+    req.jwtObject = jwt.verify(token, 'Server Password');
+    console.log('req.jwtObject inside jwtMiddleware is: ', req.jwtObject);
+    next()
+  } catch (err) {
+    req.jwtObject = undefined;
+    next()
+  }
+}
+
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
@@ -55,15 +70,17 @@ router.get('/user/friends', userController.friends);
 
 // Restaurants
 router.get('/restaurant', restaurantController.restaurantList);
-router.get('/:restaurant/menu', (req, res) => {});
+router.get('/:restaurant/menu', (req, res) => { });
 
 
 // Session
-router.get('/orderSession', orderSessionController.createSession);
+router.get('/Session', jwtMiddleware, SessionController.createSession);
 
 
 // Cart
-router.post('/session:id/order', cartController.order);
+router.get('/session/get_cart', jwtMiddleware, cartController.getCart);
+router.post('/session/update_cart', jwtMiddleware, cartController.updateCart);
+router.post('/session/update_summary', jwtMiddleware, cartController.updateSummary);
 
 
 // Payment

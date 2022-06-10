@@ -1,11 +1,11 @@
 import React from 'react';
-import MenuItem from './menuItem.js';
+import SubmenuItem from './menuItem.js';
 import { List } from '@mui/material';
 import sampleData from './sampleData.js';
 import menuStyles from './menuStyles.css';
 
 
-class MenuItemList extends React.Component {
+class FullMenuList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,28 +21,9 @@ class MenuItemList extends React.Component {
     }
   }
 
-  // const divStyle={
-  //   overflowY: 'scroll',
-  //   border:'1px solid red',
-  //   width:'500px',
-  //   float: 'left',
-  //   height:'500px',
-  //   position:'relative'
-  // };
-
-  // margin-top: 20px;
-  // overflow-y: scroll;
-  // width: 600px;
-  // max-height: 1100px;
-  // /* overflow-y: scroll; */
-  // overflow-y: auto;
-  // overflow-x: auto;
-  // scrollbar-color: rebeccapurple green;
-  // scrollbar-width: thin;
-
   render() {
     var items = sampleData.menu.categories[5].menu_item_list.map((item, i) => {
-      return <MenuItem item={item} key={i}/>
+      return <SubmenuItem item={item} key={i}/>
     })
 		console.log('menuStyles: ', menuStyles.toString().slice(0,1));
     return (
@@ -58,4 +39,4 @@ class MenuItemList extends React.Component {
 }
 
 
-export default MenuItemList;
+export default FullMenuList;
