@@ -51,16 +51,6 @@ class App extends React.Component {
       verified: (<Navigate to="/protected/RestaurantList" replace={true} />)
     })
   }
-  // render(){
-  //     return (
-  //       <div className="App">
-  //         <br></br>
-  //         <Link to="/Dashboard"> Dashboard</Link><br />
-  //         <Link to="/User"> User</Link><br />
-  //         <Link to="/Restaurant/pick"> Restaurants</Link><br />
-  //         <Link to="/Menu"> Menu</Link><br />
-  //         <Link to="/Cart"> Cart</Link><br />
-  //         <Link to="/Payment"> Payment</Link><br /><br />
 
   render() {
 
@@ -73,25 +63,16 @@ class App extends React.Component {
     if (userData.username !== '' || userData.userId !== 0) {
       return (
         <Routes className="App">
-          <Route path="/" element={<NavBar />}>
+          <Route path="/" element={<NavBar cookieData={userData} verifyUser={() => { this.authCheck(this.navigateToPage) }} />}>
             <Route index element={
               <>
                 {this.state.verified}
                 <Auth verifyUser={() => { this.authCheck(this.navigateToPage) }} />
               </>}
             />
-            {/* <Route path="/protected" element={<Private user={userData} />} >
-                    <Route path="RestaurantList" element={<RestaurantPick />} />
-                    <Route path="User" element={<User />} />
-                    <Route path="Menu" element={<Menu />} />
-                    <Route path="Cart" element={<Cart />} />
-                    <Route path="Payment" element={<Payment />} />
-                  </Route> */}
-
             <Route path="/protected" element={<Private user={userData} />} >
               <Route path="RestaurantList" element={<RestaurantPick />} />
               <Route path="User" element={<User />} />
-              {/* <Route path="RestauarantMenu" element={<RestaurantMenu />} /> */}
               <Route path="Menu" element={<Menu />} />
               <Route path="Cart" element={<Cart />} />
               <Route path="Payment" element={<Payment />} />
