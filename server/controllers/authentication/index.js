@@ -11,9 +11,10 @@ module.exports = {
           const usernameValid = alphaNumericUnderscore(req.body.username);
           const firstnameValid = alphaNumericHyphen(req.body.firstname);
           const lastnameValid = alphaNumericHyphen(req.body.lastname);
+          const emailValid = emailValidation(req.body.email);
           const passwordValid = req.body.password.length >= 8 && !req.body.password.includes(' ');
 
-          if (usernameValid && firstnameValid && lastnameValid && passwordValid) {
+          if (usernameValid && firstnameValid && lastnameValid && emailValid && passwordValid) {
 
             const hash = await bcrypt.hash(req.body.password, 8);
             const userId = await User.estimatedDocumentCount() + 1;
@@ -39,6 +40,9 @@ module.exports = {
           } else if (!firstnameValid || !lastnameValid) {
             res.status(200)
               .json({ message: 'firstname/lastname can only contain alpha-numeric characters and an underscore', invalidEntry: true });
+          } else if (!emailValid) {
+            res.status(200)
+              .json({ message: 'hmm, your email does not look right to me...', invalidEntry: true });
           } else if (!passwordValid) {
             res.status(200)
               .json({ message: 'password must be at least 8 characters long with no spaces', invalidEntry: true });
@@ -146,4 +150,9 @@ const alphaNumericUnderscore = (string) => {
 const alphaNumericHyphen = (string) => {
   const regex = new RegExp('^[a-zA-Z0-9-]+$');
   return regex.test(string);
+};
+
+const emailValidation = (email) => {
+  const regex = new RegExp("^\\w+([\\.-]?\\w+)+@\\w+([\\.:]?\\w+)+(\\.[a-zA-Z0-9]{2,3})+$");
+  return regex.test(email);
 };
