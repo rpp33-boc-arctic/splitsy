@@ -83,3 +83,13 @@
 	align-self: center;
 	justify-content: center;
 }
+
+.go-to-cart {
+	display: flex;
+	align-self: right;
+	justify-content: right;
+}
+
+.cart-should-hide {
+	display: none
+}
