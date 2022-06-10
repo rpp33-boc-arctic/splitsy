@@ -12,7 +12,7 @@ mongoose.connect(dbAddress) // consider save in the variable
   });
 
 const Restaurant = new mongoose.Schema({
-  'restaurants': []
+  'restaurants':[]
 });
 
 const userSchema = new mongoose.Schema({
@@ -21,17 +21,13 @@ const userSchema = new mongoose.Schema({
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [Number], // [ user_id ]
-  'previous_session_codes': [String], // [ session_code ]
-  'session_cookie': [{ type: String, unique: true }]
+  'friends': [ Number ] // [ user_id ]
 });
 
-const OrderSession = new mongoose.Schema({
+const orderSessionSchema = new mongoose.Schema({
   'order_code': { type: String, unique: true },
-  'owner': String,
-  'timeUntilExpired': Date, // date + 1hour of time when checked and its not out make cookie for all users who have same session code
   'restaurant': {
-    'restaurant_id': String,
+    'restaurant_id':String ,
     'name': String,
     'address': String,
   },
@@ -40,29 +36,27 @@ const OrderSession = new mongoose.Schema({
     type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
       'user_id': Number,
-      'username': String,
       'checkout?': Boolean,
-      'user_cart': [Number] // [ order_item_id ]
+      'user_cart': [ Number ] // [ order_item_id ]
     })
   },
   'group_cart': {
-  type: Map, // key -> 'user_id'
-  of: new mongoose.Schema(
-   [{
-    // 'order_item_id': Number,
-    // 'menu_item_id': Number,  'paid?' was changed to 'paid'
-    'product_id': Number,
-    'name': String,
-    'description': String,
-    'photo': String,
-    'price': Number,
-    'username': String,
-    'paid': Boolean
-}])},
+    type: Map, // key -> 'order_item_id'
+    of: new mongoose.Schema({
+      'order_item_id': Number,
+      'menu_item_id': Number,
+      'menu_item_name': String,
+      'menu_item_description': String,
+      'menu_item_photo': String,
+      'menu_item_price': Number,
+      'user_id': Number,
+      'paid?': Boolean
+    })
+  },
   'receipt': {
     type: Map, // key -> 'user_id'
     of: new mongoose.Schema({
-      'items': [Number], // [ order_item_id ]
+      'items': [ Number ], // [ order_item_id ]
       'user_tip': Number,
       'total_paid': Number
     })
@@ -80,4 +74,4 @@ module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
 
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
-module.exports.OrderSession = mongoose.model('OrderSession', OrderSession);
+module.exports.OrderSession = mongoose.model('OrderSession', orderSessionSchema);

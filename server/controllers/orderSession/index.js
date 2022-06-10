@@ -30,7 +30,7 @@ var obj = {
   restaurant: {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
   order_id:uuidv4(),
   owner: username,
-  users:{  [username]:{checkout:false,user_cart:[]}},
+  users:{  [username]:{user_id:'', checkout:false,user_cart:[]}},
   group_cart:{ },
   receipt:{},
   total_tip: 0,
