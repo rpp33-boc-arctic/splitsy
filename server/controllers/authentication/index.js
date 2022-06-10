@@ -13,9 +13,12 @@ module.exports = {
 
           User.create({
             'username': req.body.username,
+            'firstname': req.body.firstname,
+            'lastname': req.body.lastname,
             'email': req.body.email,
             'user_id': userId,
-            'password': hash
+            'password': hash,
+            'photo_url': 'https://cdn-icons-png.flaticon.com/512/2021/2021646.png'
           })
             .then(async (user) => {
               const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
