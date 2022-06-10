@@ -18,7 +18,14 @@ module.exports = {
         allOrders.forEach((singleOrder) => {
           if ((singleOrder.receipt) && singleOrder.receipt.get(req.params.user_id)) {
             var translatedItems = [];
-            var translatedDate = new Date(parseInt(singleOrder.date)).toLocaleString('en-GB', { timeZone: 'UTC' });
+            var translatedDate = new Date(parseInt(singleOrder.date)).toLocaleString('en-GB', { timeZone: 'UTC' }).split('');
+            var x = translatedDate[0];
+            var y = translatedDate[1];
+            translatedDate[0] = translatedDate[3];
+            translatedDate[1] = translatedDate[4];
+            translatedDate[3] = x;
+            translatedDate[4] = y;
+            translatedDate.join('');
             singleOrder.receipt.get(req.params.user_id).items.forEach((item) => {
               if (singleOrder.group_cart.get(JSON.stringify(item))) {
                 translatedItems.push({
