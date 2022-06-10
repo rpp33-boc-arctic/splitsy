@@ -71,11 +71,11 @@ class App extends React.Component {
               </>}
             />
             <Route path="/protected" element={<Private user={userData} />} >
-              <Route path="RestaurantList" element={<RestaurantPick />} />
-              <Route path="User" element={<User />} />
-              <Route path="Menu" element={<Menu />} />
-              <Route path="Cart" element={<Cart />} />
-              <Route path="Payment" element={<Payment />} />
+              <Route path="RestaurantList" element={<RestaurantPick cookieData={userData}/>} />
+              <Route path="User" element={<User cookieData={userData} />} />
+              <Route path="Menu" element={<Menu cookieData={userData}/>} />
+              <Route path="Cart" element={<Cart cookieData={userData}/>} />
+              <Route path="Payment" element={<Payment cookieData={userData} />} />
             </Route>
           </Route>
         </Routes>

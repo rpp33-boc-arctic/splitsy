@@ -84,6 +84,13 @@ module.exports = {
     // return Session.updateOne({ _id: req.jwtObject.session_id },  {'$set': {[group_cart] :updatedCart}});
 
 
+    // COOKIE
+    // res.status(200)
+    //     .cookie('sessionCode',
+    //       { 'session_code': <actual-session-code>, 'session_id': <actual-session-id> },
+    //       { sameSite: true }
+    //     );
+
     console.log('jwtObject is: ', req.jwtObject);
     if (req.jwtObject) {
       Session.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
