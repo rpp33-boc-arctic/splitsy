@@ -1,4 +1,4 @@
-const { OrderSession } = require('../../../database');
+const { Session } = require('../../../database');
 
 module.exports = {
   // order: (req, res) => {
@@ -85,7 +85,7 @@ module.exports = {
 
     console.log('jwtObject is: ', req.jwtObject);
     if (req.jwtObject) {
-      OrderSession.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
+      Session.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
       // ^^ this would overdrive other ppl's items
     .then((result) => {
       res.status(200).send('POST cart request received!');
@@ -121,7 +121,7 @@ module.exports = {
   getCart: (req, res) => {
     var params = req.params;
 
-    return OrderSession.find({ session_code: params.session_id })
+    return Session.find({ session_code: params.session_id })
       .then((result) => {
         console.log('GET cart server success! Cart is: ', result);
         res.status(200).send(result);

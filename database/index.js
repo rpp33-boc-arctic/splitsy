@@ -11,23 +11,21 @@ mongoose.connect(dbAddress) // consider save in the variable
     console.log('Unable to connect to database. ERROR: ', err);
   });
 
-const Restaurant = new mongoose.Schema({
-  'restaurants':[]
-});
-
 const userSchema = new mongoose.Schema({
   'username': { type: String, unique: true },
   'email': { type: String, unique: true },
   'user_id': { type: Number, unique: true },
   'password': String,
   'photo_url': String,
-  'friends': [ Number ] // [ user_id ]
+  'friends': [ Number ], // [ user_id ]
+  'previous_session_codes': [ String ], // [ session_code ]
+  'session_cookie': [ { type: String, unique: true } ]
 });
 
-const orderSessionSchema = new mongoose.Schema({
-  'order_code': { type: String, unique: true },
+const sessionSchema = new mongoose.Schema({
+  'session_code': { type: String, unique: true },
   'restaurant': {
-    'restaurant_id':String ,
+    'restaurant_id': String,
     'name': String,
     'address': String,
   },
@@ -71,8 +69,6 @@ const orderSessionSchema = new mongoose.Schema({
 });
 
 // export const User = mongoose.model('User', userSchema);
-module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
-
 module.exports.User = mongoose.model('User', userSchema);
 // export const Session = mongoose.model('Session', sessionSchema);
-module.exports.OrderSession = mongoose.model('OrderSession', orderSessionSchema);
+module.exports.Session = mongoose.model('Session', sessionSchema);

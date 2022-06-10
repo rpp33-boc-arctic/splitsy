@@ -3,7 +3,7 @@ const authController = require('./controllers/authentication');
 const userController = require('./controllers/user');
 const cartController = require('./controllers/cart');
 const restaurantController = require('./controllers/restaurant');
-const orderSessionController = require('./controllers/orderSession');
+const SessionController = require('./controllers/Sessions');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
 const joinOrder = require('./controllers/joinOrder');
@@ -36,7 +36,7 @@ router.get('/user/friends', userController.friends);
 router.get('/restaurant', restaurantController.restaurantList);
 // router.get('/restaurant/menu', (req, res) => {});
 router.get('/joinOrder',joinOrder.joinOrder);
-router.get('/orderSession', orderSessionController.createSession);
+router.get('/orderSession', SessionController.createSession);
 router.get('/:restaurant/menu', (req, res) => { });
 
 
