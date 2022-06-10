@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
-import Cart from '../Cart/Cart.js';
+// import Cart from '../Cart/Cart.js';
 
 class SubmenuItem extends React.Component {
 	constructor(props) {

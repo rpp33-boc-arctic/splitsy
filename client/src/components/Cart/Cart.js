@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ButtonAppBar from './navbar.js';
+// import ButtonAppBar from './navbar.js';
 import OrderCode from './orderCode.js';
 import RedirectButton from './redirectButton.js';
 import ItemList from './itemList.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Summary from './summary.js';
-import FullMenu from '../Menu/fullMenu.js';
+// import FullMenu from '../Menu/fullMenu.js';
 import { useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ function Cart(props) {
 
   const [totalTax, setTotalTax] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
-  const [session_id, setSessionID] = useState(1);
+  // const [session_id, setSessionID] = useState(1);
 
   // function calculateTotalTax() {
   //   // total tax logic here
@@ -62,18 +62,18 @@ function Cart(props) {
   //   return totalTax;
   // }
 
-  useEffect(() => {
-    var grandTotal = 0;
-    for (var i = 0; i < data.length; i++) {
-      grandTotal += data[i].price;
-    }
-    // return grandTotal;
-    setGrandTotal(grandTotal);
-    var totalTax = Math.round((grandTotal * 7.25) / 100);
-    // return totalTax;
-    setTotalTax(totalTax);
-    // return totalTax;
-  })
+  // useEffect(() => {
+  //   var grandTotal = 0;
+  //   for (var i = 0; i < data.length; i++) {
+  //     grandTotal += data[i].price;
+  //   }
+  //   // return grandTotal;
+  //   setGrandTotal(grandTotal);
+  //   var totalTax = Math.round((grandTotal * 7.25) / 100);
+  //   // return totalTax;
+  //   setTotalTax(totalTax);
+  //   // return totalTax;
+  // })
 
   // function calculateGrandTotal() {
   //   // total tax logic here
@@ -123,39 +123,39 @@ function Cart(props) {
   });
  }
 
- function getCartDatabase() {
-  // update database logic here, then send function to RedirectButton
-  var session_id = 1;
- var link = `/session${session_id}/cart`;
- $.ajax({
-   method: "GET",
-   url: link,
-   // contentType: 'text/plain',
-   data: {
-     cart: data,
-     totalTax: totalTax,
-     grandTotal: grandTotal,
-    //  session_id: session_id
-   },
-   success: (response) => {
-     if (response === 'POST cart request received!') {
-       console.log('POST cart request success!');
-     }
+//  function getCartDatabase() {
+//   // update database logic here, then send function to RedirectButton
+//   var session_id = 1;
+//  var link = `/session${session_id}/cart`;
+//  $.ajax({
+//    method: "GET",
+//    url: link,
+//    // contentType: 'text/plain',
+//    data: {
+//      cart: data,
+//      totalTax: totalTax,
+//      grandTotal: grandTotal,
+//     //  session_id: session_id
+//    },
+//    success: (response) => {
+//      if (response === 'POST cart request received!') {
+//        console.log('POST cart request success!');
+//      }
 
-   },
-   statusCode: {
-     200: function() {
-       console.log( "Status Code 200 ajax cart request!" );
-     }
-   },
-   error: (err) => {
-     console.log('Error: ', err);
-   }
- })
- .done(function() {
-   console.log("cart ajax call is done!");
- });
-}
+//    },
+//    statusCode: {
+//      200: function() {
+//        console.log( "Status Code 200 ajax cart request!" );
+//      }
+//    },
+//    error: (err) => {
+//      console.log('Error: ', err);
+//    }
+//  })
+//  .done(function() {
+//    console.log("cart ajax call is done!");
+//  });
+// }
 
 
 function updateSummaryDatabase() {

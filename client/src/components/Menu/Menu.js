@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import sampleData from './sampleData.js';
 // import MenuItemList from './menuItemList.js';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import FullMenu from './fullMenu.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {useLocation, Link} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 var Menu = (props)=> {
 
@@ -20,7 +20,7 @@ var Menu = (props)=> {
 		if (data){
 			setFullMenu(JSON.parse(data));
 		}
-}, []);
+});
 
 useEffect(() => {
 	// setCart(JSON.parse(localStorage.setItem('cart', cart)))
