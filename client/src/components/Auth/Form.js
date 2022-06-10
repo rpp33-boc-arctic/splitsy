@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Stack } from '@mui/material';
+import { TextField, Button, Stack, Tooltip } from '@mui/material';
 
 
 class AuthForm extends React.Component {
@@ -67,51 +67,63 @@ class AuthForm extends React.Component {
           registerUser
           &&
           <>
-            <TextField
-              label="Username"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-              required
-              inputProps={{ 'aria-label': 'authorization form username field' }}
-            />
-            <TextField
-              label="First Name"
-              name="firstname"
-              value={this.state.firstname}
-              onChange={this.handleChange}
-              required
-              inputProps={{ 'aria-label': 'authorization form firstname field' }}
-            />
-            <TextField
-              label="Last Name"
-              name="lastname"
-              value={this.state.lastname}
-              onChange={this.handleChange}
-              required
-              inputProps={{ 'aria-label': 'authorization form lastname field' }}
-            />
+            <Tooltip title="alpha-numerics + underscores are valid usernames">
+              <TextField
+                label="Username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form username field' }}
+              />
+            </Tooltip>
+            <Tooltip title="alpha-numerics + hyphens are valid first names">
+              <TextField
+                label="First Name"
+                name="firstname"
+                value={this.state.firstname}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form firstname field' }}
+              />
+            </Tooltip>
+            <Tooltip title="alpha-numerics + hyphens are valid last names">
+              <TextField
+                label="Last Name"
+                name="lastname"
+                value={this.state.lastname}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form lastname field' }}
+              />
+            </Tooltip>
           </>
         }
-        <TextField
-          label="Email"
-          name="email"
-          type="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-          inputProps={{ 'aria-label': 'authorization form email field' }}
-        />
-        <TextField
-          label="Password"
-          name="password"
-          type="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-          required
-          inputProps={{ 'aria-label': 'authorization form password field' }}
-        />
-        <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
+        <Tooltip title="email@domain.com (and similar iterations) are allowed">
+          <TextField
+            label="Email"
+            name="email"
+            type="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
+            inputProps={{ 'aria-label': 'authorization form email field' }}
+          />
+        </Tooltip>
+        <Tooltip title="minimum of 8 characters (no spaces allowed)">
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            required
+            inputProps={{ 'aria-label': 'authorization form password field' }}
+          />
+        </Tooltip>
+        <Tooltip title="submit buttom">
+          <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
+        </Tooltip>
       </Stack>
     );
   }
