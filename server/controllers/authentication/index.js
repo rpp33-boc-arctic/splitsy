@@ -95,7 +95,8 @@ module.exports = {
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
-        res.clearCookie('splitsy').redirect('/Auth');
+        res.clearCookie('splitsy')
+        return res.status(200).redirect('/');
       })
       .catch((err) => errorHandler(err, res));
 
