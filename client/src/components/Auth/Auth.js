@@ -27,8 +27,6 @@ class Auth extends React.Component {
     if (newUser) { // register route for new users
       const response = await axios.post('/register', data);
 
-      console.log('signup form data 00', data);
-
       if (response.data.loggedIn) {
         this.props.verifyUser();
       } else if (response.data.existingUser) {
