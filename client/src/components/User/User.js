@@ -12,6 +12,8 @@ class User extends React.Component {
     super(props);
     this.state = {
       user_id: 0,
+      firstname: '',
+      lastname: '',
       photo_url: '',
       histories: [],
       friends: [],
@@ -33,7 +35,6 @@ class User extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.history = this.history.bind(this);
     this.friends = this.friends.bind(this);
-    this.friendClick = this.friendClick.bind(this);
   }
 
   initialize() {
@@ -80,10 +81,6 @@ class User extends React.Component {
       })
   }
 
-  friendClick() {
-    console.log('FRIEND CLICKED!');
-  }
-
   componentDidMount() {
     this.initialize();
     this.friends();
@@ -103,7 +100,7 @@ class User extends React.Component {
         <Grid container spacing={1} id="user-page">
           <Grid item xs={3}>
             <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
-            <Typography>Dennis Wang</Typography>
+            <Typography>{this.state.firstname} {this.state.lastname}</Typography>
             <Typography>@{this.state.username}</Typography> <br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography> <br></br><br></br>
             <Typography>About</Typography><br></br>
