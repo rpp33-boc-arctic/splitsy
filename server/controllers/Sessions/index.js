@@ -27,6 +27,7 @@ module.exports = {
     }
 //make sure user_id passed in
  async function generateSession(username,restaurant_id,address,street_address,name,user_id){
+   console.log('USER_ID ',user_id)
     db.Session.estimatedDocumentCount().then(id=>{
       var obj = {
         'session_code':parseInt(id) + 1,
@@ -43,7 +44,8 @@ module.exports = {
         'total_owed': 0,
         'order_paid?':false
       };
-      // console.log(obj);
+
+      console.log(obj);
        db.Session.create(obj).then(session=>{
         var payload = {
               order_id: session.order_id,

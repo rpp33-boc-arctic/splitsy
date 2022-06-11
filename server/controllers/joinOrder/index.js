@@ -23,7 +23,7 @@ module.exports = {
             session_id: foundSession._id,
             owner: foundSession.owner,
             code: foundSession.session_code,
-            address: foundSession.restaurant.address,
+            // address: foundSession.restaurant.address,
             restaurant_id: foundSession.restaurant_id
         };
        var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
