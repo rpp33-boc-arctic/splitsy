@@ -41,10 +41,10 @@ module.exports = {
 
   getSession: (req, res) => {
 
-    // var params = req.params;
-    // return Session.find({ session_code: params.session_id })
+    var params = req.params;
+    return Session.find({ session_code: params.session_id })
 
-    return Session.find({})
+    // return Session.find({})
       .then((result) => {
         res.send(result);
       })

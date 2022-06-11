@@ -24,7 +24,6 @@ class Map extends React.Component {
   });
   this.map.addControl(new tt.FullscreenControl());
   this.map.addControl(new tt.NavigationControl());
-  // console.log(this.map)
   }
 
 
@@ -41,10 +40,11 @@ class Map extends React.Component {
 
         <TextField  error={this.props.error? this.props.error: false}  helperText={this.props.helperText} style={{margin:"10px"}} onChange={(e)=>{this.props.querychange(e,"query")}} id="outlined-basic" label="address" variant="outlined" value={this.props.query} className="mapsearch" />
         <TextField error={this.props.error? this.props.error: false}  helperText={this.props.helperText} style={{margin:"10px"}} onChange={(e)=>{this.props.querychange(e,"keywords")}} id="outlined-basic" label="keywords" variant="outlined" value={this.props.keyword} className="mapsearch" />
-        OR
-        <TextField  helperText={"enter session_code"} style={{margin:"10px"}}   onChange={(e)=>{this.props.querychange(e,"session_code")}} id="outlined-basic" label="session_code" variant="outlined" value={this.props.session_code} className="mapsearch" />
+        <Button onClick={(e)=>{this.props.search(e)}} className="submit"> submit</Button>
 
-      <Button onClick={(e)=>{this.props.search(e)}} className="submit"> submit</Button>
+        OR
+        <TextField  helperText={"enter join code"} style={{margin:"10px"}}   onChange={(e)=>{this.props.joinCodeChange(e)}} id="outlined-basic" label="order_code" variant="outlined" value={this.props.order_code} className="mapsearch" />
+        <Button onClick={(e)=>{this.props.joinSearch(e)}} className="Join"> Join</Button>
       </div>
       <div id="Map" className="Map" >
     </div>
