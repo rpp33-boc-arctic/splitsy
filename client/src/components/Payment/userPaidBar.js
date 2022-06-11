@@ -49,7 +49,7 @@ class UserPaidBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.paidUsers, this.state.totalUsers);
+    // console.log(this.state.paidUsers, this.state.totalUsers);
     const paidPercentage = Math.floor(this.state.paidUsers.length / this.state.totalUsers.length * 100);
     return (
       <div id="user-paid-bar">
