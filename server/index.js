@@ -10,8 +10,23 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
+var jwt = require('jsonwebtoken');
 
-app.use(cors())
+app.use(cors());
+
+var jwtMiddleware = function (req,res,next){
+ try {
+  const authHeader = req.headers.authorization;
+      const token = authHeader.split(' ')[1];
+      req.jwtObject = jwt.verify(token, 'Server Password');
+      next()
+  } catch(err){
+    req.jwtObject = null;
+    next()
+  }
+}
+// app.use(jwtMiddleware);
+app.use(jwtMiddleware)
 app.use('/', routes);
 
 // app.get("/serverStatus", (req, res) => {

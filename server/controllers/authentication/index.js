@@ -7,28 +7,50 @@ module.exports = {
     User.findOne({ 'email': req.body.email, 'username': req.body.username })
       .then(async (user) => {
         if (!user) {
-          const hash = await bcrypt.hash(req.body.password, 8);
 
-          const userId = await User.estimatedDocumentCount() + 1;
+          const usernameValid = alphaNumericUnderscore(req.body.username);
+          const firstnameValid = alphaNumericHyphen(req.body.firstname);
+          const lastnameValid = alphaNumericHyphen(req.body.lastname);
+          const emailValid = emailValidation(req.body.email);
+          const passwordValid = req.body.password.length >= 8 && !req.body.password.includes(' ');
 
-          User.create({
-            'username': req.body.username,
-            'email': req.body.email,
-            'user_id': userId,
-            'password': hash
-          })
-            .then(async (user) => {
-              const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
-              createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
+          if (usernameValid && firstnameValid && lastnameValid && emailValid && passwordValid) {
+
+            const hash = await bcrypt.hash(req.body.password, 8);
+            const userId = await User.estimatedDocumentCount() + 1;
+
+            User.create({
+              'username': req.body.username,
+              'firstname': req.body.firstname,
+              'lastname': req.body.lastname,
+              'email': req.body.email,
+              'user_id': userId,
+              'password': hash,
+              'photo_url': 'https://cdn-icons-png.flaticon.com/512/2021/2021646.png'
             })
-            .catch((err) => errorHandler(err, res));
+              .then(async (user) => {
+                const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
+                createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
+              })
+              .catch((err) => errorHandler(err, res));
+
+          } else if (!usernameValid) {
+            res.status(200)
+              .json({ message: 'usernames can only contain alpha-numeric characters and a hyphen', invalidEntry: true });
+          } else if (!firstnameValid || !lastnameValid) {
+            res.status(200)
+              .json({ message: 'firstname/lastname can only contain alpha-numeric characters and an underscore', invalidEntry: true });
+          } else if (!emailValid) {
+            res.status(200)
+              .json({ message: 'hmm, your email does not look right to me...', invalidEntry: true });
+          } else if (!passwordValid) {
+            res.status(200)
+              .json({ message: 'password must be at least 8 characters long with no spaces', invalidEntry: true });
+          }
 
         } else {
 
-          if ((user.email === req.body.email) && (user.username === req.body.username)) {
-            res.status(200)
-              .json({ message: 'an account with that email and username exists', existingUser: true });
-          } else if (user.email === req.body.email) {
+          if (user.email === req.body.email) {
             res.status(200)
               .json({ message: 'an account with that email exists', existingUser: true });
           } else if (user.username === req.body.username) {
@@ -73,7 +95,8 @@ module.exports = {
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
-        res.clearCookie('splitsy').redirect('/Auth');
+        res.clearCookie('splitsy')
+        return res.status(200).redirect('/');
       })
       .catch((err) => errorHandler(err, res));
 
@@ -118,4 +141,19 @@ const createBrowserSession = (userId, email, username, sessionCookie, res) => {
 const errorHandler = (error, res) => {
   console.error(error);
   res.status(500).send('server error');
+};
+
+const alphaNumericUnderscore = (string) => {
+  const regex = new RegExp('^[a-zA-Z0-9_]+$');
+  return regex.test(string);
+};
+
+const alphaNumericHyphen = (string) => {
+  const regex = new RegExp('^[a-zA-Z0-9-]+$');
+  return regex.test(string);
+};
+
+const emailValidation = (email) => {
+  const regex = new RegExp("^\\w+([\\.-]?\\w+)+@\\w+([\\.:]?\\w+)+(\\.[a-zA-Z0-9]{2,3})+$");
+  return regex.test(email);
 };
