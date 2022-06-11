@@ -16,7 +16,7 @@ class DisplayMenuLeft extends React.Component {
   }
 
   render () {
-    console.log('this.props.cookies', this.props.anchorEl)
+    // console.log('this.props.cookies', this.props.anchorEl)
     return (
       <Menu
         anchorEl={this.props.anchorEl}
