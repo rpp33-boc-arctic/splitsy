@@ -27,13 +27,21 @@ var Menu = (props)=> {
 // 	// setCart(JSON.parse(localStorage.setItem('cart', cart)))
 // 	localStorage.setItem('fullMenu', JSON.stringify(fullMenu));
 // });
+	var displayPhoneNum = (num) => {
+		// phone num logic here
+		var strNum = JSON.stringify(num);
+		var phoneNum = `${strNum.slice(0, 1)} (${strNum.slice(1, 4)}) ${strNum.slice(4, 7)}-${strNum.slice(7, 11)}`;
+		return phoneNum;
+	}
 
 		return (
 			<div className='menu'>
 				<div className='title-container'>
 					<h1>{fullMenu.item.name}</h1>
 					<h2>Address: {fullMenu.item.address.street_addr}</h2>
-					<h2>Phone Number: {fullMenu.item.phone_number}</h2>
+					{/* <h2>Phone Number: {fullMenu.item.phone_number}</h2> */}
+					<h2>Phone Number: {displayPhoneNum(fullMenu.item.phone_number)}</h2>
+
 
 					{/* <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}}>
