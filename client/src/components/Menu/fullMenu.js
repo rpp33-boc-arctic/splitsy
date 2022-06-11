@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import SubmenuItemList from './submenuItemList.js';
 import { List, Button } from '@mui/material';
 // import sampleData from './sampleData.js';
-// import menuStyles from './menuStyles.css';
+// eslint-disable-next-line no-unused-vars
+import menuStyles from './menuStyles.css';
 // import Cart from '../Cart/Cart.js';
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
-import { flexbox } from '@mui/system';
+// import { flexbox } from '@mui/system';
 
 // import { styled } from "@material-ui/core";
 

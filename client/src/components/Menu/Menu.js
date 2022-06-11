@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 // import MenuItemList from './menuItemList.js';
 // import Button from '@mui/material/Button';
 import FullMenu from './fullMenu.js';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useLocation} from "react-router-dom";
-import menuStyles from './menuStyles.css';
+// import menuStyles from './menuStyles.css';
 
 var Menu = (props)=> {
 	const {state} = useLocation();
