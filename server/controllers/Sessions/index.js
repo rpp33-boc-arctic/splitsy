@@ -30,7 +30,7 @@ module.exports = {
    console.log('USER_ID ',user_id)
     db.Session.estimatedDocumentCount().then(id=>{
       var obj = {
-        'session_code':parseInt(id) + 1,
+        'session_code':parseInt(id) + 2,
         'restaurant': {'restaurant_id': restaurant_id, 'searchNear':address, 'address':street_address, 'name': name},
         'order_id':codeGenerator(),
         'owner': username,
