@@ -30,6 +30,9 @@ module.exports = {
             })
               .then(async (user) => {
                 const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
+
+                console.log('01 cookie: ', sessionCookie);
+
                 createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
               })
               .catch((err) => errorHandler(err, res));
@@ -95,8 +98,8 @@ module.exports = {
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
-        res.clearCookie('splitsy')
-        return res.status(200).redirect('/');
+        res.clearCookie('splitsy');
+        res.status(200).redirect('/');
       })
       .catch((err) => errorHandler(err, res));
 
@@ -124,10 +127,14 @@ module.exports = {
 };
 
 const createBrowserSession = (userId, email, username, sessionCookie, res) => {
+  console.log('02 cookie: ', sessionCookie);
   User.findOneAndUpdate({ 'email': email, 'username': username, 'user_id': userId },
     { $push: { 'session_cookie': sessionCookie }}
   )
     .then(() => {
+
+      console.log('03 cookie: ', sessionCookie);
+
       res.status(200)
         .cookie('splitsy',
           { 'token': sessionCookie, 'username': username, 'userId': userId },
