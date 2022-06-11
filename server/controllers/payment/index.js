@@ -186,7 +186,7 @@ module.exports = {
     let session_id = req.params.session_id;
     return Session.updateOne(
       {session_code: session_id},
-      {$set:{'order_paid?': true}},
+      {$set:{'order_paid?': true, 'date': Date.now()}},
       {upsert: true}
     )
     .then((result) => {
