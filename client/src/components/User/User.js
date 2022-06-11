@@ -17,6 +17,7 @@ class User extends React.Component {
       photo_url: '',
       histories: [],
       friends: [],
+      noOrderMessage: 'No order found! Create one!',
       scrollerOrderHistory: {
         overflowY: 'scroll',
         border: '1px solid white',
@@ -113,7 +114,7 @@ class User extends React.Component {
           <Grid item xs={6}>
             <Typography align='center' variant='h6'>Orders</Typography>
             <List style={this.state.scrollerOrderHistory} >
-              {histories}
+              {this.state.histories.length === 0 ? <Typography align='center'>{this.state.noOrderMessage}</Typography> : histories}
             </List>
           </Grid>
           <Grid item xs={3}>
