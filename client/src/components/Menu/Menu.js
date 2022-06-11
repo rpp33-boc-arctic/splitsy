@@ -8,8 +8,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useLocation} from "react-router-dom";
 
 var Menu = (props)=> {
-
-	console.log(props);
 	const {state} = useLocation();
 	// console.log('useLocation data is, state.item: ', state.item);
 	// eslint-disable-next-line no-unused-vars
@@ -51,11 +49,7 @@ var Menu = (props)=> {
 				{/* <div className='menu-item-list'><MenuItemList /></div> */}
 								<div className='menu-item-list'><FullMenu fullMenu={fullMenu.item} /></div>
 			</div >
-
-
-
 		)
-
 }
 
 export default Menu;

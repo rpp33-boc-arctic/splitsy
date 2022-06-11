@@ -12,8 +12,6 @@ class MenuItem extends React.Component {
 		this.state = {
 		}
 	}
-
-
 	render() {
 		return (
 			<>
@@ -21,16 +19,11 @@ class MenuItem extends React.Component {
 					<Typography variant='h1' component='h2'>h1. Heading</Typography>
 				}>
 					<ListItemButton component="a" href="#simple-list">
-						{/* <ListItemIcon>
-							{this.props.item.image}
-						</ListItemIcon> */}
-						{/* <Button variant="outlined">{this.state.quantity}</Button> */}
 						<img className='menu-photo' src={this.props.item.image} alt='food pic' width='200' height='200'></img>
 						<div className='menu-item-container'>
 							<div className='menu-item-top'>
 								<ListItemText
 									primary={this.props.item.name}
-									// {this.props.item.description}
 									secondary={
 										<>
 											{this.props.item.description}

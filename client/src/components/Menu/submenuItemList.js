@@ -37,24 +37,11 @@ class SubmenuItemList extends React.Component {
       <SubmenuItem item={item}  addToCart={this.props.addToCart}  />
       </div>
     })
-    // return <SubmenuItem />
   }
 
   render() {
-    // var items = sampleData.menu.categories[5].menu_item_list.map((item, i) => {
-    //   return <SubmenuItem item={item} key={i}/>
-    // })
-		// console.log('menuStyles: ', menuStyles.toString().slice(0,1));
-    console.log('submenu is: ', this.props.submenu);
-    console.log('props inside submenuItemList is: ', this.props);
-
-
     return (
-
       <div>
-        {/* <List className='example' style={this.state.scrollerStyle} >
-        {items}
-      </List> */}
       <Button onClick={this.onSubmenuClick}>{this.props.submenu.name}</Button>
       {
         this.state.showSubmenu?
@@ -62,7 +49,6 @@ class SubmenuItemList extends React.Component {
         null
       }
       </div>
-
     )
   }
 }

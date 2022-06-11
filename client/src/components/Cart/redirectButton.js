@@ -8,12 +8,6 @@ import { Link } from "react-router-dom";
 
 const RedirectButton = (props) => {
 
-// function updateDatabase() {
-//   props.updateCartDatabase();
-//   props.updateSummaryDatabase();
-
-// }
-
   return (
     <Stack direction="row" spacing={2}>
       <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>

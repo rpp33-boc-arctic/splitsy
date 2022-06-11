@@ -59,7 +59,6 @@ function FullMenu(props) {
 			setCart( arr => [...arr, currentItem]);
 			localStorage.setItem('cart', cart);
 
-			console.log('cart inside fullMenu is now: ', cart);
 		}
 	// }
 
@@ -72,7 +71,6 @@ function FullMenu(props) {
 
 	function emptyCart() {
 		setCart([]);
-		console.log('cart inside fullMenu is now: ', cart);
 
 	}
 
@@ -101,7 +99,6 @@ function FullMenu(props) {
 }
 
 useEffect(() => {
-	console.log('cart inside fullMenu.js is now: ', JSON.stringify(cart));
 });
 
 	function itemCount() {
@@ -113,10 +110,7 @@ useEffect(() => {
     return (
 
       <div>
-				{/* <div>
-					cart inside fullMenu is now: {JSON.stringify(cart)}
-				</div> */}
-				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} onClick={emptyCart}>
+				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>}>
 				{itemCount()}
 		  </Button>
 					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} >
@@ -133,12 +127,6 @@ useEffect(() => {
         <List className='example' style={scrollerStyle} >
         {renderMenu()}
       </List>
-				{/* {
-					this.state.hideCart?
-					<Cart cart={this.state.cart} />:
-					null
-
-				} */}
       </div>
 
     )

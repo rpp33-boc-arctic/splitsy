@@ -2,7 +2,7 @@ import React from 'react';
 import SubmenuItem from './menuItem.js';
 import { List } from '@mui/material';
 import sampleData from './sampleData.js';
-import menuStyles from './menuStyles.css';
+// import menuStyles from './menuStyles.css';
 
 
 class FullMenuList extends React.Component {
@@ -25,7 +25,6 @@ class FullMenuList extends React.Component {
     var items = sampleData.menu.categories[5].menu_item_list.map((item, i) => {
       return <SubmenuItem item={item} key={i}/>
     })
-		console.log('menuStyles: ', menuStyles.toString().slice(0,1));
     return (
 
       <div>
