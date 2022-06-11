@@ -3,10 +3,17 @@ import React, { useState, useEffect } from 'react';
 import SubmenuItemList from './submenuItemList.js';
 import { List, Button } from '@mui/material';
 // import sampleData from './sampleData.js';
-// import menuStyles from './menuStyles.css';
+// eslint-disable-next-line no-unused-vars
+import menuStyles from './menuStyles.css';
 // import Cart from '../Cart/Cart.js';
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import Badge from '@mui/material/Badge';
+import Stack from '@mui/material/Stack';
+// import { flexbox } from '@mui/system';
+
+// import { styled } from "@material-ui/core";
 
 
 function FullMenu(props) {
@@ -14,34 +21,34 @@ function FullMenu(props) {
 	// eslint-disable-next-line no-unused-vars
 	const [scrollerStyle, setScrollerStyle] = useState(
 		{
-			      overflowY: 'scroll',
-						// overflowY: 'hidden',
-			      border:'1px solid grey',
-			      width:'1300px',
-			      float: 'left',
-			      height:'800px',
-			      // position:'relative'
-			    }
+			overflowY: 'scroll',
+			// overflowY: 'hidden',
+			border: '1px solid grey',
+			width: '1300px',
+			float: 'left',
+			height: '800px',
+			// position:'relative'
+		}
 	);
 	const [cart, setCart] = useState([]);
 
 	// useEffect(() => {
-  //   setCart(JSON.parse(window.localStorage.getItem('cart')))
-  // }, []);
+	//   setCart(JSON.parse(window.localStorage.getItem('cart')))
+	// }, []);
 
 
 
-  useEffect(() => {
-			const data = localStorage.getItem('cart');
-			if (data){
-				setCart(JSON.parse(data));
-			}
-  }, []);
+	// useEffect(() => {
+	// 		const data = localStorage.getItem('cart');
+	// 		if (data){
+	// 			setCart(JSON.parse(data));
+	// 		}
+	// }, []);
 
-	useEffect(() => {
-    // setCart(JSON.parse(localStorage.setItem('cart', cart)))
-		localStorage.setItem('cart', JSON.stringify(cart));
-  });
+	// useEffect(() => {
+	//   // setCart(JSON.parse(localStorage.setItem('cart', cart)))
+	// 	localStorage.setItem('cart', JSON.stringify(cart));
+	// });
 
 	function addToCart(currentItem) {
 		// var isIncluded = false;
@@ -56,11 +63,10 @@ function FullMenu(props) {
 		// } else {
 		// 	setCart( arr => [...arr, currentItem]);
 
-			setCart( arr => [...arr, currentItem]);
-			localStorage.setItem('cart', cart);
+		setCart(arr => [...arr, currentItem]);
+		localStorage.setItem('cart', cart);
 
-			console.log('cart inside fullMenu is now: ', cart);
-		}
+	}
 	// }
 
 	// emptyCart() {
@@ -72,7 +78,6 @@ function FullMenu(props) {
 
 	function emptyCart() {
 		setCart([]);
-		console.log('cart inside fullMenu is now: ', cart);
 
 	}
 
@@ -80,69 +85,72 @@ function FullMenu(props) {
 	// 	return <Cart cart={this.state.cart}/>
 	// }
 
-  // render() {
-  //   var items = this.props.fullMenu.menu.categories.map((item, i) => {
-  //     return <div>
+	// render() {
+	//   var items = this.props.fullMenu.menu.categories.map((item, i) => {
+	//     return <div>
 	// 					{
 	// 					<SubmenuItemList submenu={item} key={i} addToCart={this.addToCart} emptyCart={this.emptyCart} />
 	// 					}
 	// 		</div>
-  //   })
+	//   })
 
 	function renderMenu() {
-		  var items = props.fullMenu.menu.categories.map((item, i) => {
-      return <div key={i}>
-						{
-						<SubmenuItemList submenu={item} addToCart={addToCart} emptyCart={emptyCart} />
-						}
+		var items = props.fullMenu.menu.categories.map((item, i) => {
+			return <div key={i}>
+				{
+					<SubmenuItemList submenu={item} addToCart={addToCart} emptyCart={emptyCart} />
+				}
 			</div>
-	})
-	return items;
-}
+		})
+		return items;
+	}
 
-useEffect(() => {
-	console.log('cart inside fullMenu.js is now: ', JSON.stringify(cart));
-});
+	useEffect(() => {
+	});
 
 	function itemCount() {
 		var count = cart.length;
 		return count;
 	}
 
+	// const StyledBadge = styled(Badge)({
+	// 	"& .MuiBadge-badge": {
+	// 		color: "yellow",
+	// 		backgroundColor: "green"
+	// 	}
+	// });
 
-    return (
 
-      <div>
-				{/* <div>
-					cart inside fullMenu is now: {JSON.stringify(cart)}
-				</div> */}
-				<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} onClick={emptyCart}>
-				{itemCount()}
-		  </Button>
-					<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} >
-        <Link to="/protected/Cart" style={{'textDecoration': 'none', color: 'white'}} params={{ testvalue: "hello" }} state={cart} >
-          GO TO CART
-        </Link>
 
-      </Button>
+	return (
 
-			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart'/>} onClick={emptyCart}>
-        EMPTY CART
-      </Button>
+		<div className='full-menu'>
+			<Stack spacing={2} direction="row">
+			</Stack>
+			<div className='menu-buttons' >
+				<Button xs={2} className='go-to-cart' variant="contained" endIcon={
+					<Badge badgeContent={itemCount()} color="secondary">
+						<ShoppingCartIcon color="action" />
+					</Badge>
+				}>
+					<Link to="/protected/Cart" style={{ 'textDecoration': 'none', color: 'white' }} params={{ testvalue: "hello" }} state={cart} >
+						GO TO CART
+					</Link>
+				</Button  >
 
-        <List className='example' style={scrollerStyle} >
-        {renderMenu()}
-      </List>
-				{/* {
-					this.state.hideCart?
-					<Cart cart={this.state.cart} />:
-					null
+				<Button className='empty-cart' variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />} onClick={emptyCart} xs={2} >
+					EMPTY CART
+				</Button>
+				<br></br>
+				<List className='example' xs={8} style={scrollerStyle} >
+					{renderMenu()}
+				</List>
+			</div>
 
-				} */}
-      </div>
+		</div>
 
-    )
-  }
+	)
+}
 // }
 
 
