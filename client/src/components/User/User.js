@@ -48,7 +48,9 @@ class User extends React.Component {
           this.setState({
             user_id: success.data[0].user_id,
             username: success.data[0].username,
-            photo_url: success.data[0].photo_url
+            photo_url: success.data[0].photo_url,
+            firstname: success.data[0].firstname,
+            lastname: success.data[0].lastname
           }, () => {
             this.history();
           })
@@ -93,7 +95,9 @@ class User extends React.Component {
           this.setState({
             user_id: success.data[0].user_id,
             username: success.data[0].username,
-            photo_url: success.data[0].photo_url
+            photo_url: success.data[0].photo_url,
+            firstname: success.data[0].firstname,
+            lastname: success.data[0].lastname
           }, () => {
             this.history();
           })
@@ -123,7 +127,7 @@ class User extends React.Component {
         <Grid container spacing={1} id="user-page">
           <Grid item xs={3}>
             <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
-            <Typography>{this.state.firstname} {this.state.lastname}</Typography>
+            <Typography>{this.state.firstname || 'My '} {this.state.lastname || 'Name'}</Typography>
             <Typography>@{this.state.username}</Typography> <br></br>
             <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography> <br></br><br></br>
             <Typography>About</Typography><br></br>
