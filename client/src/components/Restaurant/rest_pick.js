@@ -3,12 +3,12 @@ import Map from './map.js'
 import ListComponent from './list.js'
 import './rest.scss';
 import axios from 'axios';
-import {PlacesAPI, MapAPI} from './maps.config.js';
+import {MapAPI} from './maps.config.js';
 import { useNavigate }  from "react-router-dom";
 
 var  RestaurantPick = (props)=>  {
 
-    var state = {
+    var stateobj = {
       rest:[],
       query:"",
       error:false,
@@ -19,7 +19,7 @@ var  RestaurantPick = (props)=>  {
       errorbar:"Invalid Join Code."
     }
 
-    var [state,setState]= useState(state)
+    var [state,setState]= useState(stateobj)
     const navigate = useNavigate();
 
 
@@ -48,8 +48,7 @@ var  RestaurantPick = (props)=>  {
 
   var createCookie = (token)=>{
     delete_cookie('orderSession');
-    var expires = "";
-      document.cookie = "orderSession" + "=" + (token || "")  + expires + "; path=/";
+      document.cookie = "orderSession" + "=" + (token || "")  + "; path=/";
     }
 
   var joinSearch = (e)=>{
