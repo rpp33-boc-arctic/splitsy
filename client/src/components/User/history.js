@@ -1,5 +1,6 @@
 import React from 'react';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 
@@ -23,13 +24,34 @@ class History extends React.Component {
 
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              {this.props.history.items.map((item) => {
-                return <Typography>{item.name} ${item.price}</Typography>
-              })}<br></br>
-              Tip: ${this.props.history.tip} <br></br>
-              Total: ${this.props.history.total} <br></br>
-            </Typography>
+            <Grid container spacing={1} id="history-page">
+              <Grid item xs={2}>
+              </Grid>
+              <Grid item xs={7}>
+                {this.props.history.items.map((item) => {
+                  return <Typography>{item.name}</Typography>
+                })}
+              </Grid>
+              <Grid item xs={3}>
+                {this.props.history.items.map((item) => {
+                  return <Typography>${item.price}</Typography>
+                })}
+              </Grid>
+              <Grid item xs={2}>
+              </Grid>
+              <Grid item xs={7}>
+                <Typography>
+                  Tip <br></br>
+                  Total <br></br>
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography>
+                  ${this.props.history.tip} <br></br>
+                  ${this.props.history.total} <br></br>
+                </Typography>
+              </Grid>
+            </Grid>
           </AccordionDetails>
         </Accordion>
         <Divider />

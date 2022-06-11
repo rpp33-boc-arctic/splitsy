@@ -32,8 +32,8 @@ jobs:
       run: npm ci
       working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
 
-    - name: run build
-      run: npm run build
-      working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
+#     - name: run build
+#       run: npm run build
+#       working-directory: /home/ubuntu/actions-runner/BOC_work/splitsy/splitsy/client
 
-    - run: npm test
+#     - run: npm test

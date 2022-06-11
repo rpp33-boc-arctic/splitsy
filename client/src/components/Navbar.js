@@ -24,10 +24,9 @@ class NavBar extends React.Component {
   }
 
   handleLogout() {
-    axios.get('/logout')
+    axios.get('/logout', { withCredentials: true })
       .then(() => {
-        this.props.verifyUser();
-        // this doesn't delete cookie on the broswer yet.
+        document.location.reload(); // reloads the entire page
       });
   }
 
@@ -57,7 +56,7 @@ class NavBar extends React.Component {
 
   render() {
 
-    var displayUser = this.props.cookieData ? this.props.cookieData.username :"Login";
+    const displayUser = this.props.cookieData ? this.props.cookieData.username : "";
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -82,11 +81,15 @@ class NavBar extends React.Component {
             <Button edge="end" color="inherit" aria-haspopup="true" aria-expanded="true" aria-controls="composition-menu" onClick={this.handleOpenNavRight}>
               {displayUser}
             </Button>
-            <DisplayMenuRight
-              anchorEl={this.state.openNavRight}
-              handleClose={this.handleCloseNavRight}
-              handleLogout={this.handleLogout}
-            />
+            {
+              displayUser
+              &&
+              <DisplayMenuRight
+                anchorEl={this.state.openNavRight}
+                handleClose={this.handleCloseNavRight}
+                handleLogout={this.handleLogout}
+              />
+            }
 
           </Toolbar>
         </AppBar>

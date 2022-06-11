@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   'photo_url': String,
   'friends': [ Number ], // [ user_id ]
   'previous_session_codes': [ String ], // [ session_code ]
-  'session_cookie': [ { type: String, unique: true } ]
+  'session_cookie': [ String ]
 });
 
 const sessionSchema = new mongoose.Schema({

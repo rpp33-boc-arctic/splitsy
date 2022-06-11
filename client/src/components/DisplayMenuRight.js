@@ -31,7 +31,7 @@ class DisplayMenuRight extends React.Component {
         }}
       >
       <MenuItem component='a' href="/protected/user" onClick={this.props.handleClose}>Profile</MenuItem>
-      <MenuItem component='a' href="/" onClick={this.props.handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={this.props.handleLogout}>Logout</MenuItem>
     </Menu>
     );
   }

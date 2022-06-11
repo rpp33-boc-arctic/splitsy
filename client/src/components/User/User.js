@@ -12,9 +12,12 @@ class User extends React.Component {
     super(props);
     this.state = {
       user_id: 0,
+      firstname: '',
+      lastname: '',
       photo_url: '',
       histories: [],
       friends: [],
+      noOrderMessage: 'No order found! Create one!',
       scrollerOrderHistory: {
         overflowY: 'scroll',
         border: '1px solid white',
@@ -33,14 +36,11 @@ class User extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.history = this.history.bind(this);
     this.friends = this.friends.bind(this);
-    this.friendClick = this.friendClick.bind(this);
   }
 
   initialize() {
-    var user_idFromCookie = 4;      //get from cookie broswer
-
     this.setState({
-      user_id: user_idFromCookie
+      user_id: this.props.cookieData.userId || 4
     }, () => {
       axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {
@@ -82,10 +82,6 @@ class User extends React.Component {
       })
   }
 
-  friendClick() {
-    console.log('FRIEND CLICKED!');
-  }
-
   componentDidMount() {
     this.initialize();
     this.friends();
@@ -96,7 +92,7 @@ class User extends React.Component {
       return <History history={history} key={i} />
     })
     var friends = this.state.friends.map((friend, i) => {
-      return <Friend friend={friend} key={i} onClick={this.friendClick}/>
+      return <Friend friend={friend} key={i} onClick={this.friendClick} />
     })
 
     return (
@@ -105,22 +101,26 @@ class User extends React.Component {
         <Grid container spacing={1} id="user-page">
           <Grid item xs={3}>
             <img src={this.state.photo_url} alt="userPhoto" width="150"></img>
-            <Typography>Dennis Wang</Typography>
-            <Typography>@{this.state.username}</Typography> <br></br><br></br>
-            <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography>
+            <Typography>{this.state.firstname} {this.state.lastname}</Typography>
+            <Typography>@{this.state.username}</Typography> <br></br>
+            <Typography>"Got paid today, time for some extra guac on my Chipotle!"</Typography> <br></br><br></br>
+            <Typography>About</Typography><br></br>
+            <Typography>Documents</Typography><br></br>
+            <Typography>Settings</Typography><br></br>
+            <Typography>Help</Typography><br></br>
+            <Typography>Terms and Conditions</Typography><br></br>
+            <Typography>Contact Us</Typography><br></br>
           </Grid>
           <Grid item xs={6}>
-            <Typography align='center' variant='h6'>Order History</Typography>
+            <Typography align='center' variant='h6'>Orders</Typography>
             <List style={this.state.scrollerOrderHistory} >
-              {histories}
-              {/* <History /> */}
+              {this.state.histories.length === 0 ? <Typography align='center'>{this.state.noOrderMessage}</Typography> : histories}
             </List>
           </Grid>
           <Grid item xs={3}>
-            <Typography align='center' variant='h6'>Friends List</Typography>
+            <Typography align='center' variant='h6'>Friends</Typography>
             <List style={this.state.scrollerFriendsList} >
               {friends}
-              {/* <Friends /> */}
             </List>
           </Grid>
         </Grid>
