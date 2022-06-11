@@ -71,11 +71,11 @@ class NavBar extends React.Component {
               onClick={this.handleOpenNavLeft}
             >
               <MenuIcon />
-              <DisplayMenuLeft
-                anchorEl={this.state.openNavLeft}
-                handleClose={this.handleCloseNavLeft}
-              />
             </IconButton>
+            <DisplayMenuLeft
+              anchorEl={this.state.openNavLeft}
+              handleClose={this.handleCloseNavLeft}
+            />
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Splitsy
             </Typography>
