@@ -12,8 +12,6 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // openNav: false,
-      // isAuthenticated: false,
       openNavRight: null,
       openNavLeft: null
     };
@@ -25,35 +23,6 @@ class NavBar extends React.Component {
     this.handleCloseNavLeft = this.handleCloseNavLeft.bind(this);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.cookieData !== this.props.cookieData ) {
-  //     // this.checkLoginStatus();
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   // this.checkLoginStatus();
-  // }
-
-  // checkLoginStatus() {
-
-  //   if (this.props.cookieData) {
-  //     const { username, userId } = this.props.cookieData;
-  //     console.log('cookieData is :', this.props.cookieData);
-
-  //     if (username && userId) {
-  //       this.setState({
-  //         isAuthenticated: true
-  //       });
-  //     }
-
-  //   } else {
-  //     this.setState({
-  //       isAuthenticated: false
-  //     });
-  //   }
-  // }
-
   handleLogout() {
     axios.get('/logout')
       .then(() => {
@@ -61,22 +30,6 @@ class NavBar extends React.Component {
         // this doesn't delete cookie on the broswer yet.
       });
   }
-
-  // openNav(){
-  //   this.setState({openNav:!this.state.openNav})
-  // }  detectOffClick(e){
-  //   var b1 = e.target.classList.contains('MuiTypography-root');
-  //   var b2 = e.target.classList.contains('MuiList-root');
-  //   var b3 = e.target.classList.contains('MuiBox-root');
-  //   var b4 = e.target.classList.contains('bob');
-
-  //   if (b1 || b2 || b3 || b4 ){
-  //     // console.log("box is close")
-  //     this.setState({openNav:false});
-  //   } else {
-  //     // console.log('not closed')
-  //   }
-  // }
 
   handleOpenNavLeft (event) {
     this.setState({
