@@ -22,7 +22,7 @@ var ListComponent = (props)=>{
           street_address: item.address.street_addr
         }
         props.clickRestaurant(obj, ()=>{
-          navigate('/protected/Menu', { state: { item:item } });
+          navigate('/protected/Menu', { state: { menu:item,item:item } });
         })
 
       }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 // import sampleData from './sampleData.js';
 // import MenuItemList from './menuItemList.js';
@@ -11,6 +12,7 @@ var Menu = (props)=> {
 	console.log(props);
 	const {state} = useLocation();
 	// console.log('useLocation data is, state.item: ', state.item);
+	// eslint-disable-next-line no-unused-vars
 	const [fullMenu, setFullMenu] = useState(state);
 
 //   useEffect(() => {
