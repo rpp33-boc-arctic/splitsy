@@ -34,7 +34,7 @@ module.exports = {
 
                 createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
               })
-              .catch((err) => {console.log('trigger1');errorHandler(err, res);});
+              .catch((err) => errorHandler(err, res));
 
           } else if (!usernameValid) {
             res.status(200)
