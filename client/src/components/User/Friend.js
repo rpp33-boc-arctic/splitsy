@@ -20,7 +20,7 @@ class Friend extends React.Component {
           </Grid>
           <Grid item xs={8}>
             <br></br>
-            <Typography>My Friend</Typography>
+            <Typography>{this.props.friend.firstname || 'My '} {this.props.friend.lastname || 'Friend'}</Typography>
             <Typography>@{this.props.friend.username}</Typography><br></br>
           </Grid>
         </Grid>

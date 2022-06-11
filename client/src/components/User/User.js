@@ -36,6 +36,7 @@ class User extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.history = this.history.bind(this);
     this.friends = this.friends.bind(this);
+    this.friendClick = this.friendClick.bind(this);
   }
 
   initialize() {
@@ -82,6 +83,10 @@ class User extends React.Component {
       })
   }
 
+  friendClick() {
+    console.log('FRIEND CLICKED!');
+  }
+
   componentDidMount() {
     this.initialize();
     this.friends();
@@ -92,7 +97,7 @@ class User extends React.Component {
       return <History history={history} key={i} />
     })
     var friends = this.state.friends.map((friend, i) => {
-      return <Friend friend={friend} key={i} onClick={this.friendClick} />
+      return <Friend friend={friend} key={i} friendClick={this.friendClick} />
     })
 
     return (
