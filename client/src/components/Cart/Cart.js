@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 // import ButtonAppBar from './navbar.js';
 import OrderCode from './orderCode.js';
@@ -50,10 +51,10 @@ function Cart(props) {
   let navigate = useNavigate();
 
   // eslint-disable-next-line no-unused-vars
-  const [totalTax, setTotalTax] = useState(0);
-  // eslint-disable-next-line no-unused-vars
-  const [grandTotal, setGrandTotal] = useState(0);
-  // const [session_id, setSessionID] = useState(1);
+  // const [totalTax, setTotalTax] = useState(0);
+  // // eslint-disable-next-line no-unused-vars
+  // const [grandTotal, setGrandTotal] = useState(0);
+  // // const [session_id, setSessionID] = useState(1);
 
   // function calculateTotalTax() {
   //   // total tax logic here
@@ -105,8 +106,8 @@ function Cart(props) {
     // contentType: 'text/plain',
     data: {
       cart: data,
-      totalTax: totalTax,
-      grandTotal: grandTotal,
+      // totalTax: totalTax,
+      // grandTotal: grandTotal,
     },
     headers:{'Authorization':'Bearer ' + getCookie('Session').Session},
     success: (response) => {
@@ -170,8 +171,8 @@ function updateSummaryDatabase() {
    // contentType: 'text/plain',
    data: {
      cart: data,
-     totalTax: totalTax,
-     grandTotal: grandTotal,
+    //  totalTax: totalTax,
+    //  grandTotal: grandTotal,
      // session_id: session_id
    },
    success: (response) => {

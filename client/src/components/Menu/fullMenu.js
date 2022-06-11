@@ -31,17 +31,17 @@ function FullMenu(props) {
 
 
 
-  useEffect(() => {
-			const data = localStorage.getItem('cart');
-			if (data){
-				setCart(JSON.parse(data));
-			}
-  }, []);
+  // useEffect(() => {
+	// 		const data = localStorage.getItem('cart');
+	// 		if (data){
+	// 			setCart(JSON.parse(data));
+	// 		}
+  // }, []);
 
-	useEffect(() => {
-    // setCart(JSON.parse(localStorage.setItem('cart', cart)))
-		localStorage.setItem('cart', JSON.stringify(cart));
-  });
+	// useEffect(() => {
+  //   // setCart(JSON.parse(localStorage.setItem('cart', cart)))
+	// 	localStorage.setItem('cart', JSON.stringify(cart));
+  // });
 
 	function addToCart(currentItem) {
 		// var isIncluded = false;

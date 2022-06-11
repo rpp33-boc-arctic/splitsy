@@ -10,29 +10,48 @@ module.exports = {
     // var totalTax = req.body.totalTax;
     // var grandTotal = req.body.grandTotal;
     // var session_id = req.params.session_id;
-    function convertLetterToNumber(str) {
-      if ((typeof str === "string" || str instanceof String) && /^[a-zA-Z]+$/.test(str)) {
-        str = str.toUpperCase();
-        let out = 0,
-          len = str.length;
-        for (pos = 0; pos < len; pos++) {
-          out += (str.charCodeAt(pos) - 64) * Math.pow(26, len - pos - 1);
-        }
-        return out;
-      } else {
-        return 0;
+
+    // VVVVVVV old transform function:
+    // function convertLetterToNumber(str) {
+    //   if ((typeof str === "string" || str instanceof String) && /^[a-zA-Z]+$/.test(str)) {
+    //     str = str.toUpperCase();
+    //     let out = 0,
+    //       len = str.length;
+    //     for (pos = 0; pos < len; pos++) {
+    //       out += (str.charCodeAt(pos) - 64) * Math.pow(26, len - pos - 1);
+    //     }
+    //     return out;
+    //   } else {
+    //     return 0;
+    //   }
+    // }
+
+    // new transform function:
+    var transformID = (str) => {
+      var result = 0;
+      var pureStr = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+      for (var i = 0; i < pureStr.length; i++) {
+      var currentCharCode = pureStr.charCodeAt(i);
+      result += currentCharCode;
       }
+      return result;
     }
+
+
 
     var cart = req.body.cart;
     console.log('cart in index.js cart: ', cart);
 
     var group_cart_obj = {};
 
+    var totalTax = 0;
+      var grandTotal = 0;
+      var totalOwed = 0;
+
     cart.forEach((item, index) => {
       var currentItem = {
         'order_item_id': index,
-        'menu_item_id': convertLetterToNumber(item.product_id),
+        'menu_item_id': transformID(item.product_id),
         'menu_item_name': item.name,
         'menu_item_description': item.description,
         'menu_item_photo': item.image,
@@ -41,9 +60,12 @@ module.exports = {
         'paid?': false
       }
       group_cart_obj[index] = currentItem;
-      console.log('menu_item_id is: ', convertLetterToNumber(item.product_id));
+      grandTotal += parseInt(currentItem.menu_item_price);
+      console.log('menu_item_id is: ', transformID(item.product_id));
     })
 
+    totalTax = Math.round((grandTotal * 7.25) / 100);
+    totalOwed = totalTax + grandTotal;
     // for (var i = 9; i < cart.length; i++) {
     //   var currentItem = {
     //     'order_item_id': i,
@@ -128,7 +150,17 @@ module.exports = {
       // and req.body.cart, also req.body.totalTax and req.body.grandTotal
       // send back group_cart (set up timer on client side to update server every 2 sec)
 
-      Session.updateOne({ session_code: 'Session.estimatedDocumentCount()1' },  {group_cart : group_cart_obj})
+      // var totalTax = req.body.totalTax;
+      // var grandTotal = req.body.grandTotal;
+      // var totalOwed = totalTax + grandTotal;
+
+
+      console.log('totalTax is: ', totalTax);
+      console.log('grandTotal is: ', grandTotal);
+      console.log('totalOwed is: ', totalOwed);
+
+
+      Session.updateOne({ session_code: 'Session.estimatedDocumentCount()1' },  {group_cart : group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
       .then((result) => {
         res.status(200).send('POST cart request received!');
       })
