@@ -37,10 +37,8 @@ class User extends React.Component {
   }
 
   initialize() {
-    var user_idFromCookie = 4;      //get from cookie broswer
-
     this.setState({
-      user_id: user_idFromCookie
+      user_id: this.props.userId || 4
     }, () => {
       axios.get(`/user/profile${this.state.user_id}`)
         .then((success) => {
