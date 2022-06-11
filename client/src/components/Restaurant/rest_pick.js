@@ -48,7 +48,7 @@ var  RestaurantPick = (props)=>  {
 
   var createCookie = (token)=>{
     delete_cookie('orderSession');
-      document.cookie = "orderSession" + "=" + (token || "")  + "; path=/";
+      document.cookie = "orderSession=" + (token || "")  + "; path=/";
     }
 
   var joinSearch = (e)=>{
