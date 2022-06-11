@@ -29,20 +29,19 @@ module.exports = {
               'photo_url': 'https://cdn-icons-png.flaticon.com/512/2021/2021646.png'
             })
               .then(async (user) => {
-                const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
 
-                console.log('01 cookie: ', sessionCookie);
+                const sessionCookie = await bcrypt.hash((user.id + Date.now().toString()), 8);
 
                 createBrowserSession(userId, req.body.email, req.body.username, sessionCookie, res);
               })
-              .catch((err) => errorHandler(err, res));
+              .catch((err) => {console.log('trigger1');errorHandler(err, res);});
 
           } else if (!usernameValid) {
             res.status(200)
-              .json({ message: 'usernames can only contain alpha-numeric characters and a hyphen', invalidEntry: true });
+              .json({ message: 'usernames can only contain alpha-numeric characters and an underscore', invalidEntry: true });
           } else if (!firstnameValid || !lastnameValid) {
             res.status(200)
-              .json({ message: 'firstname/lastname can only contain alpha-numeric characters and an underscore', invalidEntry: true });
+              .json({ message: 'firstname/lastname can only contain alpha-numeric characters and a hyphen', invalidEntry: true });
           } else if (!emailValid) {
             res.status(200)
               .json({ message: 'hmm, your email does not look right to me...', invalidEntry: true });
@@ -98,8 +97,7 @@ module.exports = {
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
-        res.clearCookie('splitsy');
-        res.status(200).redirect('/');
+        res.status(200).clearCookie('splitsy').redirect('/');
       })
       .catch((err) => errorHandler(err, res));
 
@@ -127,19 +125,12 @@ module.exports = {
 };
 
 const createBrowserSession = (userId, email, username, sessionCookie, res) => {
-  console.log('02 cookie: ', sessionCookie);
   User.findOneAndUpdate({ 'email': email, 'username': username, 'user_id': userId },
     { $push: { 'session_cookie': sessionCookie }}
   )
     .then(() => {
-
-      console.log('03 cookie: ', sessionCookie);
-
       res.status(200)
-        .cookie('splitsy',
-          { 'token': sessionCookie, 'username': username, 'userId': userId },
-          { sameSite: true }
-        )
+        .cookie('splitsy', { 'token': sessionCookie, 'username': username, 'userId': userId }, { path: '/', domain: 'localhost' })
         .json({ message: 'user is logged in', loggedIn: true });
     })
     .catch((err) => errorHandler(err, res));
