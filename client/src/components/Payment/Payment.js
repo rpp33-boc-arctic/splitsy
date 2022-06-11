@@ -57,7 +57,7 @@ class Payment extends React.Component {
 
     // TODO... RETRIVE FROM DB AFTER SESSION VERIFID
     var username = ""             //get from cookie broswer
-    var userId = 6;              //get from cookie broswer
+    var userId = this.props.cookieData.userId;              //get from cookie broswer
     var session_id = 4;           //get session_id fro cookie from browswer --> this must be created from dashboard 1) when host click start session, session_id is created and save into database, 2) when user join session, broswer will check session_id used to join with session_id in database 3) if joined. All user will have the same state that collect all sessions information.
 
     this.setState({
