@@ -85,6 +85,23 @@ class User extends React.Component {
 
   friendClick(friend_id) {
     console.log('FRIEND CLICKED! ID', friend_id);
+    this.setState({
+      user_id: friend_id || 4
+    }, () => {
+      axios.get(`/user/profile${friend_id}`)
+        .then((success) => {
+          this.setState({
+            user_id: success.data[0].user_id,
+            username: success.data[0].username,
+            photo_url: success.data[0].photo_url
+          }, () => {
+            this.history();
+          })
+        })
+        .catch((error) => {
+          console.log('axios GET /user/profile error: ', error);
+        })
+    })
   }
 
   componentDidMount() {
