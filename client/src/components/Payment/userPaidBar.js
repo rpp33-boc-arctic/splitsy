@@ -17,7 +17,7 @@ class UserPaidBar extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.session !== prevProps.session) {
+    if (this.props.session.users !== prevProps.session.users) {
       this.getUserStatus();
     }
   }
@@ -25,8 +25,8 @@ class UserPaidBar extends React.Component {
   getUserStatus() {
     let userObj = this.props.session.users;
     if (userObj) {
-      let paidUsers = this.state.paidUsers;
-      let totalUsers = this.state.totalUsers;
+      let paidUsers = [];
+      let totalUsers = [];
       for(var key in userObj) {
         totalUsers.push(userObj[key]);
         if (userObj[key]['checkout?']) {
@@ -49,6 +49,7 @@ class UserPaidBar extends React.Component {
   }
 
   render() {
+    // console.log(this.state.paidUsers, this.state.totalUsers);
     const paidPercentage = Math.floor(this.state.paidUsers.length / this.state.totalUsers.length * 100);
     return (
       <div id="user-paid-bar">
