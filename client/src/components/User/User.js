@@ -86,7 +86,6 @@ class User extends React.Component {
   }
 
   friendClick(friend_id) {
-    console.log('FRIEND CLICKED! ID', friend_id);
     this.setState({
       user_id: friend_id || 4
     }, () => {
