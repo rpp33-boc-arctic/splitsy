@@ -41,7 +41,7 @@ module.exports = {
         'paid?': false
       }
       group_cart_obj[index] = currentItem;
-      console.log('menu_item_id is: ', currentItem.menu_item_id);
+      console.log('menu_item_id is: ', convertLetterToNumber(item.product_id));
     })
 
     // for (var i = 9; i < cart.length; i++) {
@@ -53,7 +53,7 @@ module.exports = {
     //     'menu_item_photo': cart[i].image,
     //     'menu_item_price': cart[i].price,
     //     'user_id': req.jwtObject.owner,
-    //     'paid?': false
+    //     'paid?': false``
     //   }
     //   group_cart_obj.order_item_id = currentItem
     //   console.log('currentItem in group_cart_obj is: ', currentItem);
@@ -91,18 +91,27 @@ module.exports = {
     //       { sameSite: true }
     //     );
 
-    console.log('jwtObject is: ', req.jwtObject);
-    if (req.jwtObject) {
-      Session.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
-      // ^^ this would overdrive other ppl's items
-    .then((result) => {
-      res.status(200).send('POST cart request received!');
-    })
-    .catch((error) => {
-      console.log('error ADDING one item from user cart, error is: ', error);
-      res.status(500).send(error);
-    })
+    //======================================== Need jwtObject to exist =============
 
+  //   console.log('jwtObject is: ', req.jwtObject);
+  //   if (req.jwtObject) {
+  //     // Session.updateOne({ _id: req.jwtObject.session_id },  {group_cart : group_cart_obj})
+  //     Session.updateOne({ session_code: 'Session.estimatedDocumentCount()1' },  {group_cart : group_cart_obj})
+  //     // ^^ this would overdrive other ppl's items
+  //   .then((result) => {
+  //     res.status(200).send('POST cart request received!');
+  //   })
+  //   .catch((error) => {
+  //     console.log('error ADDING one item from user cart, error is: ', error);
+  //     res.status(500).send(error);
+  //   })
+  // } else {
+  //   // redirect to client page and send back error code
+  //   res.status(500).send('error: failed to update cart, jwt token invalid');
+  //   console.log('failed to update cart!');
+  // }
+
+  //=================================
   //   var payload = {
   //     session_id: session._id,
   //     owner: session.owner,
@@ -118,11 +127,15 @@ module.exports = {
       // use updateOne to update databse with req.jwtObject.session_id
       // and req.body.cart, also req.body.totalTax and req.body.grandTotal
       // send back group_cart (set up timer on client side to update server every 2 sec)
-    } else {
-      // redirect to client page and send back error code
-      res.status(500).send('error: failed to update cart, jwt token invalid');
-      console.log('failed to update cart!');
-    }
+
+      Session.updateOne({ session_code: 'Session.estimatedDocumentCount()1' },  {group_cart : group_cart_obj})
+      .then((result) => {
+        res.status(200).send('POST cart request received!');
+      })
+      .catch((error) => {
+        console.log('error ADDING one item from user cart, error is: ', error);
+        res.status(500).send(error);
+      })
 
   },
 
