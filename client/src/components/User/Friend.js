@@ -7,7 +7,13 @@ class Friend extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      friend_id: this.props.friend.user_id
     }
+    this.sendFriendUserId = this.sendFriendUserId.bind(this);
+  }
+
+  sendFriendUserId () {
+    this.props.friendClick(this.state.friend_id);
   }
 
   render() {
@@ -18,7 +24,7 @@ class Friend extends React.Component {
             <br></br>
             <img src={this.props.friend.photo_url} alt="friendPhoto" width="50"></img>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={8} onClick={this.sendFriendUserId} >
             <br></br>
             <Typography>{this.props.friend.firstname || 'My '} {this.props.friend.lastname || 'Friend'}</Typography>
             <Typography>@{this.props.friend.username}</Typography><br></br>

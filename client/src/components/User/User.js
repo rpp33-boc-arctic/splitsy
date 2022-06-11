@@ -83,8 +83,8 @@ class User extends React.Component {
       })
   }
 
-  friendClick() {
-    console.log('FRIEND CLICKED!');
+  friendClick(friend_id) {
+    console.log('FRIEND CLICKED! ID', friend_id);
   }
 
   componentDidMount() {
