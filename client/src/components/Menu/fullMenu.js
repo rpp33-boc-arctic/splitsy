@@ -10,6 +10,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
+import { flexbox } from '@mui/system';
+
 // import { styled } from "@material-ui/core";
 
 
@@ -118,29 +120,32 @@ function FullMenu(props) {
 	// });
 
 
+
 	return (
 
-		<div>
+		<div className='full-menu'>
 			<Stack spacing={2} direction="row">
-    </Stack>
-			<Button variant="contained" endIcon={
-			// <ShoppingCartIcon fontSize="large" className='go-to-cart' />
-			<Badge badgeContent={itemCount()} color="secondary">
-        <ShoppingCartIcon color="action" />
-      </Badge>
-			} >
-				<Link to="/protected/Cart" style={{ 'textDecoration': 'none', color: 'white' }} params={{ testvalue: "hello" }} state={cart} >
-					GO TO CART
-				</Link>
-			</Button>
+			</Stack>
+			<div className='menu-buttons' >
+				<Button xs={2} className='go-to-cart' variant="contained" endIcon={
+					<Badge badgeContent={itemCount()} color="secondary">
+						<ShoppingCartIcon color="action" />
+					</Badge>
+				}>
+					<Link to="/protected/Cart" style={{ 'textDecoration': 'none', color: 'white' }} params={{ testvalue: "hello" }} state={cart} >
+						GO TO CART
+					</Link>
+				</Button  >
 
-			<Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" className='go-to-cart' />} onClick={emptyCart}>
-				EMPTY CART
-			</Button>
+				<Button className='empty-cart' variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />} onClick={emptyCart} xs={2} >
+					EMPTY CART
+				</Button>
+				<br></br>
+				<List className='example' xs={8} style={scrollerStyle} >
+					{renderMenu()}
+				</List>
+			</div>
 
-			<List className='example' style={scrollerStyle} >
-				{renderMenu()}
-			</List>
 		</div>
 
 	)

@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import FullMenu from './fullMenu.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useLocation} from "react-router-dom";
+import menuStyles from './menuStyles.css';
 
 var Menu = (props)=> {
 	const {state} = useLocation();
@@ -33,8 +34,6 @@ var Menu = (props)=> {
 					<h1>{fullMenu.item.name}</h1>
 					<h2>Address: {fullMenu.item.address.street_addr}</h2>
 					<h2>Phone Number: {fullMenu.item.phone_number}</h2>
-
-					<ShoppingCartIcon fontSize="large" />
 
 					{/* <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
         <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}}>
