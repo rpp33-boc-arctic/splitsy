@@ -19,6 +19,7 @@ var jwtMiddleware = function (req,res,next){
   const authHeader = req.headers.authorization;
       const token = authHeader.split(' ')[1];
       req.jwtObject = jwt.verify(token, 'Server Password');
+      console.log('req.jwtObject middleware: ', req.jwtObject);
       next()
   } catch(err){
     req.jwtObject = null;

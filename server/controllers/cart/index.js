@@ -40,9 +40,10 @@ module.exports = {
     console.log('totalTax is: ', totalTax);
     console.log('grandTotal is: ', grandTotal);
     console.log('totalOwed is: ', totalOwed);
+    console.log('req.jwtObject is: ', req.jwtObject);
 
 
-    Session.updateOne({ session_code: 'Session.estimatedDocumentCount()1' }, { group_cart: group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
+    Session.updateOne({ session_code: req.jwtObject.code }, { group_cart: group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
       .then((result) => {
         res.status(200).send('POST cart request received!');
       })
