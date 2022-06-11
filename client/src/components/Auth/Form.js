@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Stack } from '@mui/material';
+import { TextField, Button, Stack, Tooltip } from '@mui/material';
 
 
 class AuthForm extends React.Component {
@@ -7,6 +7,8 @@ class AuthForm extends React.Component {
     super(props);
     this.state = {
       username: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: ''
     };
@@ -25,12 +27,14 @@ class AuthForm extends React.Component {
   submitForm(e) {
     e.preventDefault();
 
-    const { username, email, password } = this.state;
+    const { username, firstname, lastname, email, password } = this.state;
 
     if (this.props.registerUser) {
 
       this.props.formHandler({
         username: username,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         password: password
       });
@@ -46,6 +50,8 @@ class AuthForm extends React.Component {
 
     this.setState({
       username: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: ''
     });
@@ -60,34 +66,64 @@ class AuthForm extends React.Component {
         {
           registerUser
           &&
+          <>
+            <Tooltip title="alpha-numerics + underscores are valid usernames">
+              <TextField
+                label="Username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form username field' }}
+              />
+            </Tooltip>
+            <Tooltip title="alpha-numerics + hyphens are valid first names">
+              <TextField
+                label="First Name"
+                name="firstname"
+                value={this.state.firstname}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form firstname field' }}
+              />
+            </Tooltip>
+            <Tooltip title="alpha-numerics + hyphens are valid last names">
+              <TextField
+                label="Last Name"
+                name="lastname"
+                value={this.state.lastname}
+                onChange={this.handleChange}
+                required
+                inputProps={{ 'aria-label': 'authorization form lastname field' }}
+              />
+            </Tooltip>
+          </>
+        }
+        <Tooltip title="email@domain.com (and similar iterations) are allowed">
           <TextField
-            label="Username"
-            name="username"
-            value={this.state.username}
+            label="Email"
+            name="email"
+            type="email"
+            value={this.state.email}
             onChange={this.handleChange}
             required
-            inputProps={{ 'aria-label': 'authorization form name field' }}
+            inputProps={{ 'aria-label': 'authorization form email field' }}
           />
-        }
-        <TextField
-          label="Email"
-          name="email"
-          type="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-          inputProps={{ 'aria-label': 'authorization form email field' }}
-        />
-        <TextField
-          label="Password"
-          name="password"
-          type="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-          required
-          inputProps={{ 'aria-label': 'authorization form password field' }}
-        />
-        <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
+        </Tooltip>
+        <Tooltip title="minimum of 8 characters (no spaces allowed)">
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            required
+            inputProps={{ 'aria-label': 'authorization form password field' }}
+          />
+        </Tooltip>
+        <Tooltip title="submit buttom">
+          <Button variant="contained" onClick={this.submitForm}>{registerUser ? 'signup' : 'login'}</Button>
+        </Tooltip>
       </Stack>
     );
   }

@@ -36,6 +36,12 @@ class Auth extends React.Component {
           error: response.data.message
         });
 
+      }  else if (response.data.invalidEntry) {
+
+        this.setState({
+          error: response.data.message
+        });
+
       }
     } else { // login route for existing users
       const response = await axios.post('/login', data);
