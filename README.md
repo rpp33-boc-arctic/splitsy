@@ -83,6 +83,15 @@ $ npm run server
 Go to localhost:3000/
 ```
 
+### Sample data
+
+In order to use sample data, make sure you have MongoDB installed.
+From within the root directory (outside Mongo shell), type command :
+
+```sh
+mongorestore dump-v2/
+```
+
 ## Git Feature Workflow
   * ### Start by switching to the main branch, fetch the latest commit, merge the changes into the local branch
     Run `git checkout main` then run <br>A) `git fetch origin` and `git reset --hard origin/main` OR<br> B) `git pull`
