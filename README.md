@@ -22,13 +22,13 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 
 -   [ ] **Jun 11** Complete and Share with friends
 -   [ ] **Jun 04** Features complete
-  -   [x] Authorization
-  -   [ ] Browse restaurants
-  -   [ ] Browse Menu
-  -   [ ] Cart
-  -   [x] Spliting bill
-  -   [x] User profile
-  -   [x] Friend list
+  * -   [x] Authorization
+  * -   [ ] Browse restaurants
+  * -   [ ] Browse Menu
+  * -   [ ] Cart
+  * -   [x] Spliting bill
+  * -   [x] User profile
+  * -   [x] Friend list
 -   [x] **May 21** Project Proposal
 -   [x] **May 14** Project Start
 
