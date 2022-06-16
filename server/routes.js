@@ -7,6 +7,8 @@ const SessionController = require('./controllers/Sessions');
 const paymentController = require('./controllers/payment');
 const seedController = require('./controllers/payment/seed.js');
 const joinOrder = require('./controllers/joinOrder');
+var jwt = require('jsonwebtoken');
+
 
 var isAuthenticated = (req, res, next) => {
   // console.log('req.cookies', req.cookies);
@@ -15,6 +17,24 @@ var isAuthenticated = (req, res, next) => {
     res.send('Unauthorized');
   } else {
     next();
+  }
+}
+
+var jwtMiddleware = function (req, res, next) {
+  const authHeader = req.headers.authorization;
+  console.log('req.headers is; ', req.headers);
+  console.log('authHeader is; ', authHeader);
+
+  try {
+    const token = authHeader.split(' ')[1];
+    console.log('token inside middleware func is: ', token);
+    req.jwtObject = jwt.verify(token, 'Server Password');
+    console.log('req.jwtObject inside jwtMiddleware is: ', req.jwtObject);
+    next()
+  } catch (err) {
+    console.log('jwt middleware error is: ', JSON.stringify(err).slice(0, 100));
+    req.jwtObject = undefined;
+    next()
   }
 }
 
@@ -35,7 +55,7 @@ router.get('/:restaurant/menu', (req, res) => { });
 
 // Cart
 router.get('/session/get_cart', cartController.getCart);
-router.post('/session/update_cart', cartController.updateCart);
+router.post('/session/update_cart', jwtMiddleware, cartController.updateCart);
 router.post('/session/update_summary', cartController.updateSummary);
 
 // Payment

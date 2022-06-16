@@ -28,12 +28,18 @@ function Cart(props) {
   const location = useLocation();
   const data = location.state;
   console.log('current cart in Cart.js is: ', data);
-  console.log('new window log: ', getCookie('Session'));
+  console.log('new window log: ', getCookie('orderSession'));
+  // console.log('document.cookie is: ', document.cookie);
+
   // console.log('current props inside Cart.js is: ', props);
 
   var updateCartDatabase = () => {
     // update database logic here, then send function to RedirectButton
     //  var session_id = 1;
+    var cookie = getCookie('Session');
+    // console.log('cookie inside Cart ajax is: ', cookie);
+        console.log('getCookie(\'orderSession\').Session inside Cart ajax is: ', getCookie('orderSession').orderSession);
+
     var link = `/session/update_cart`;
     $.ajax({
       method: "POST",
@@ -44,7 +50,7 @@ function Cart(props) {
         // totalTax: totalTax,
         // grandTotal: grandTotal,
       },
-      headers: { 'Authorization': 'Bearer ' + getCookie('Session').Session },
+      headers: { 'Authorization': 'Bearer ' + getCookie('orderSession').orderSession },
       success: (response) => {
         if (response === 'POST cart request received!') {
           console.log('POST cart request success!');
