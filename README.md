@@ -51,11 +51,15 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
     </tr>
   <tr>
     <td>APIs</td>
-    <td><a href="">(Documenu)</a></td>
+    <td><a href="https://www.mealme.ai/">MealMe API</a></td>
+    <td><a href=""></a></td>
+    <td><a href=""></a></td>
   </tr>
   <tr>
       <td>Authentication</td>
-      <td><a href="">(authentication)</a></td>
+      <td><a href="https://www.npmjs.com/package/bcrypt">bcrypt</a></td>
+      <td><a href="https://www.npmjs.com/package/react-cookie">react-cookie</a></td>
+    <td><a href=""></a></td>
     </tr>
 </table>
 
@@ -68,7 +72,7 @@ See the example.env file and create a .env file to save mongoose database connec
 Alternatively, change the dbAdress variable within database/index.js to mongodb://localhost:27017/splitsy
 
 $ cd client
-$ npm run build
+$ npm run start
 
 In root directory:
 $ npm run server
