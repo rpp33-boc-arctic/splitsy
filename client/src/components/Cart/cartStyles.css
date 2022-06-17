@@ -1,0 +1,15 @@
+.cart {
+	display: flex;
+	flex-direction: column;
+	/* background-color: #E8E8E8; */
+	flex-direction: column;
+	margin: 25px 50px 75px 50px;
+	align-self: center;
+	justify-content: space-between;
+	width: 42%;
+	height: 50%;
+	align-content: space-between;
+	column-gap: 30px;
+	row-gap: 30px;
+	background-color: none;
+}

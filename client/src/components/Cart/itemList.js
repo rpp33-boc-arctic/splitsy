@@ -19,25 +19,6 @@ class ItemList extends React.Component {
     }
   }
 
-  // const divStyle={
-  //   overflowY: 'scroll',
-  //   border:'1px solid red',
-  //   width:'500px',
-  //   float: 'left',
-  //   height:'500px',
-  //   position:'relative'
-  // };
-
-  // margin-top: 20px;
-  // overflow-y: scroll;
-  // width: 600px;
-  // max-height: 1100px;
-  // /* overflow-y: scroll; */
-  // overflow-y: auto;
-  // overflow-x: auto;
-  // scrollbar-color: rebeccapurple green;
-  // scrollbar-width: thin;
-
   render() {
     console.log(this.props.cart);
     var items = this.props.cart.map((item, i) => {

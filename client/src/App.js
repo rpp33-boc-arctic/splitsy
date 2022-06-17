@@ -11,6 +11,7 @@ import RestaurantPick from './components/Restaurant/rest_pick.js';
 import User from './components/User/User.js';
 import Private from './Private.js';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
