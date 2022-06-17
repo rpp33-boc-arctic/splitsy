@@ -146,34 +146,19 @@ module.exports = {
     let user_tip = req.body.userTip
     let user_paid = req.body.userTotal
 
-    Session.find({session_code: session_id})
-    .then((session) => {
-      // console.log('session', session[0].receipt.get(user_id));
-      return session[0].receipt.get(user_id)
-    }).then((oldReceipt) => {
-      if (oldReceipt) {
-        var receipt = {
-          'user_id': user_id,
-          'items': oldReceipt.items.concat(user_cart),
-          'user_tip': oldReceipt.user_tip + user_tip,
-          'total_paid': oldReceipt.total_paid + user_paid
-        };
-      } else {
-        var receipt = {
-          'user_id': user_id,
-          'items': user_cart,
-          'user_tip': user_tip,
-          'total_paid': user_paid
-        };
-      }
-      return receipt;
-    }).then((receipt) => {
-      return Session.updateOne(
-        {session_code: session_id},
-        {$set:{[`receipt.${user_id}`]: receipt}},
-        {upsert: true}
-      )
-    }).then((result) => {
+    var receipt = {
+      'user_id': user_id,
+      'items': user_cart,
+      'user_tip': user_tip,
+      'total_paid': user_paid
+    };
+    return Session.updateOne(
+      {session_code: session_id},
+      {$set:{[`receipt.${user_id}`]: receipt}},
+      {upsert: true}
+    )
+    // })
+    .then((result) => {
       res.send(result);
     })
     .catch((error) => {
@@ -203,14 +188,17 @@ module.exports = {
     let update_tip = req.body.update_tip;
     let update_total_paid = req.body.update_total_paid;
 
-    return Session.updateOne(
-      {session_code: session_id},
-      {$set:{
-        'total_tip': update_tip,
-        'total_paid': update_total_paid
-      }},
-      {upsert: true}
-    )
+    Session.find({ session_code: session_id })
+    .then((oldSession) => {
+      return Session.updateOne(
+        {session_code: session_id},
+        {$set:{
+          'total_tip': update_tip + oldSession[0]['total_tip'],
+          'total_paid': update_total_paid + oldSession[0]['total_paid']
+        }},
+        {upsert: true}
+      )
+    })
     .then((result) => {
       res.send(result);
     })
