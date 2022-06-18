@@ -24,7 +24,7 @@ function Cart(props) {
 
 
 
-
+  const cart = localStorage.getItem('cart');
   const location = useLocation();
   const data = location.state;
   console.log('current cart in Cart.js is: ', data);
@@ -46,7 +46,7 @@ function Cart(props) {
       url: link,
       // contentType: 'text/plain',
       data: {
-        cart: data,
+        cart: cart, // Neen: change from data to cart from localstorage
         // totalTax: totalTax,
         // grandTotal: grandTotal,
       },

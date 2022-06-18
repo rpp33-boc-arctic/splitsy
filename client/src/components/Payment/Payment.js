@@ -49,16 +49,9 @@ class Payment extends React.Component {
     }
   }
   initialize () {
-    // TODO... VERIFY SESSION
-    // var session_cookie = '';      //get session cookie from broswer
-    // verify username & session_cookie with database --> is this the same function that must be added to cart/ menu?
-      // if session_cookie is not similar to session of this username in the database,
-        // go back to log in page
-
-    // TODO... RETRIVE FROM DB AFTER SESSION VERIFID
-    var username = ""             //get from cookie broswer
-    var userId = this.props.cookieData.userId;              //get from cookie broswer
-    var session_id = 4;           //get session_id fro cookie from browswer --> this must be created from dashboard 1) when host click start session, session_id is created and save into database, 2) when user join session, broswer will check session_id used to join with session_id in database 3) if joined. All user will have the same state that collect all sessions information.
+    var username = this.props.cookieData.username;
+    var userId = this.props.cookieData.userId;
+    var session_id = this.getCookie('session_code');
 
     this.setState({
       session_id: session_id,
@@ -144,10 +137,10 @@ class Payment extends React.Component {
 
         users = users.data[0].users
         var all_item = Object.keys(this.state.group_cart).map((item) => {return Number(item)});
-        var others_item = [];
-        var my_item = [];
+        var others_item = new Set();
+        var my_item = new Set();
         var all_chosen_item = [];
-        var non_chosen_item = [];
+        var non_chosen_item = new Set();
 
         for (var userId in users) {
           if (Number(userId) !== this.state.user_id) {
@@ -258,6 +251,11 @@ class Payment extends React.Component {
   getUsername (user_id) {
     var user = _.find(this.state.users, (user) => { return user.user_id === user_id });
     if (user) return user.username;
+  }
+
+  getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
   }
 
   //==========================     RENDER     ==========================

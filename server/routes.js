@@ -49,7 +49,7 @@ router.get('/user/friends', userController.friends);
 
 // Restaurants
 router.get('/restaurant', restaurantController.restaurantList);
-router.get('/joinOrder',joinOrder.joinOrder);
+router.get('/joinOrder/:user_id',joinOrder.joinOrder);
 router.get('/orderSession', SessionController.createSession);
 router.get('/:restaurant/menu', (req, res) => { });
 

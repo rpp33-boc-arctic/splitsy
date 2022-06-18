@@ -86,7 +86,7 @@ class RedirectButton extends React.Component {
     return (
       <Stack direction="row" spacing={2}>
         <Button variant="contained" endIcon={<ShoppingCartIcon />}>
-          <Link to="/Cart" style={{'textDecoration': 'none', color: 'white'}}>
+          <Link to="/protected/Cart" style={{'textDecoration': 'none', color: 'white'}}>
             BACK TO CART
           </Link>
         </Button>

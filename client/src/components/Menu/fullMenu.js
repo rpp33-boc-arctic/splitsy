@@ -63,7 +63,7 @@ function FullMenu(props) {
 		// } else {
 		// 	setCart( arr => [...arr, currentItem]);
 
-		setCart(arr => [...arr, currentItem]);
+		setCart(arr => [...arr, currentItem]); //setCart([...cart, currentItem]);
 		localStorage.setItem('cart', cart);
 
 	}

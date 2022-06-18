@@ -57,8 +57,8 @@ var  RestaurantPick = (props)=>  {
     if (state.join_code.length > 4){
       throwerror = true
     }
-    var url = 'http://127.0.0.1:3001/joinOrder';
-    axios.get(url,{params:{user_id:props.cookieData.userId},headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
+    var url = `http://127.0.0.1:3001/joinOrder/${props.cookieData.userId}`;
+    axios.get(url,{headers:{'Authorization':'Bearer ' + getCookie('orderSession').orderSession}}).then((response)=>{
       console.log('respoonse',response);
       if (response.data.redirect){
         if (response.data.token){
