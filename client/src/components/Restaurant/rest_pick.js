@@ -8,21 +8,19 @@ import { useNavigate }  from "react-router-dom";
 
 var  RestaurantPick = (props)=>  {
 
-    var stateobj = {
-      rest:[],
-      query:"",
-      error:false,
-      keywords:"",
-      helperText:"pleaes enter a valid address.",
-      join_code:"",
-      showErrorBar:false,
-      errorbar:"Invalid Join Code."
-    }
+  var stateobj = {
+    rest:[],
+    query:"",
+    error:false,
+    keywords:"",
+    helperText:"pleaes enter a valid address.",
+    join_code:"",
+    showErrorBar:false,
+    errorbar:"Invalid Join Code."
+  }
 
-    var [state,setState]= useState(stateobj)
-    const navigate = useNavigate();
-
-
+  var [state,setState]= useState(stateobj)
+  const navigate = useNavigate();
 
   function getCookie(name){
     if ( document.cookie){
@@ -32,7 +30,7 @@ var  RestaurantPick = (props)=>  {
     }
   }
 
-   var joinCodeChange = (e)=>{
+  var joinCodeChange = (e)=>{
     var newstate = Object.assign({}, state);
 
     var val = e.target.value;
@@ -111,11 +109,6 @@ var  RestaurantPick = (props)=>  {
     },500);
   }
 
-
-
-
-
-
   var getRestaurants = (lat,long,miles)=>{
         axios.get('http://127.0.0.1:3001/restaurant',{params:{lat:lat,long:long}} ).then(response=>{
           var newstate = Object.assign({}, state);  // creating copy of state variable jasper
@@ -123,8 +116,6 @@ var  RestaurantPick = (props)=>  {
           setState(newstate)
         });
    }
-
-
 
   var clickRestaurant= (restData,cb)=>{
     restData.username = "grant_22";
@@ -142,18 +133,17 @@ var  RestaurantPick = (props)=>  {
     }
   });
 
+  return (
+    <div className="rest">
+    {state.showErrorBar? <div className="errorBar"><span>{state.errorbar}</span></div> : null}
+    <p> Restaurants near me </p>
 
-    return (
-      <div className="rest">
-      {state.showErrorBar? <div className="errorBar"><span>{state.errorbar}</span></div> : null}
-      <p> Restaurants near me </p>
-
-      <div className="container">
-       <ListComponent  address={state.address} clickRestaurant={clickRestaurant} rest={state.rest}></ListComponent>
-       <Map joinCodeChange={joinCodeChange} joinSearch={joinSearch} search={search} error={state.error} helperText={state.helperText} querychange={querychange} getRestaurants={getRestaurants}></Map>
-        </div>
-      </div >
-    )
+    <div className="container">
+      <ListComponent  address={state.address} clickRestaurant={clickRestaurant} rest={state.rest}></ListComponent>
+      <Map joinCodeChange={joinCodeChange} joinSearch={joinSearch} search={search} error={state.error} helperText={state.helperText} querychange={querychange} getRestaurants={getRestaurants}></Map>
+      </div>
+    </div >
+  )
 
 }
 

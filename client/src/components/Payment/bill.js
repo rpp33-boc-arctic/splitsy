@@ -56,7 +56,6 @@ class Bill extends React.Component {
 
   handleOtherTip(e) {
     e.preventDefault();
-    // console.log('event?', e.target.value);
     let tipSelected = e.target.value;
     this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
   }

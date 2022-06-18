@@ -15,13 +15,13 @@ class Payment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: "",       //session id from cookie? or pass from other component
-      username: "",         //from cookie (after session_cookie had verified)
+      session_id: "",
+      username: "",
       user_id:"",
 
-      user_pick: [],
-      others_pick: [],
-      not_yet_pick: [],
+      user_pick: new Set(),
+      others_pick: new Set(),
+      not_yet_pick: new Set(),
 
       group_cart: {},
       session: {},
@@ -63,8 +63,6 @@ class Payment extends React.Component {
           this.setState({waitingForData: true})
         })
         .then((session) => {
-          if (session === "Unauthorized") { throw session};
-
           this.setState({
             waitingForData: false,
             group_cart: session.data[0].group_cart,
@@ -75,7 +73,7 @@ class Payment extends React.Component {
           })
         })
         .catch((session) => {
-          document.location.href = '/Auth'
+          this.setState({waitingForData: true})
         })
 
     })
@@ -165,7 +163,7 @@ class Payment extends React.Component {
         })
       })
       .catch((err) => {
-        this.setState({waitingForData: true})
+        this.setState({waitingForData: true}, () => {this.updateItemsOnMainBoard()})
       })
   }
 
@@ -187,9 +185,6 @@ class Payment extends React.Component {
       method: 'put',
       url: `/session${this.state.session_id}/user${this.state.user_id}/pay`,
     })
-    // .then((results) => {
-    //   console.log('results in UpdateUserPay', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateUserPay', err)
     })
@@ -216,9 +211,6 @@ class Payment extends React.Component {
         userTotal: this.state.myBill.myTotal
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateReceipt', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateReceipt', err)
     })
@@ -236,9 +228,6 @@ class Payment extends React.Component {
         update_total_paid: update_total_paid
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateTotalTipAndTotalPaid', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateTotalTipAndTotalPaid', err)
     })

@@ -36,19 +36,6 @@ module.exports = {
           res.json({redirect:false})
         }
       })
-      // res.status(400);
-      // res.json({redirect:false,data:undefined});
     }
-
-
-    // join code
-    // username
-
-    // if session exists add user send token
-    // make cookie true
-
-
-
   }
-
 }

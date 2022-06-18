@@ -9,17 +9,6 @@ const seedController = require('./controllers/payment/seed.js');
 const joinOrder = require('./controllers/joinOrder');
 var jwt = require('jsonwebtoken');
 
-
-var isAuthenticated = (req, res, next) => {
-  // console.log('req.cookies', req.cookies);
-  // console.log('ver', authController.verifyUser(req.cookies));
-  if (!authController.verifyUser(req.cookies.splitsy)) {
-    res.send('Unauthorized');
-  } else {
-    next();
-  }
-}
-
 var jwtMiddleware = function (req, res, next) {
   const authHeader = req.headers.authorization;
   console.log('req.headers is; ', req.headers);
