@@ -72,18 +72,18 @@ class Auth extends React.Component {
     return (
       <div className="Auth" style={{ textAlign: 'center', height: '100%' }}>
         <Box sx={{
-            position: 'absolute',
+            position: 'center',
             top: '40%',
             left: '50%',
-            transform: 'translate(-50%, -50%)',
+            // transform: 'translate(-50%, 50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            height: '60%',
-            width: 500
+            height: '90vh',
+            width: '100%'
           }}>
-          <Typography sx={{ margin: '70px 45px', fontSize: 64, fontWeight: 700, height: '20%' }}>Splitsy</Typography>
+          <Typography sx={{ margin: '70px 45px', fontSize: 96, fontWeight: 700, height: '20%' }}>Splitsy</Typography>
             <Stack direction="column" spacing={2} alignItems="center" justifyContent="center">
               <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
                 <Typography sx={{ fontWeight: 700 }}>LOGIN</Typography>
