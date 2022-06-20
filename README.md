@@ -1,6 +1,4 @@
 # Splitsy
-![Up to date](https://github.com/rpp33-boc-arctic/splitsy/actions/workflows/node.js/badge.svg)
-
 Welcome to Splitsy! A service that allows users to conveniently split restaurant bills!
 
 
