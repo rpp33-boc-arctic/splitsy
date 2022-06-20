@@ -19,12 +19,12 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 
 ## Contributers
 
-[Dennis Wang](https://github.com/denniswangcodes) <br/>
-[Grant Mitchell](https://github.com/grant350)<br/>
-[Muizz Matemilola](https://github.com/ayokanme)<br/>
-[Neen Aroonrerk](https://github.com/neenachcha)<br/>
-[Tan Ha](https://github.com/tandha)<br/>
-[Yufang Cheng](https://github.com/yfcheng1)<br/>
+- [Dennis Wang](https://github.com/denniswangcodes) <br/>
+- [Grant Mitchell](https://github.com/grant350)<br/>
+- [Muizz Matemilola](https://github.com/ayokanme)<br/>
+- [Neen Aroonrerk](https://github.com/neenachcha)<br/>
+- [Tan Ha](https://github.com/tandha)<br/>
+- [Yufang Cheng](https://github.com/yfcheng1)<br/>
 
 
 ## Milestones
@@ -33,8 +33,8 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 -   [ ] **Jun 04** Features complete
   * -   [x] Authorization
   * -   [ ] Browse restaurants
-  * -   [ ] Browse Menu
-  * -   [ ] Cart
+  * -   [x] Browse Menu
+  * -   [x] Cart
   * -   [x] Spliting bill
   * -   [x] User profile
   * -   [x] Friend list
