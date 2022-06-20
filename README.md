@@ -92,12 +92,30 @@ Go to localhost:3001/
 
 ## Sample data
 
-In order to use sample data, make sure you have MongoDB installed.
-From within the root directory (outside Mongo shell), type command :
-
+In order to use sample data, make sure:
+1. You have MongoDB installed.
+2. Checkout schema in
+```sh
+/database/index.js
+```
+3. Connecting to database:
+In file /database/index.js, change dbAddress as follow:
+- If you use local database.
+```sh
+dbAddress = mongoose.connect('mongodb://localhost:27017/splitsy')
+```
+- If you use EC2 database.
+```sh
+dbAddress = mongodb://[MONGODB USERNAME]:[MONGODB PASSWORD]@[YOUR IP ADDRESS]:27017/splitsy?authSource=admin
+```
+4. From within the root directory (outside Mongo shell), type command :
+- If you use local database.
 ```sh
 mongorestore dump-v2/
 ```
+- If you use EC2 database.
+mongorestore dump-v2/ --host=[IP ADRESS OF THE HOST]
+
 
 ## Main features
 
