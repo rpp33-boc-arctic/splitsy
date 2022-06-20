@@ -92,13 +92,13 @@ Go to localhost:3001/
 
 ## Sample data
 
-In order to use sample data, make sure:
-1. You have MongoDB installed.
+In order to use sample data, follow these steps:
+1. Make sure you have MongoDB installed.
 2. Checkout schema in
 ```sh
 /database/index.js
 ```
-3. Connecting to database:
+3. Connect to database.
 In file /database/index.js, change dbAddress as follow:
 - If you use local database.
 ```sh
@@ -108,7 +108,7 @@ dbAddress = mongoose.connect('mongodb://localhost:27017/splitsy')
 ```sh
 dbAddress = mongodb://[MONGODB USERNAME]:[MONGODB PASSWORD]@[YOUR IP ADDRESS]:27017/splitsy?authSource=admin
 ```
-4. From within the root directory (outside Mongo shell), type command :
+4. From within the root directory (outside Mongo shell), type this command to restore data into your MongoDB:
 - If you use local database.
 ```sh
 mongorestore dump-v2/
