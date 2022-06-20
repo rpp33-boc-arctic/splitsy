@@ -11,6 +11,7 @@ import RestaurantPick from './components/Restaurant/rest_pick.js';
 import User from './components/User/User.js';
 import Private from './Private.js';
 
+import { CircularProgress } from '@mui/material';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends React.Component {
     };
     this.authCheck = this.authCheck.bind(this);
     this.navigateToPage = this.navigateToPage.bind(this);
+    this.navigateToLogIn = this.navigateToLogIn.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +31,11 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.cookies.get('splitsy').username !== this.props.cookies.get('splitsy').username || prevProps.cookies.get('splitsy').userId !== this.props.cookies.get('splitsy').userId) {
-      this.render();
-    }
+    // if (this.props.cookies.get('splitsy') && prevProps.cookies.get('splitsy')) {
+      if (prevProps.cookies.get('splitsy').username !== this.props.cookies.get('splitsy').username || prevProps.cookies.get('splitsy').userId !== this.props.cookies.get('splitsy').userId) {
+        this.render();
+      }
+    // }
   }
 
   authCheck(cb = () => { }) {
@@ -53,6 +57,14 @@ class App extends React.Component {
     })
   }
 
+  navigateToLogIn() {
+    this.setState({
+      verified: null,
+      username: '',
+      userId: 0
+    })
+  }
+
   render() {
 
     var userData = {
@@ -64,7 +76,7 @@ class App extends React.Component {
     if (userData.username !== '' || userData.userId !== 0) {
       return (
         <Routes className="App">
-          <Route path="/" element={<NavBar cookieData={userData} verifyUser={() => { this.authCheck(this.navigateToPage) }} />}>
+          <Route path="/" element={<NavBar cookieData={userData} logOutClick={this.navigateToLogIn}/>}>
             <Route index element={
               <>
                 {this.state.verified}
@@ -82,12 +94,12 @@ class App extends React.Component {
         </Routes>
       );
     } else {
+      if (this.state.verified !== null){return (<CircularProgress />)}
       return (
         <Routes className="App">
-          <Route path="*" element={<NavBar />}>
+          <Route path="*" element={<NavBar cookieData={userData} logOutClick={this.navigateToLogIn}/>}>
             <Route path="*" element={
               <>
-                {this.state.verified}
                 <Auth verifyUser={() => { this.authCheck(this.navigateToPage) }} />
               </>}
             />

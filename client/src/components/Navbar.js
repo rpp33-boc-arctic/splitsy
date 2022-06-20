@@ -4,7 +4,7 @@ import axios from 'axios';
 import {Button, Typography, Toolbar, Box, AppBar, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import {Outlet } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 import DisplayMenuRight from './DisplayMenuRight.js';
 import DisplayMenuLeft from './DisplayMenuLeft.js';
 
@@ -26,7 +26,9 @@ class NavBar extends React.Component {
   handleLogout() {
     axios.get('/logout', { withCredentials: true })
       .then(() => {
-        document.location.reload(); // reloads the entire page
+        // document.location.reload(); // reloads the entire page
+        this.props.logOutClick();
+        localStorage.clear();
       });
   }
 

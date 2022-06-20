@@ -59,10 +59,10 @@ class Payment extends React.Component {
       user_id: userId
     }, () => {
       axios.get(`/session${this.state.session_id}`)
-        .catch(() => {
-          this.setState({waitingForData: true})
-        })
         .then((session) => {
+          if (!session) {
+            throw session;
+          }
           this.setState({
             waitingForData: false,
             group_cart: session.data[0].group_cart,
@@ -72,8 +72,8 @@ class Payment extends React.Component {
             this.updateItemsOnMainBoard()
           })
         })
-        .catch((session) => {
-          this.setState({waitingForData: true})
+        .catch(() => {
+          this.setState({waitingForData: true}, () => {this.initialize()})
         })
 
     })
@@ -163,7 +163,7 @@ class Payment extends React.Component {
         })
       })
       .catch((err) => {
-        this.setState({waitingForData: true}, () => {this.updateItemsOnMainBoard()})
+        this.setState({waitingForData: true}, () => {this.initialize()})
       })
   }
 

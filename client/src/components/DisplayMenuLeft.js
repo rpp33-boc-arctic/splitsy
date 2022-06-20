@@ -1,5 +1,6 @@
 import React from 'react';
 import {MenuItem, Menu} from '@mui/material';
+import { Link }  from 'react-router-dom';
 
 class DisplayMenuLeft extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class DisplayMenuLeft extends React.Component {
   }
 
   render () {
-    // console.log('this.props.cookies', this.props.anchorEl)
     return (
       <Menu
         anchorEl={this.props.anchorEl}
@@ -31,11 +31,23 @@ class DisplayMenuLeft extends React.Component {
           horizontal: 'left',
         }}
       >
-      <MenuItem component='a' href="/protected/user" onClick={this.props.handleClose}>Profile</MenuItem>
-      <MenuItem component='a' href="/protected/RestaurantList" onClick={this.props.handleClose}>Restaurant</MenuItem>
-      <MenuItem component='a' href="/protected/Cart" onClick={this.props.handleClose}>Cart</MenuItem>
-      <MenuItem component='a' href="/protected/payment" onClick={this.props.handleClose}>Payment</MenuItem>
-    </Menu>
+        <Link to="/protected/user" style={{'textDecoration': 'none', color: 'black'}}>
+          <MenuItem onClick={this.props.handleClose}>Profile</MenuItem>
+        </Link>
+
+        <Link to="/protected/RestaurantList" style={{'textDecoration': 'none', color: 'black'}}>
+          <MenuItem onClick={this.props.handleClose}>Restaurant</MenuItem>
+        </Link>
+
+        <Link to="/protected/Cart" style={{'textDecoration': 'none', color: 'black'}}>
+          <MenuItem onClick={this.props.handleClose}>Cart</MenuItem>
+        </Link>
+
+        <Link to="/protected/payment" style={{'textDecoration': 'none', color: 'black'}}>
+          <MenuItem onClick={this.props.handleClose}>Payment</MenuItem>
+        </Link>
+
+      </Menu>
     );
   }
 }

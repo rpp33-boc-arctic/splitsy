@@ -1,5 +1,6 @@
 import React from 'react';
-import {MenuItem, Menu} from '@mui/material';
+import { MenuItem, Menu } from '@mui/material';
+import { Link }  from 'react-router-dom';
 
 class DisplayMenuRight extends React.Component {
   constructor(props) {
@@ -30,8 +31,12 @@ class DisplayMenuRight extends React.Component {
           horizontal: 'left',
         }}
       >
-      <MenuItem component='a' href="/protected/user" onClick={this.props.handleClose}>Profile</MenuItem>
-      <MenuItem onClick={this.props.handleLogout}>Logout</MenuItem>
+      <Link to="/protected/user" style={{'textDecoration': 'none', color: 'black'}}>
+        <MenuItem onClick={this.props.handleClose}>Profile</MenuItem>
+      </Link>
+      <Link to="/" style={{'textDecoration': 'none', color: 'black'}}>
+        <MenuItem onClick={this.props.handleLogout}>Logout</MenuItem>
+      </Link>
     </Menu>
     );
   }
