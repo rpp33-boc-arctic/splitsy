@@ -97,33 +97,28 @@ mongorestore dump-v2/
 **Authentication** <br />
 TODO Authentication's description <br />
 
-<img src="https://atelier-answers-photo.s3.ap-southeast-1.amazonaws.com/product-overview.gif" height="500" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/signin1.gif" height="500" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/login1.gif" height="500" /><br />
 
-**Restaurant** <br />
+**Restaurant & Menu** <br />
 TODO Restaurant's description <br />
 
-<img src="https://atelier-answers-photo.s3.ap-southeast-1.amazonaws.com/product-overview.gif" height="500" /><br />
-
-**Menu** <br />
-TODO Menu's description <br />
-
-<img src="https://atelier-answers-photo.s3.ap-southeast-1.amazonaws.com/product-overview.gif" height="500" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/restaurant1.gif" height="500" /><br />
 
 **Cart** <br />
 TODO cart's description
 
-<img src="https://atelier-answers-photo.s3.ap-southeast-1.amazonaws.com/related-products.gif" height="500" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/cart1.gif" height="500" /><br />
 
 **Split payment** <br />
-The Questions & Answers feature allows asking, answering and searching questions for the product selected. The functionality contained within this module are view questions,
-search for a question, asking a question, answering a question <br />
+TODO split payment's description <br />
 
-<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/payment1.gif" height="400" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/payment1.gif" height="500" /><br />
 
 **Split payment** <br />
 TODO User's profile descrpition <br />
 
-<img src="https://localhost:3001/readmeGif/userProfile1.gif" height="400" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/userProfile1.gif" height="500" /><br />
 
 ## Git Feature Workflow
   * ### Start by switching to the main branch, fetch the latest commit, merge the changes into the local branch
