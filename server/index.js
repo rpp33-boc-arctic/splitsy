@@ -10,7 +10,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
-app.use('/readmeGif', express.static(path.join(__dirname, "../readmeGif")));
 var jwt = require('jsonwebtoken');
 
 app.use(cors());
