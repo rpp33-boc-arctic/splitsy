@@ -118,12 +118,12 @@ TODO cart's description
 The Questions & Answers feature allows asking, answering and searching questions for the product selected. The functionality contained within this module are view questions,
 search for a question, asking a question, answering a question <br />
 
-<img src="https://localhost:3001/readmeGif/payment1.gif" height="400" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/payment1.gif" height="400" /><br />
 
 **Split payment** <br />
 TODO User's profile descrpition <br />
 
-<img src="https://localhost:3001/readmeGif/payment1.gif" height="400" /><br />
+<img src="https://localhost:3001/readmeGif/userProfile1.gif" height="400" /><br />
 
 ## Git Feature Workflow
   * ### Start by switching to the main branch, fetch the latest commit, merge the changes into the local branch
