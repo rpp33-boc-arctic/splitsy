@@ -94,28 +94,28 @@ mongorestore dump-v2/
 
 ### Features
 
-**Authentication** <br />
+:shipit: **Authentication** :shipit: <br />
 TODO Authentication's description <br />
 
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/signin1.gif" height="500" /><br />
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/login1.gif" height="500" /><br />
 
-**Restaurant & Menu** <br />
+:hamburger: **Restaurant & Menu** :meat_on_bone: <br />
 TODO Restaurant's description <br />
 
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/restaurant1.gif" height="500" /><br />
 
-**Cart** <br />
+:shopping_cart: **Cart** :shopping_cart: <br />
 TODO cart's description
 
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/cart1.gif" height="500" /><br />
 
-**Split payment** <br />
+:credit_card: **Split payment** :credit_card: <br />
 TODO split payment's description <br />
 
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/payment1.gif" height="500" /><br />
 
-**Split payment** <br />
+:bowtie: **User profile** :bowtie: <br />
 TODO User's profile descrpition <br />
 
 <img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/userProfile1.gif" height="500" /><br />
