@@ -7,6 +7,15 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 ### Demo video #1
 ### Demo video #2
 
+## Table of Contents
+- [Contributers](#contributers)
+- [Milestones](#milestones)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Sample data](#sample-data)
+- [Main features](#main-features)
+- [Git Feature Workflow](#git-feature-workflow)
+- [Code Reviews](#code-Reviews)
 
 ## Contributers
 
@@ -33,9 +42,7 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 -   [x] **May 14** Project Start
 
 
-## Tech Stack
-
-### Technologies
+## Technologies
 
 <table>
   <tr>
@@ -67,7 +74,7 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 </table>
 
 
-### Installation
+## Installation
 
 From within the root directory:
 ```sh
@@ -83,7 +90,7 @@ $ npm run server
 Go to localhost:3001/
 ```
 
-### Sample data
+## Sample data
 
 In order to use sample data, make sure you have MongoDB installed.
 From within the root directory (outside Mongo shell), type command :
@@ -92,7 +99,7 @@ From within the root directory (outside Mongo shell), type command :
 mongorestore dump-v2/
 ```
 
-### Features
+## Main features
 
 :shipit: **Authentication** :shipit: <br />
 TODO Authentication's description <br />
