@@ -2,6 +2,10 @@ const { Session } = require('../../../database');
 
 module.exports = {
   updateCart: (req, res) => {
+
+    // console.log('req object in cart server is: ', req);
+    console.log('jwtObject.code is here: ', req.jwtObject.code);
+
     var transformID = (str) => {
       var result = 0;
       var pureStr = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
@@ -37,7 +41,7 @@ module.exports = {
     totalTax = Math.round((grandTotal * 7.25) / 100);
     totalOwed = totalTax + grandTotal;
 
-    Session.updateOne({ session_code: '33' }, { group_cart: group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
+    Session.updateOne({ session_code: req.jwtObject.code  }, { group_cart: group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
       .then((result) => {
         res.status(200).send('POST cart request received!');
       })
