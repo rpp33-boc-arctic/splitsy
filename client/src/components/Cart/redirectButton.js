@@ -12,12 +12,12 @@ const RedirectButton = (props) => {
     <Stack direction="row" spacing={2}>
       <Link to="/protected/RestaurantList" style={{ 'textDecoration': 'none', color: 'white' }}>
         <Button variant="contained" endIcon={<RestaurantIcon fontSize="large" />}>
-            Reselect Restaurant
+          Reselect Restaurant
         </Button>
       </Link>
       <Link to="/protected/Menu" style={{ 'textDecoration': 'none', color: 'white' }}>
         <Button variant="contained" endIcon={<ShoppingCartIcon fontSize="large" />}>
-            Back to Menu
+          Back to Menu
         </Button>
       </Link>
       <Link to="/protected/Payment" style={{ 'textDecoration': 'none', color: 'white' }} >

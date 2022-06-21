@@ -117,7 +117,6 @@ class Payment extends React.Component {
   }
 
   handlePay() {
-    console.log('Pay!');
     this.setState({ payModalOpen: true });
     this.updateUserPay();
     this.updateItemPay();
@@ -186,9 +185,6 @@ class Payment extends React.Component {
       method: 'put',
       url: `/session${this.state.session_id}/user${this.state.user_id}/pay`,
     })
-    // .then((results) => {
-    //   console.log('results in UpdateUserPay', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateUserPay', err)
     })
@@ -215,9 +211,6 @@ class Payment extends React.Component {
         userTotal: this.state.myBill.myTotal
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateReceipt', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateReceipt', err)
     })
@@ -235,9 +228,6 @@ class Payment extends React.Component {
         update_total_paid: update_total_paid
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateTotalTipAndTotalPaid', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateTotalTipAndTotalPaid', err)
     })

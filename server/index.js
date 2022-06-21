@@ -3,7 +3,7 @@ const path = require("path");
 const routes = require('./routes');
 const cookieParser = require('cookie-parser');
 const app = express();
-var cors = require('cors');
+const cors = require('cors');
 var jwt = require('jsonwebtoken');
 
 var jwtMiddleware = function (req,res,next){
