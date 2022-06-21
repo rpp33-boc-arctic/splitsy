@@ -7,28 +7,42 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 ### Demo video #1
 ### Demo video #2
 
+## Table of Contents
+- [Contributers](#contributers)
+- [Milestones](#milestones)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Sample data](#sample-data)
+- [Main features](#main-features)
+- [Git Feature Workflow](#git-feature-workflow)
+- [Code Reviews](#code-Reviews)
 
 ## Contributers
 
-[Dennis Wang](https://github.com/denniswangcodes) <br/>
-[Grant Mitchell](https://github.com/grant350)<br/>
-[Muizz Matemilola](https://github.com/ayokanme)<br/>
-[Neen Aroonrerk](https://github.com/neenachcha)<br/>
-[Tan Ha](https://github.com/tandha)<br/>
-[Yufang Cheng](https://github.com/yfcheng1)<br/>
+- [Dennis Wang](https://github.com/denniswangcodes) <br/>
+- [Grant Mitchell](https://github.com/grant350)<br/>
+- [Muizz Matemilola](https://github.com/ayokanme)<br/>
+- [Neen Aroonrerk](https://github.com/neenachcha)<br/>
+- [Tan Ha](https://github.com/tandha)<br/>
+- [Yufang Cheng](https://github.com/yfcheng1)<br/>
 
 
 ## Milestones
 
 -   [ ] **Jun 11** Complete and Share with friends
 -   [ ] **Jun 04** Features complete
+  * -   [x] Authorization
+  * -   [ ] Browse restaurants
+  * -   [x] Browse Menu
+  * -   [x] Cart
+  * -   [x] Spliting bill
+  * -   [x] User profile
+  * -   [x] Friend list
 -   [x] **May 21** Project Proposal
 -   [x] **May 14** Project Start
 
 
-## Tech Stack
-
-### Technologies
+## Technologies
 
 <table>
   <tr>
@@ -64,7 +78,7 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 </table>
 
 
-### Installation
+## Installation
 
 From within the root directory:
 ```sh
@@ -77,8 +91,63 @@ $ npm run start
 In root directory:
 $ npm run server
 
-Go to localhost:3000/
+Go to localhost:3001/
 ```
+
+## Sample data
+
+In order to use sample data, follow these steps:
+1. Make sure you have MongoDB installed.
+2. Checkout schema in
+```sh
+/database/index.js
+```
+3. Connect to database.
+In file /database/index.js, change dbAddress as follow:
+- If you use local database.
+```sh
+dbAddress = mongoose.connect('mongodb://localhost:27017/splitsy')
+```
+- If you use EC2 database.
+```sh
+dbAddress = mongodb://[MONGODB USERNAME]:[MONGODB PASSWORD]@[YOUR IP ADDRESS]:27017/splitsy?authSource=admin
+```
+4. From within the root directory (outside Mongo shell), type this command to restore data into your MongoDB:
+- If you use local database.
+```sh
+mongorestore dump-v2/
+```
+- If you use EC2 database.
+mongorestore dump-v2/ --host=[IP ADRESS OF THE HOST]
+
+
+## Main features
+
+:shipit: **Authentication** :shipit: <br />
+TODO Authentication's description <br />
+
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/signin1.gif" height="500" /><br />
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/login1.gif" height="500" /><br />
+
+:hamburger: **Restaurant & Menu** :meat_on_bone: <br />
+TODO Restaurant's description <br />
+
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/restaurant1.gif" height="500" /><br />
+
+:shopping_cart: **Cart** :shopping_cart: <br />
+TODO cart's description
+
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/cart1.gif" height="500" /><br />
+
+:credit_card: **Split payment** :credit_card: <br />
+TODO split payment's description <br />
+
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/payment1.gif" height="500" /><br />
+
+:bowtie: **User profile** :bowtie: <br />
+TODO User's profile descrpition <br />
+
+<img src="https://github.com/rpp33-boc-arctic/splitsy/blob/readme/readmeGif/userProfile1.gif" height="500" /><br />
 
 ## Git Feature Workflow
   * ### Start by switching to the main branch, fetch the latest commit, merge the changes into the local branch
