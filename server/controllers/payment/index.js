@@ -3,15 +3,12 @@ const { User, Session } = require('../../../database');
 module.exports = {
   getUserInfo: (req, res) => {
     var params = req.params;
-    // console.log('param?', req.params);
     return Session.find({session_code: params.session_id}, 'users')
       .then((result) => {
         let users = result[0].users;
-        // res.send([...users.keys()]);
         return [...users.keys()];
       })
       .then((currentUsers) => {
-        // return User.find({}).where('user_id').in(currentUsers)
         return User.find({
           'user_id':{$in: currentUsers}
         })
@@ -43,8 +40,6 @@ module.exports = {
 
     var params = req.params;
     return Session.find({ session_code: params.session_id })
-
-    // return Session.find({})
       .then((result) => {
         res.send(result);
       })
@@ -157,7 +152,6 @@ module.exports = {
       {$set:{[`receipt.${user_id}`]: receipt}},
       {upsert: true}
     )
-    // })
     .then((result) => {
       res.send(result);
     })

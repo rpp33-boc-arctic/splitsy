@@ -3,9 +3,6 @@ const { Session } = require('../../../database');
 module.exports = {
   updateCart: (req, res) => {
 
-    // console.log('req object in cart server is: ', req);
-    console.log('jwtObject.code is here: ', req.jwtObject.code);
-
     var transformID = (str) => {
       var result = 0;
       var pureStr = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
@@ -30,12 +27,12 @@ module.exports = {
         'menu_item_description': item.description,
         'menu_item_photo': item.image,
         'menu_item_price': item.price,
-        'user_id': '',
+        'user_id': req.jwtObject.user_id,
         'paid?': false
       }
       group_cart_obj[index] = currentItem;
       grandTotal += parseInt(currentItem.menu_item_price);
-      console.log('menu_item_id is: ', transformID(item.product_id));
+      // console.log('menu_item_id is: ', transformID(item.product_id));
     })
 
     totalTax = Math.round((grandTotal * 7.25) / 100);
@@ -43,6 +40,7 @@ module.exports = {
 
     Session.updateOne({ session_code: req.jwtObject.code  }, { group_cart: group_cart_obj, total_tax: totalTax, grand_total: grandTotal, total_owed: totalOwed })
       .then((result) => {
+        res.cookie('session_code', req.jwtObject.code);
         res.status(200).send('POST cart request received!');
       })
       .catch((error) => {

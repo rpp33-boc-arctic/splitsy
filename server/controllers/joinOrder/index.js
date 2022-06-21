@@ -6,7 +6,6 @@ var jwt = require('jsonwebtoken');
 
 
 // Authorization: Bearer <token>
-
 module.exports = {
 
   joinOrder: (req, res,next) => {
@@ -18,20 +17,19 @@ module.exports = {
       var code = req.query.join_code;
       db.Session.find({session_code:code}).then(foundSession=>{
 
-        if (foundSession){
+        if (foundSession.length > 0){
           var payload = {
             session_id: foundSession._id,
             owner: foundSession.owner,
             code: foundSession.session_code,
             address: foundSession.restaurant.address,
-            restaurant_id: foundSession.restaurant_id
-        };
-       var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
-       db.updateOne({_id:foundSession._id}, {'$set': {['users.'+req.query.username]:{'user_id':null,'checkout?':false,'user_cart':[]} } }).then(response=>{
-
-        res.json({redirect:true,token:token})
-
-       })
+            restaurant_id: foundSession.restaurant_id,
+            user_id: req.params.user_id
+          };
+          var token = jwt.sign(payload,'Server Password',{ expiresIn: '1h' });
+          db.updateOne({_id:foundSession._id}, {'$set': {['users.'+req.query.username]:{'user_id':null,'checkout?':false,'user_cart':[]} } }).then(response=>{
+            res.json({redirect:true,token:token})
+          })
         } else {
           res.json({redirect:false})
         }
@@ -39,16 +37,5 @@ module.exports = {
       res.status(400);
       res.json({redirect:false,data:undefined});
     }
-
-
-    // join code
-    // username
-
-    // if session exists add user send token
-    // make cookie true
-
-
-
   }
-
 }

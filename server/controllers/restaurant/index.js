@@ -15,14 +15,9 @@ module.exports = {
         } else {
           res.send('address isnt defined in the db long')
         }
-      }else {
+      } else {
         res.send('address isnt defined in the db lat')
       }
-
-
     }
-
-
-
   }
 }
