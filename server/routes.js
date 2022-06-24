@@ -9,21 +9,10 @@ const seedController = require('./controllers/payment/seed.js');
 const joinOrder = require('./controllers/joinOrder');
 var jwt = require('jsonwebtoken');
 
-
-var isAuthenticated = (req, res, next) => {
-  // console.log('req.cookies', req.cookies);
-  // console.log('ver', authController.verifyUser(req.cookies));
-  if (!authController.verifyUser(req.cookies.splitsy)) {
-    res.send('Unauthorized');
-  } else {
-    next();
-  }
-}
-
 var jwtMiddleware = function (req, res, next) {
   const authHeader = req.headers.authorization;
-  console.log('req.headers is; ', req.headers);
-  console.log('authHeader is; ', authHeader);
+  // console.log('req.headers is; ', req.headers);
+  // console.log('authHeader is; ', authHeader);
 
   try {
     const token = authHeader.split(' ')[1];
@@ -49,7 +38,7 @@ router.get('/user/friends', userController.friends);
 
 // Restaurants
 router.get('/restaurant', restaurantController.restaurantList);
-router.get('/joinOrder',joinOrder.joinOrder);
+router.get('/joinOrder/:user_id',joinOrder.joinOrder);
 router.get('/orderSession', SessionController.createSession);
 router.get('/:restaurant/menu', (req, res) => { });
 

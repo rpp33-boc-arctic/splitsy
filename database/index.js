@@ -1,9 +1,12 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const dbAddress = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWLRD}@18.140.1.176:27017/splitsy?authSource=admin`;
 
-// mongoose.connect('mongodb://localhost:27017/splitsy')
-mongoose.connect(dbAddress) // consider save in the variable
+// if you USE Deployed database
+const dbAddress = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWLRD}@18.140.1.176:27017/splitsy?authSource=admin`;
+// if you USE Local database
+// const dbAddress = mongoose.connect('mongodb://localhost:27017/splitsy')
+
+mongoose.connect(dbAddress)
   .then(() => {
     console.log('Connected to the splitsy database');
   })
@@ -77,6 +80,5 @@ const sessionSchema = new mongoose.Schema({
 });
 
 module.exports.User = mongoose.model('User', userSchema);
-// module.exports.Session = mongoose.model('Session2', sessionSchema);//temporary
 module.exports.Restaurant = mongoose.model('Restaurant', Restaurant);
 module.exports.Session = mongoose.model('Session', sessionSchema);

@@ -56,7 +56,6 @@ class Bill extends React.Component {
 
   handleOtherTip(e) {
     e.preventDefault();
-    // console.log('event?', e.target.value);
     let tipSelected = e.target.value;
     this.setState({tip: tipSelected}, this.renderTipVariant(tipSelected));
   }
@@ -74,11 +73,12 @@ class Bill extends React.Component {
   }
 
   calculateMyBillSummary (cb = () => {}) {
-    // console.log('this.props in bill', this.props);
     var subtotal = 0;
-    this.props.user_pick.forEach((order_item_id) => {
-      subtotal += this.props.getPrice(order_item_id);
-    })
+    if (this.props.user_pick.size > 0) {
+      this.props.user_pick.forEach((order_item_id) => {
+        subtotal += this.props.getPrice(order_item_id);
+      })
+    }
     var tip = subtotal * this.state.tip/100;
     var tax = subtotal * 0.07;
     var total = subtotal + tip + tax;

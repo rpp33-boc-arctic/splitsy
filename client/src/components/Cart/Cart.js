@@ -1,16 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-// import ButtonAppBar from './navbar.js';
-// import OrderCode from './orderCode.js';
+import React from 'react';
 import RedirectButton from './redirectButton.js';
 import ItemList from './itemList.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Summary from './summary.js';
-// import FullMenu from '../Menu/fullMenu.js';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
-import { useNavigate } from "react-router-dom";
-import menuStyles from './cartStyles.css';
+import Stack from '@mui/material/Stack';
 
 function Cart(props) {
   var getCookie = function (name) {
@@ -22,33 +17,15 @@ function Cart(props) {
   }
   let navigate = useNavigate();
 
-
-
-
-  const location = useLocation();
-  const data = location.state;
-  console.log('current cart in Cart.js is: ', data);
-  console.log('new window log: ', getCookie('orderSession'));
-  // console.log('document.cookie is: ', document.cookie);
-
-  // console.log('current props inside Cart.js is: ', props);
+  const cart = JSON.parse(localStorage.getItem('cart'));
 
   var updateCartDatabase = () => {
-    // update database logic here, then send function to RedirectButton
-    //  var session_id = 1;
-    var cookie = getCookie('Session');
-    // console.log('cookie inside Cart ajax is: ', cookie);
-        console.log('getCookie(\'orderSession\').Session inside Cart ajax is: ', getCookie('orderSession').orderSession);
-
     var link = `/session/update_cart`;
     $.ajax({
       method: "POST",
       url: link,
-      // contentType: 'text/plain',
       data: {
-        cart: data,
-        // totalTax: totalTax,
-        // grandTotal: grandTotal,
+        cart: cart,
       },
       headers: { 'Authorization': 'Bearer ' + getCookie('orderSession').orderSession },
       success: (response) => {
@@ -67,53 +44,17 @@ function Cart(props) {
       });
   }
 
-
-  function updateSummaryDatabase() {
-    // update database logic here, then send function to RedirectButton
-    var session_id = 1;
-    var link = `/session${session_id}/update_summary`;
-    $.ajax({
-      method: "POST",
-      url: link,
-      // contentType: 'text/plain',
-      data: {
-        cart: data,
-        //  totalTax: totalTax,
-        //  grandTotal: grandTotal,
-        // session_id: session_id
-      },
-      success: (response) => {
-        if (response === 'POST summary request received!') {
-          console.log('POST summary request success!');
-        }
-
-      },
-      statusCode: {
-        200: function () {
-          console.log("Status Code 200 ajax cart request!");
-        }
-      },
-      error: (err) => {
-        console.log('Error: ', err);
-      }
-    })
-      .done(function () {
-        console.log("cart ajax call is done!");
-      });
-  }
-
   return (
     <div >
       <h1>
         <ShoppingCartIcon />
         Cart
       </h1>
-      {/* <OrderCode /> */}
-      <div className='cart' >
-        <ItemList className='item-list' cart={data} />
-        <Summary className='summary' cart={data} />
-        <RedirectButton className='redirect-button' updateCartDatabase={updateCartDatabase} updateSummaryDatabase={updateSummaryDatabase} />
-      </div>
+      <Stack  direction="column" spacing={2} className='cart' >
+        <ItemList className='item-list' cart={cart} />
+        <Summary className='summary' cart={cart} />
+        <RedirectButton className='redirect-button' updateCartDatabase={updateCartDatabase} />
+      </Stack>
     </div >
   )
 }

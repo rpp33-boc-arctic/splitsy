@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-import {Button, Typography, Toolbar, Box, AppBar, IconButton} from '@mui/material';
+import { Button, Typography, Toolbar, Box, AppBar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import {Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import DisplayMenuRight from './DisplayMenuRight.js';
 import DisplayMenuLeft from './DisplayMenuLeft.js';
 
@@ -26,7 +26,8 @@ class NavBar extends React.Component {
   handleLogout() {
     axios.get('/logout', { withCredentials: true })
       .then(() => {
-        document.location.reload(); // reloads the entire page
+        this.props.logOutClick();
+        localStorage.clear();
       });
   }
 
@@ -94,6 +95,7 @@ class NavBar extends React.Component {
           </Toolbar>
         </AppBar>
         <Outlet />
+        <div id="footer" style={{position:"fixed", bottom: 0, background: "white", padding: 10, display: "block"}}>©2022 Splitsy Inc. All rights reserved.</div>
       </Box>
     )
   }

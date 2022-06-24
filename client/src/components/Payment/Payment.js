@@ -15,13 +15,13 @@ class Payment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session_id: "",       //session id from cookie? or pass from other component
-      username: "",         //from cookie (after session_cookie had verified)
+      session_id: "",
+      username: "",
       user_id:"",
 
-      user_pick: [],
-      others_pick: [],
-      not_yet_pick: [],
+      user_pick: new Set(),
+      others_pick: new Set(),
+      not_yet_pick: new Set(),
 
       group_cart: {},
       session: {},
@@ -49,16 +49,9 @@ class Payment extends React.Component {
     }
   }
   initialize () {
-    // TODO... VERIFY SESSION
-    // var session_cookie = '';      //get session cookie from broswer
-    // verify username & session_cookie with database --> is this the same function that must be added to cart/ menu?
-      // if session_cookie is not similar to session of this username in the database,
-        // go back to log in page
-
-    // TODO... RETRIVE FROM DB AFTER SESSION VERIFID
-    var username = ""             //get from cookie broswer
-    var userId = this.props.cookieData.userId;              //get from cookie broswer
-    var session_id = 4;           //get session_id fro cookie from browswer --> this must be created from dashboard 1) when host click start session, session_id is created and save into database, 2) when user join session, broswer will check session_id used to join with session_id in database 3) if joined. All user will have the same state that collect all sessions information.
+    var username = this.props.cookieData.username;
+    var userId = this.props.cookieData.userId;
+    var session_id = this.getCookie('session_code');
 
     this.setState({
       session_id: session_id,
@@ -66,11 +59,10 @@ class Payment extends React.Component {
       user_id: userId
     }, () => {
       axios.get(`/session${this.state.session_id}`)
-        .catch(() => {
-          this.setState({waitingForData: true})
-        })
         .then((session) => {
-          if (session === "Unauthorized") { throw session};
+          if (!session) {
+            throw session;
+          }
 
           this.setState({
             waitingForData: false,
@@ -81,8 +73,8 @@ class Payment extends React.Component {
             this.updateItemsOnMainBoard()
           })
         })
-        .catch((session) => {
-          document.location.href = '/Auth'
+        .catch(() => {
+          this.setState({waitingForData: true}, () => {this.initialize()})
         })
 
     })
@@ -125,7 +117,6 @@ class Payment extends React.Component {
   }
 
   handlePay() {
-    console.log('Pay!');
     this.setState({ payModalOpen: true });
     this.updateUserPay();
     this.updateItemPay();
@@ -144,10 +135,10 @@ class Payment extends React.Component {
 
         users = users.data[0].users
         var all_item = Object.keys(this.state.group_cart).map((item) => {return Number(item)});
-        var others_item = [];
-        var my_item = [];
+        var others_item = new Set();
+        var my_item = new Set();
         var all_chosen_item = [];
-        var non_chosen_item = [];
+        var non_chosen_item = new Set();
 
         for (var userId in users) {
           if (Number(userId) !== this.state.user_id) {
@@ -172,7 +163,7 @@ class Payment extends React.Component {
         })
       })
       .catch((err) => {
-        this.setState({waitingForData: true})
+        this.setState({waitingForData: true}, () => {this.initialize()})
       })
   }
 
@@ -194,9 +185,6 @@ class Payment extends React.Component {
       method: 'put',
       url: `/session${this.state.session_id}/user${this.state.user_id}/pay`,
     })
-    // .then((results) => {
-    //   console.log('results in UpdateUserPay', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateUserPay', err)
     })
@@ -223,9 +211,6 @@ class Payment extends React.Component {
         userTotal: this.state.myBill.myTotal
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateReceipt', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateReceipt', err)
     })
@@ -243,9 +228,6 @@ class Payment extends React.Component {
         update_total_paid: update_total_paid
       }
     })
-    // .then((results) => {
-    //   console.log('results in updateTotalTipAndTotalPaid', results.data);
-    // })
     .catch((err) => {
       console.log('error in updateTotalTipAndTotalPaid', err)
     })
@@ -258,6 +240,11 @@ class Payment extends React.Component {
   getUsername (user_id) {
     var user = _.find(this.state.users, (user) => { return user.user_id === user_id });
     if (user) return user.username;
+  }
+
+  getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
   }
 
   //==========================     RENDER     ==========================

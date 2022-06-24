@@ -97,7 +97,11 @@ module.exports = {
       { $pull: { 'session_cookie': token }}
     )
       .then(() => {
-        res.status(200).clearCookie('splitsy').redirect('/');
+        res.cookie('splitsy', { 'token': '', 'username': '', 'userId': 0 });
+        res.clearCookie('session_code');
+        res.clearCookie('orderSession');
+        res.status(200)
+        res.end();
       })
       .catch((err) => errorHandler(err, res));
 
