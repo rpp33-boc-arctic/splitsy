@@ -29,10 +29,10 @@ Welcome to Splitsy! A service that allows users to conveniently split restaurant
 
 ## Milestones
 
--   [ ] **Jun 11** Complete and Share with friends
--   [ ] **Jun 04** Features complete
+-   [x] **Jun 11** Complete and Share with friends
+-   [x] **Jun 04** Features complete
   * -   [x] Authorization
-  * -   [ ] Browse restaurants
+  * -   [x] Browse restaurants
   * -   [x] Browse Menu
   * -   [x] Cart
   * -   [x] Spliting bill
