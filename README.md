@@ -1,12 +1,6 @@
 # Splitsy
 Welcome to Splitsy! A service that allows users to conveniently split restaurant bills!
 
-
-## Visit the Website
-
-### Demo video #1
-### Demo video #2
-
 ## Table of Contents
 - [Contributers](#contributers)
 - [Milestones](#milestones)
